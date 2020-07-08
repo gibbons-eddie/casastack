@@ -20,6 +20,7 @@ const Layout = (props) => (
       * 
       {
         box-sizing: border-box;
+random change
       }
 
       html, body, #__next 
