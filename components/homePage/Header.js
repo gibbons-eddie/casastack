@@ -10,17 +10,11 @@ const headerStyle = {
 }; 
 */
 
+import headerStyle from './homePageStyles/Header.module.css'
+
 const Header = () => (
-    <div className="Header">
+    <div className={headerStyle.Header}>
         Header
-        <style jsx>
-        {`
-            background-color: purple;
-            color: white;
-            width: 100%;
-            height: 50p;
-        `}
-        </style>
     </div>
 );
 
