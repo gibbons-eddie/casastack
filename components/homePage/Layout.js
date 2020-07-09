@@ -1,6 +1,5 @@
 import Header from "./Header";
 import NavBar from "./NavBar";
-
 import Head from 'next/head'
 
 const Layout = (props) => (
@@ -20,7 +19,6 @@ const Layout = (props) => (
       * 
       {
         box-sizing: border-box;
-random change
       }
 
       html, body, #__next 
@@ -36,7 +34,7 @@ random change
         background-color: white;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
           "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-          "Helvetica Neue", sans-serif;
+          "Montse", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }

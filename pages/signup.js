@@ -1,9 +1,10 @@
 import Layout from "../components/homePage/Layout";
-import { Button, Form, Icon, Message, Segment } from 'semantic-ui-react'; // change
+import Register from "../components/signupPage/Register";
 
-const SignUp = (props) => 
+const signup = (props) => 
 <Layout>
-    {`signup`}
+    <Register/>
 </Layout>;
 
-export default SignUp;
+export default signup;
+
