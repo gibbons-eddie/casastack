@@ -2,3 +2,4 @@
 
 - user account update 
 - changed styling method
+- fixed nav bar
