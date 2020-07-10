@@ -1,33 +1,39 @@
-import { Button, Form, Message, Segment } from 'semantic-ui-react';
+import { Button, Grid, Header, Form, Segment } from 'semantic-ui-react';
 
 function LoginForm() {
   return (
-    <div className='container'>
-      <Message content='Welcome back' />
-      <Form className='inputs' size='large'>
-        <Segment>
-          <Form.Input
-            fluid
-            icon='user'
-            label='Email'
-            placeholder='Email'
-            name='Email'
-          />
-          <Form.Input label='Password' placeholder='Password' name='Password' />
-        </Segment>
-        <Button size='massive' color='blue'>
-          Log In
-        </Button>
-      </Form>
-      <style jsx>{`
-        .container {
-          margin: auto;
-          background-color: white;
-          padding: 10px;
-          border-style: ridge;
-        }
-      `}</style>
-    </div>
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 400 }}>
+        <div className='container'>
+          <Form size='large'>
+            <Segment textAlign='left'>
+              <Header as='h1' textAlign='center'>
+                Welcome
+              </Header>
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                label='Email'
+                placeholder='Email'
+                name='Email'
+              />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                label='Password'
+                placeholder='Password'
+                name='Password'
+              />
+              <Button fluid size='large' color='blue' type='submit'>
+                Log In
+              </Button>
+            </Segment>
+          </Form>
+        </div>
+      </Grid.Column>
+    </Grid>
   );
 }
 
