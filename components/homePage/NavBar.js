@@ -23,15 +23,17 @@ const NavBar = () => (
         `}
         </style>
                 
-            <Link href="/">home</Link>
-                
-            <Link href="/login">login</Link>
+            <Link href="/">Home</Link>
 
-            <Link href="/cart">cart</Link>
+            <Link href="/login">Login</Link>
+
+            <Link href="/cart">Cart</Link>
                 
-            <Link href="/profile">profile</Link>
+            <Link href="/profile">Profile</Link>
                 
-            <Link href="/signup">signup</Link>
+            <Link href="/signup">Signup</Link>
+
+            <Link href="/listings">Listings</Link>
         
     </div>
 );
