@@ -2,18 +2,17 @@ import Header from "./Header";
 import NavBar from "./NavBar";
 import Head from "next/head";
 
-import layoutStyles from './homePageStyles/Layout.module.css'
-import contentStyles from './homePageStyles/Content.module.css'
+import homeStyles from './homePageStyles/Home.module.css'
 
 const Layout = (props) => (
-  <div className={layoutStyles.Layout}>
+  <div className={homeStyles.Layout}>
     <Head>
       <title>casastack</title>
       <meta charSet="utf-8"/>
     </Head>
 
     <Header />
-    <div className={contentStyles.Content}>
+    <div className={homeStyles.Content}>
       {props.children}
     </div>
     <NavBar />

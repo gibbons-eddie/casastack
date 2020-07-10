@@ -1,22 +1,12 @@
-/*
-
-CSS
-
-const navBarStyle = {
-    backgroundColor: "pink",
-    color: "white",
-    width: "100%",
-    height: "60px"
-};
-*/
 import Link from 'next/link'
-import navStyles from './homePageStyles/NavBar.module.css'
+import homeStyles from './homePageStyles/Home.module.css'
 import { Menu, Container, Icon } from 'semantic-ui-react'
 import { useRouter } from 'next/router'
 
 function NavBar() {
 
-    const user = false; // for detecting user status once logged in (volunteer status WIP)
+    const customer = false; // for detecting customer user status once logged in 
+    const volunteer = false; // for detecting volunteer user status once logged in 
     const router = useRouter();
 
     function isPathActive(route) // fancy selected appearance
@@ -26,7 +16,7 @@ function NavBar() {
 
     return (
         
-        <div className={navStyles.NavBar}>
+        <div className={homeStyles.NavBar}>
                 <Link href="/">
                     <Icon
                         name="home"
@@ -36,7 +26,7 @@ function NavBar() {
                     
                 <Link href="/login">
                     <Icon
-                        name="user"
+                        name="sign-in alternate"
                         size="large"
                     />
                 </Link>

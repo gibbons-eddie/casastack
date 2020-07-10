@@ -2,6 +2,8 @@
 
 @import url('http://fonts.googleapis.com/css?family=Montserrat:light');
 
+/* GENERAL */
+
   * {
     box-sizing: border-box;
   }
@@ -20,10 +22,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  h1 {
-    font-family: 'Montserrat';
-  }
   
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -33,4 +31,15 @@
   #root {
     display: flex;
     flex-direction: column;
+  }
+
+  /* HEADERS */
+
+  h1 {
+    font-family: 'Montserrat';
+  }
+  
+  h2 {
+    font-family: 'Montserrat';
+    font-weight: 300;
   }

@@ -1,19 +1,7 @@
-/* 
-
-CSS
-
-const headerStyle = {
-    backgroundColor: "purple",
-    color: "white",
-    width: "100%",
-    height: "50px"
-}; 
-*/
-
-import headerStyle from './homePageStyles/Header.module.css'
+import homeStyles from './homePageStyles/Home.module.css'
 
 const Header = () => (
-    <div className={headerStyle.Header}>
+    <div className={homeStyles.Header}>
         Casastack
     </div>
 );

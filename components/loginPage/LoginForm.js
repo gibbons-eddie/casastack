@@ -20,6 +20,7 @@ function LoginForm() {
               icon='user'
               iconPosition='left'
               label='Email'
+              type='email'
               placeholder='Email'
               name='Email'
             />
@@ -28,6 +29,7 @@ function LoginForm() {
               icon='lock'
               iconPosition='left'
               label='Password'
+              type='password'
               placeholder='Password'
               name='Password'
             />
