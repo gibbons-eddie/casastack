@@ -10,19 +10,12 @@ const navBarStyle = {
 };
 */
 import Link from 'next/link'
+import navStyles from './homePageStyles/NavBar.module.css'
 
 const NavBar = () => (
-    <div className="NavBar">
+    <div className={navStyles.NavBar}>
         Navigation Bar
-        <style jsx>
-        {`
-            background-color: #128212;
-            color: white;
-            width: 100%;
-            height: 60px;
-        `}
-        </style>
-                
+
             <Link href="/">home</Link>
                 
             <Link href="/login">login</Link>
