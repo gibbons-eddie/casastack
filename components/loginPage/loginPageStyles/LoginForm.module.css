@@ -1,6 +1,8 @@
 .LoginForm {
-    margin: auto;
-    background-color: white;
-    padding: 10px;
-    border-style: ridge;
+    margin: 200px 600px;
+    border-style: hidden;
+    padding: 50px 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
 }

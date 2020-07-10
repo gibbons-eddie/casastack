@@ -1,16 +1,9 @@
 .RegisterForm {
-    margin: auto;
-    background-color: white;
-    padding: 200px 200px;
+    margin: 25px 425px;
+    
+    padding: 50px 50px;
     border-style: hidden;
     border-radius: 10px;
     font-weight: 600;
     border-width: 1em;
-
-
-}
-
-.formHeader {
-    font-weight: 500;
-    font-size: 36px;
 }

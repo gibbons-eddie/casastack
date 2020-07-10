@@ -7,15 +7,14 @@ import {
   Segment,
 } from 'semantic-ui-react';
 
+import loginFormStyle from './loginPageStyles/LoginForm.module.css'
+
 function LoginForm() {
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 400 }}>
+      <div className={loginFormStyle.LoginForm}>
+        <h1>Welcome!</h1>
         <Segment textAlign='left'>
           <Form size='large'>
-            <Header as='h1' textAlign='center'>
-              Welcome
-            </Header>
             <Form.Input
               fluid
               icon='user'
@@ -39,8 +38,7 @@ function LoginForm() {
             </Container>
           </Form>
         </Segment>
-      </Grid.Column>
-    </Grid>
+      </div>
   );
 }
 export default LoginForm;

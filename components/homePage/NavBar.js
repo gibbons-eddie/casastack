@@ -11,22 +11,59 @@ const navBarStyle = {
 */
 import Link from 'next/link'
 import navStyles from './homePageStyles/NavBar.module.css'
+import { Menu, Container, Icon } from 'semantic-ui-react'
+import { useRouter } from 'next/router'
 
-const NavBar = () => (
-    <div className={navStyles.NavBar}>
-        Navigation Bar
+function NavBar() {
 
-            <Link href="/">home</Link>
-                
-            <Link href="/login">login</Link>
+    const user = false; // for detecting user status once logged in (volunteer status WIP)
+    const router = useRouter();
 
-            <Link href="/cart">cart</Link>
-                
-            <Link href="/profile">profile</Link>
-                
-            <Link href="/signup">signup</Link>
+    function isPathActive(route) // fancy selected appearance
+    {
+        return route === router.pathname;
+    }
+
+    return (
         
-    </div>
-);
+        <div className={navStyles.NavBar}>
+                <Link href="/">
+                    <Icon
+                        name="home"
+                        size="large"
+                    />
+                </Link>
+                    
+                <Link href="/login">
+                    <Icon
+                        name="user"
+                        size="large"
+                    />
+                </Link>
+
+                <Link href="/cart">
+                    <Icon
+                        name="cart"
+                        size="large"
+                    />
+                </Link>
+                    
+                <Link href="/profile">
+                    <Icon
+                        name="id card"
+                        size="large"
+                    />
+                </Link>
+                    
+                <Link href="/signup">
+                    <Icon
+                        name="edit"
+                        size="large"
+                    />
+                </Link>
+        </div>
+    )
+
+}
   
 export default NavBar;
