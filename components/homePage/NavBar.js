@@ -32,6 +32,8 @@ const NavBar = () => (
             <Link href="/profile">profile</Link>
                 
             <Link href="/signup">signup</Link>
+
+            <Link href="/joblisting">joblisting</Link>
         
     </div>
 );
