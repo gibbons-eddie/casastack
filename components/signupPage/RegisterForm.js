@@ -1,41 +1,40 @@
 import { Button, Form, Message, Segment } from 'semantic-ui-react';
+import registerFormStyle from './signUpStyles/RegisterForm.module.css'
 
 function Register()
 {
-    return <>
+    return ( 
+    <div className={registerFormStyle.RegisterForm}>
+        <div className={registerFormStyle.formHeader}>
         <Message
-            content="Welcome"
+            header="Welcome!"
+            content=''
         />
+        </div>
         <Form>
             <Segment>
                 <Form.Input
-                    label="First Name"
-                    placeholder="First Name"
+                    label="First name"
                     name="First Name"
                 />
                 <Form.Input
-                    label="Last Name"
-                    placeholder="Last Name"
+                    label="Last name"
                     name="Last Name"
                 />
                 <Form.Input
                     label="Email"
-                    placeholder="Email"
                     name="Email"
                 />
                 <Form.Input
                     label="Password"
-                    placeholder="Password"
                     name="Password"
                 />
                 <Form.Input
                     label="Address"
-                    placeholder="Address"
                     name="Address"
                 />
                 <Form.Input
-                    label="Phone Number"
-                    placeholder="Phone Number"
+                    label="Phone number"
                     name="Phone Number"
                 />
             </Segment>
@@ -44,7 +43,8 @@ function Register()
             type="submit"
             content="Sign Up"
         />
-    </>
+    </div>
+    );
 }
 
 export default Register;

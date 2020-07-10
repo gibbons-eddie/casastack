@@ -14,7 +14,7 @@ import headerStyle from './homePageStyles/Header.module.css'
 
 const Header = () => (
     <div className={headerStyle.Header}>
-        Header
+        Casastack
     </div>
 );
 
