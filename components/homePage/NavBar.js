@@ -34,6 +34,7 @@ const NavBar = () => (
             <Link href="/signup">signup</Link>
 
             <Link href="/joblisting">joblisting</Link>
+           
         
     </div>
 );
