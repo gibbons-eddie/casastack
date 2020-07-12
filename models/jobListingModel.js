@@ -9,4 +9,5 @@ const listingSchema = new mongoose.Schema({
     
 });
 
-export default mongoose.model('listings', listingSchema);
+module.export = mongoose.models.listing || mongoose.model("listing", listingSchema);
+//export default mongoose.model('listings', listingSchema);
