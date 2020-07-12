@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Segment, Container} from 'semantic-ui-react';
 
 const ViewListings = (props) => {
-    const listings = "click under here to see listingts";
+    const listings = "click under here to see listings";
     console.log("hu1");
     if (props.listings) {
         return(<div>
