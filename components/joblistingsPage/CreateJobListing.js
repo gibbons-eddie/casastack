@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import ViewListings from './viewListings';
 import CreateListings from './CreateLisintgs'
 
+
 function myfunction(){
     console.log("hi");
 };
@@ -19,18 +20,13 @@ const JobListing = (props) =>
     };
 
 return (
-    <div className="column1">
+    <div>
         <h1>This is the hub for all things job listing related! k3c2</h1>
         <CreateListings
             displayForm={displayForm}
             updateDisplayForm={updateDisplayForm}
             />
-                <Container textAlign='center'>
-                    <Button type="submit" circular size='big' color='violet'>
-                        create job listings
-                    </Button>
-                </Container>
-        <div className="column2">
+        <div >
             <ViewListings 
             listings={listings}
             updateListings={updateListings}
