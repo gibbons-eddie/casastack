@@ -1,34 +1,58 @@
-import React, { useState } from 'react'
-import { Button, Form, Segment, Container, Checkbox } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react'
+import { Button, Form, Segment, Container, Checkbox, Message } from 'semantic-ui-react';
 import registerFormStyle from './signUpStyles/RegisterForm.module.css'
 import Link from 'next/link'
+import errorCatcher from '../../utils/errorCatcher';
 
 const initializeUser = {
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     address: "",
-    number: ""
+    phoneNumber: ""
 }
 
 function Register()
 {
-    const [user, setUser] = React.useState(initializeUser)
-    const [userStatus, setUserStatus] = React.useState(true)
+    const [user, setUser] = React.useState(initializeUser);
+    const [disableButton, setDisableButton] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState('')
+
+    React.useEffect(() => {
+        const isUser = Object.values(user).every(element => Boolean(element)); // Object.values(user) returns array of all vars in object 'user'
+        isUser ? setDisableButton(false) : setDisableButton(true);
+    }, [user]) // disables signup button if not all fields are completed; whenever "user" changes we want to call this function
 
     function handleChange(event) {
-        const {name, value} = event.target // getting the name and its text value for each form input
-        setUser(prevState => ({...prevState, [name]: value})) // 
+        const {name, value} = event.target; // getting the name and its text value for each form input
+        setUser(prevState => ({...prevState, [name]: value})); // updating the state of each property/name
+    }
+
+    async function handleSubmit(event) { // to help display errors that any user can understand (using errorCatcher in utils folder)
+        event.preventDefault()
+
+        try {
+            setLoading(true)
+            setError('')
+            console.log(user) // testing to see if array passes throught (it does !)
+        } catch (error) {
+            errorCatcher(error, setError)
+        } finally {
+            setLoading(false)
+        }
     }
 
     return ( 
     <div className={registerFormStyle.RegisterForm}>
         <h1>Create your CasaStack account</h1>
         <Segment>
-            <Form size='large'>
+            <Form error={Boolean(error)} loading={loading} size='large' onSubmit={handleSubmit}>
+            <Message error header="Whoops!" content={error}/>
                 <Form.Field>
                     <Checkbox label='I am signing up to be a volunteer.' 
-                        onChange={() => setUserStatus(!userStatus)}
+                        onChange={() => volunteerStatus(!customerStatus)}
                     />
                 </Form.Field>
                 
@@ -78,18 +102,17 @@ function Register()
                     value={user.password}
                     onChange={handleChange}
                 />
-                {userStatus &&
                 <Form.Input
                     fluid
                     icon='bed'
                     iconPosition='left'
                     label="Address"
                     placeholder='Address'
-
+                    
                     name="address"
                     value={user.address}
                     onChange={handleChange}
-                />}
+                />
                 <Form.Input
                     fluid
                     icon='phone'
@@ -103,7 +126,7 @@ function Register()
                 />
             
                 <Container textAlign='center'>
-                    <Button type="submit" circular size='big' color='violet'>
+                    <Button disabled={disableButton || loading} type="submit" circular size='big' color='violet'>
                         Sign Up
                     </Button>
                 </Container>
