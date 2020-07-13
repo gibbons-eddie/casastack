@@ -1,5 +1,6 @@
 import Layout from "../components/homePage/Layout";
 
-const SignUp = (props) =><Layout>{`Signup`}</Layout>;
+const SignUp = (props) =><div>{`signup`}</div>;
+
 
 export default SignUp;

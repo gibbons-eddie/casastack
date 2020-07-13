@@ -1,9 +1,9 @@
 import Layout from "../components/homePage/Layout";
 
-const Cart = (props) => <Layout>
-    
-    {`Cart`}
+const Cart = (props) => <div>{`cart`}</div>;
 
-</Layout>;
+
+    
+
 
 export default Cart;
