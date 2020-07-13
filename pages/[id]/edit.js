@@ -72,7 +72,7 @@ const EditListing = ({ listing }) => {
 
     return (
         <div className="form-container">
-            <h1>Update Note</h1>
+            <h1>Update Listing</h1>
             <div>
                 {
                     isSubmitting
@@ -104,11 +104,11 @@ const EditListing = ({ listing }) => {
     )
 }
 
-EditNote.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`http://localhost:3000/api/notes/${id}`);
+EditListing.getInitialProps = async ({ query: { id } }) => {
+    const res = await fetch(`http://localhost:3000/api/listings/${id}`);
     const { data } = await res.json();
 
-    return { note: data }
+    return { listing: data }
 }
 
-export default EditNote;
+export default EditListing;
