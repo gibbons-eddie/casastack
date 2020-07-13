@@ -2,9 +2,9 @@ import Layout from "../components/homePage/Layout";
 import Register from "../components/signupPage/RegisterForm";
 
 const signup = (props) => 
-<Layout>
+<div>
     <Register/>
-</Layout>;
+</div>;
 
 export default signup;
 

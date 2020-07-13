@@ -2,9 +2,9 @@ import Layout from '../components/homePage/Layout';
 import LoginForm from '../components/loginPage/LoginForm';
 
 const Login = (props) => (
-  <Layout>
+  <div>
     <LoginForm />
-  </Layout>
+  </div>
 );
 
 
