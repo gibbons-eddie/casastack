@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 import Head from 'next/head'
 
-const Layout = (props) => (
+const Layout = ({children}) => (
   <div className="Layout">
     <Head>
       <title>casastack</title>
@@ -12,7 +12,7 @@ const Layout = (props) => (
 
     <Header />
     <div className="Content">
-      {props.children}
+      {children}
     </div>
     <NavBar />
     <style jsx global> 

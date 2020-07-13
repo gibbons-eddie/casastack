@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "isomorphic-unfetch": "^3.0.0",
     "mongoose": "^5.9.23",
     "next": "^9.4.4",
     "react": "^16.13.1",
