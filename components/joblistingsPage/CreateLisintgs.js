@@ -1,10 +1,15 @@
-  
 import React from 'react';
-import { Button, Form, Segment, Container} from 'semantic-ui-react';
+import Link from 'next/link';
+import fetch from 'isomorphic-unfetch';
+import { Button, Card, Form, Segment, Container} from 'semantic-ui-react';
+
 
 const CreateListings = (props) => {
     if (props.displayForm) {
         return(
+            <div>
+                <h1>Sample</h1>
+            
             <form>
                 <input type="text" onChange={props.codeTextUpdate} placeholder="Insert"/>
                 <input type="text" onChange={props.nameUpdate} placeholder="Information"/>
@@ -14,13 +19,24 @@ const CreateListings = (props) => {
                 <button onClick={props.addListing}>Add Listing</button>
                 <Button onClick={props.updateDisplayForm} type="submit" circular size='big' color='violet'>
                 create job listing
-            </Button>
+                </Button>
             </form>
+            </div>
             
         );
-    } else return (<div><Button onClick={props.updateDisplayForm} type="submit" circular size='big' color='violet'>
-    create job listing
-</Button></div>);
+    } else return(
+        <div>
+            
+             
+
+
+            <Button onClick={props.updateDisplayForm} type="submit" circular size='big' color='violet'>
+                create job listing
+            </Button>
+
+            
+
+         </div>);
 };
 
 export default CreateListings;
