@@ -80,11 +80,29 @@ const EditListing = ({ listing }) => {
                         : <Form onSubmit={handleSubmit}>
                             <Form.Input
                                 fluid
-                                error={errors.title ? { content: 'Please enter a title', pointing: 'below' } : null}
-                                label='Title'
-                                placeholder='Title'
-                                name='title'
-                                value={form.title}
+                                error={errors.service ? { content: 'Please enter a service', pointing: 'below' } : null}
+                                label='Service'
+                                placeholder='Service'
+                                name='service'
+                                value={form.service}
+                                onChange={handleChange}
+                            />
+                            <Form.Input
+                                fluid
+                                error={errors.status ? { content: 'Please enter a status', pointing: 'below' } : null}
+                                label='Status'
+                                placeholder='Status'
+                                name='status'
+                                value={form.status}
+                                onChange={handleChange}
+                            />
+                            <Form.Input
+                                fluid
+                                error={errors.location ? { content: 'Please enter a location', pointing: 'below' } : null}
+                                label='Location'
+                                placeholder='Location'
+                                name='location'
+                                value={form.location}
                                 onChange={handleChange}
                             />
                             <Form.TextArea

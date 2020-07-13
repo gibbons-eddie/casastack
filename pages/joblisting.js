@@ -7,7 +7,7 @@ const joblistings1 = ({ listings }) => {
         <div>
             <nav className="navbar">
         <Link href="/new">
-            <a className="create">Create note</a>
+            <a className="create">Create Listing</a>
         </Link>
     </nav>
         <div>
