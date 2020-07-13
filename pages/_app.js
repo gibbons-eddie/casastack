@@ -1,4 +1,6 @@
-// import App from 'next/app'
+import 'semantic-ui-css/semantic.min.css';
+import '../styles.css';
+import 'typeface-montserrat';
 import Layout from '../components/homePage/Layout';
 
 function MyApp({ Component, pageProps }) {

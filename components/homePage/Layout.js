@@ -1,62 +1,23 @@
 import Header from "./Header";
 import NavBar from "./NavBar";
+import Head from "next/head";
 
-import Head from 'next/head'
+import homeStyles from './homePageStyles/Home.module.css'
 
-const Layout = ({children}) => (
-  <div className="Layout">
+const Layout = (props) => (
+  <div className={homeStyles.Layout}>
+
     <Head>
       <title>casastack</title>
       <meta charSet="utf-8"/>
     </Head>
 
     <Header />
-    <div className="Content">
-      {children}
+    <div className={homeStyles.Content}>
+      {props.children}
+
     </div>
     <NavBar />
-    <style jsx global> 
-    {`
-      * 
-      {
-        box-sizing: border-box;
-random change
-      }
-
-      html, body, #__next 
-      {
-        height: 100%;
-        width: 100%;
-      }
-
-      body 
-      {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-          "Helvetica Neue", sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      .Layout 
-      {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-      }
-
-      .Content 
-      {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-    `}
-    </style>
   </div>
 );
 
