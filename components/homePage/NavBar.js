@@ -15,6 +15,7 @@ function NavBar() {
     }
 
     return (
+
         
         <div className={homeStyles.NavBar}>
                 <Link href="/">
