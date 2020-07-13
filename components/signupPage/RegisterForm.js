@@ -3,6 +3,8 @@ import { Button, Form, Segment, Container, Checkbox, Message } from 'semantic-ui
 import registerFormStyle from './signUpStyles/RegisterForm.module.css'
 import Link from 'next/link'
 import errorCatcher from '../../utils/errorCatcher';
+import axios from 'axios';
+import handleLogin from '../../utils/auth'
 
 const initializeUser = {
     firstName: "",
@@ -36,7 +38,13 @@ function Register()
         try {
             setLoading(true)
             setError('')
-            console.log(user) // testing to see if array passes throught (it does !)
+            //console.log(user) // testing to see if array passes throught (it does !)
+
+            /* USER TO DATABASE */
+            const url = `http://localhost:3000/api/signupAPI`;
+            const payload = {...user}; // all data in 'user'
+            const response = await axios.post(url, payload); // axios doing all the work
+            handleLogin(response.data); // token and cookie initialization
         } catch (error) {
             errorCatcher(error, setError)
         } finally {

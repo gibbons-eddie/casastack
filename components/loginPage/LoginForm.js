@@ -10,6 +10,8 @@ import {
 
 import loginFormStyle from './loginPageStyles/LoginForm.module.css';
 import errorCatcher from '../../utils/errorCatcher';
+import axios from 'axios'
+import handleLogin from '../../utils/auth'
 
 const initializeUser = {
   email: "",
@@ -38,7 +40,11 @@ function LoginForm() {
         try {
             setLoading(true) // after submit button is pressed, begin loading
             setError('')
-            console.log(user) // testing to see if array passes through
+            // console.log(user) // testing to see if array passes through (it does !)
+            const url = `http://localhost:3000/api/loginAPI`;
+            const payload = {...user};
+            const response = await axios.post(url, payload);
+            handleLogin(response.data);
         } catch (error) {
             errorCatcher(error, setError) 
         } finally {
