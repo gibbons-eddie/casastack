@@ -43,3 +43,16 @@
     font-family: 'Montserrat';
     font-weight: 300;
   }
+
+  h3 {
+    font-family: 'Montserrat';
+    font-weight: 700;
+  }
+
+  /* OTHER */
+
+  a {
+    color: white;
+    font-family: 'Montserrat';
+    font-weight: 300;
+  }

@@ -1,7 +1,8 @@
 import fetch from 'isomorphic-unfetch';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Confirm, Button, Loader } from 'semantic-ui-react';
+import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
+import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 
 const Listing = ({ listing }) => {
     const [confirm, setConfirm] = useState(false);
@@ -37,16 +38,18 @@ const Listing = ({ listing }) => {
     }
 
     return (
-        <div className="listing-container">
+        <div className={newListingStyle.newLayout}>
             {isDeleting
                 ? <Loader active />
                 :
                 <>
-                    <h1>{listing.service}</h1>
-                    <p>{listing.status}</p>
-                    <p>{listing.location}</p>
-                    <p>{listing.description}</p>
+                    <h1>Service: {listing.service}</h1>
+                    <Segment>
+                    <p>Job status: {listing.status}</p>
+                    <p>Location: {listing.location}</p>
+                    <p>Description: {listing.description}</p>
                     <Button color='red' onClick={open}>Delete</Button>
+                    </Segment>
                 </>
             }
             <Confirm

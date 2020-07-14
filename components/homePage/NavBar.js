@@ -32,9 +32,9 @@ function NavBar() {
                     />
                 </Link>
 
-                <Link href="/cart">
+                <Link href="/joblisting">
                     <Icon
-                        name="cart"
+                        name="clipboard"
                         size="large"
                     />
                 </Link>

@@ -1,6 +1,6 @@
 import Layout from '../components/homePage/Layout';
 
-const Index = () => <Layout>Welcome to casastack!</Layout>;
+const Index = () => <div>Welcome to casastack!</div>;
 
 
 export default Index;

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
+import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 
 const NewListing = () => {
     const [form, setForm] = useState({ service: '', status: '', location: '', description: '' });
@@ -69,7 +70,7 @@ const NewListing = () => {
     }
 
     return(
-        <div className="form-container">
+        <div className={newListingStyle.newLayout}>
             <h1>Create Listing</h1>
             <div>
                 {
