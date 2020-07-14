@@ -1,0 +1,29 @@
+.primaryButton {
+    color: white;
+    size: 50px;
+    /*flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;*/
+}
+
+.listingLayout {
+    margin: 100 300px;
+    border-style: hidden;
+    padding: 50px 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
+    width: 50%;
+}
+
+.newLayout {
+    margin: 25px 425px;
+    
+    padding: 50px 50px;
+    border-style: hidden;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
+}
