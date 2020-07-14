@@ -52,13 +52,6 @@ function NavBar() {
                         size="large"
                     />
                 </Link>
-                
-                <Link href="/joblisting">
-                    <Icon
-                        name="clipboard outline"
-                        size="large"
-                    />
-                </Link>
         </div>
     )
 
