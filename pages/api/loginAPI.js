@@ -18,9 +18,12 @@ export default async (req, res) => {
         const match = await bcrypt.compare(password, user.password);
         // it exists? generate a token
         if (match) {
-            const token = jwt.sign({userID: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
-            // send token to client
-            res.status(200).json(token)
+            const token = jwt.sign(
+                { userID: user._id }, 
+                process.env.JWT_SECRET, 
+                { expiresIn: '7d' })
+            // send token and email linked to user to client
+            res.status(200).json({ token, user: {email: user.email} })
         } else {
         res.status(401).send("Incorrect password")
         } 
