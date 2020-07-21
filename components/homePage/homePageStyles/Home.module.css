@@ -31,5 +31,5 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 4.747%; /* very weird formatting for each page and its props but it works lol */
+    /*margin-left: 4.747%; /* very weird formatting for each page and its props but it works lol */
 }

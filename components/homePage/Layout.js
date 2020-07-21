@@ -19,7 +19,7 @@ const Layout = (props) => (
         inverted
         vertical
         visible
-        
+        width="thin"
     >
         
         <Link href="/">
@@ -69,12 +69,14 @@ const Layout = (props) => (
 
     </Sidebar>
       
+      <Sidebar.Pusher>
       <div className={homeStyles.Content}> 
         <div className={homeStyles.Header}>
           Casastack
         </div>
         {props.children}
       </div>
+      </Sidebar.Pusher>
     
   </div>
 );
