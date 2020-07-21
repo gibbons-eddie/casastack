@@ -7,7 +7,7 @@ import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/
 import cookie from 'js-cookie';
 
 const NewListing = () => {
-    const [form, setForm] = useState({ service: '', status: '', location: '', description: '' });
+    const [form, setForm] = useState({ service: '', status: '', location: '', description: '', owner: '', acceptor: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
     const router = useRouter();
@@ -25,9 +25,9 @@ const NewListing = () => {
 
     const createList = async () => {
         try {
+            var json = form;
             if (cookie.get('userToken')){ //if no userToken exists in the cookies then this should return undefined -> false
-                //this is whatever they input into the edit form (as a json object)
-                var json = form; 
+                //this is whatever they input into the edit form (as a json object) 
                 //this grabs the (hopefully) logged in user's email through cookies and sets the json's OWNER attribute to that email
                 json.owner = (JSON.parse(cookie.get('userToken')).user.email);
                 // CONSOLE TESTING-----------------------------------------------
@@ -41,7 +41,7 @@ const NewListing = () => {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(form)
+                body: JSON.stringify(json)
             })
             router.push("/joblisting");
         } catch (error) {
