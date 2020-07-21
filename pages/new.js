@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
-import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
+import cookie from 'js-cookie';
 
 const NewListing = () => {
     const [form, setForm] = useState({ service: '', status: '', location: '', description: '' });
@@ -24,6 +25,16 @@ const NewListing = () => {
 
     const createList = async () => {
         try {
+            if (cookie.get('userToken')){ //if no userToken exists in the cookies then this should return undefined -> false
+                //this is whatever they input into the edit form (as a json object)
+                var json = form; 
+                //this grabs the (hopefully) logged in user's email through cookies and sets the json's OWNER attribute to that email
+                json.owner = (JSON.parse(cookie.get('userToken')).user.email);
+                // CONSOLE TESTING-----------------------------------------------
+                console.log(JSON.stringify(json));
+                console.log(json.owner);
+                // CONSOLE TESTING-----------------------------------------------
+            }
             const res = await fetch('http://localhost:3000/api/listings', {
                 method: 'POST',
                 headers: {
@@ -32,7 +43,7 @@ const NewListing = () => {
                 },
                 body: JSON.stringify(form)
             })
-            router.push("/");
+            router.push("/joblisting");
         } catch (error) {
             console.log(error);
         }
