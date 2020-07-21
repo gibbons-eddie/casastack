@@ -12,18 +12,88 @@ import Geocode from 'react-geocode';
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 class Map extends React.Component {
+  state = {
+    customerMarker: {
+      name: '',
+      id: 0,
+      address: '',
+      lat: 0,
+      lng: 0,
+    },
+    storeMarker: {
+      name: '',
+      id: 0,
+      address: '',
+      lat: 0,
+      lng: 0,
+    },
+  };
+
+  componentDidMount() {
+    // get coordinates of the store address
+    Geocode.fromAddress(this.props.storeAddress).then(
+      (response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({
+          storeMarker: {
+            name: 'Store',
+            id: 1,
+            address: this.props.storeAddress,
+            lat: lat,
+            lng: lng,
+          },
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    // get coordinates of the customer address
+    Geocode.fromAddress(this.props.customerAddress).then(
+      (response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({
+          customerMarker: {
+            name: 'Customer',
+            id: 2,
+            address: this.props.customerAddress,
+            lat: lat,
+            lng: lng,
+          },
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
   render() {
+    // Create several markers
+    const markers = [this.state.customerMarker, this.state.storeMarker];
+
     const MapWithAMarker = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
-          defaultZoom={14}
-          defaultCenter={{ lat: 29.643633, lng: -82.354927 }}
+          defaultZoom={12}
+          defaultCenter={{
+            lat: this.state.storeMarker.lat,
+            lng: this.state.storeMarker.lng,
+          }}
         >
-          <Marker position={{ lat: 29.643633, lng: -82.354927 }}>
-            <InfoWindow>
-              <div>Hello</div>
-            </InfoWindow>
-          </Marker>
+          {markers.map((marker) => (
+            <Marker
+              key={marker.id}
+              position={{ lat: marker.lat, lng: marker.lng }}
+            >
+              <InfoWindow>
+                <div>
+                  <p>{marker.name}</p>
+                  <p>{marker.address}</p>
+                </div>
+              </InfoWindow>
+            </Marker>
+          ))}
         </GoogleMap>
       ))
     );

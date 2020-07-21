@@ -41,6 +41,8 @@ const Listing = ({ listing }) => {
     close();
   };
 
+  const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
+
   return (
     <div className={newListingStyle.newLayout}>
       {isDeleting ? (
@@ -53,7 +55,10 @@ const Listing = ({ listing }) => {
             <p>Location: {listing.location}</p>
             <p>Description: {listing.description}</p>
             <p>*** Address and driving info here***</p>
-            <Map storeAddress={listing.location} />
+            <Map
+              customerAddress={temporaryCustomerAddress}
+              storeAddress={listing.location}
+            />
             <p />
             <Button color='red' onClick={open}>
               Delete
