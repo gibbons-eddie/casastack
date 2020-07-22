@@ -3,7 +3,7 @@ import '../styles.css';
 import 'typeface-montserrat';
 import App from 'next/app';
 import Layout from '../components/homePage/Layout';
-import { parseCookies } from 'nookies'; // next cookies dependency
+import { parseCookies, destroyCookie } from 'nookies'; // next cookies dependency
 import { redirectUser } from '../utils/auth';
 import axios from 'axios';
 
@@ -21,17 +21,20 @@ class MyApp extends App {
       const isProtectedRoute = ctx.pathname === '/profile' || ctx.pathname === '/joblisting';
       if (isProtectedRoute) {
         redirectUser(ctx, '/login');
-      } else {
-        try {
-          const payload = { reqheaders: { authorization: token } }; // with a token provided, we need to make a GET request with an authorization header
+      }
+     } else {
+       try {
+          const payload = { headers: { Authorization: token } }; // with a token provided, we need to make a GET request with an authorization header
           const url = `http://localhost:3000/api/accountAPI`;
           const response = await axios.get(url, payload);
           const user = response.data;
           pageProps.user = user;
-        } catch (error) {
+       } catch (error) {
           console.log("Error getting current user", error);
-        }
-      }
+          // throw out invalid token, and redirect to login, doesn't work :(
+          destroyCookie(ctx, "token");
+          redirectUser(ctx, '/login');
+       }
     }
 
     return { pageProps };
