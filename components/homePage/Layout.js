@@ -3,7 +3,7 @@ import Link from 'next/link';
 import homeStyles from './homePageStyles/Home.module.css'
 import { Sidebar, Icon, Menu } from "semantic-ui-react";
 
-const Layout = (props) => (
+const Layout = ({children, user}) => (
   
   // page overlay, including header and side nav bar
   <div className={homeStyles.Layout}>
@@ -36,7 +36,7 @@ const Layout = (props) => (
             <Icon
               name="sign-in alternate"
             />
-            Sign In
+            Log In
           </Menu.Item>
         </Link>
 
@@ -74,7 +74,7 @@ const Layout = (props) => (
         <div className={homeStyles.Header}>
           Casastack
         </div>
-        {props.children}
+        {children}
       </div>
       </Sidebar.Pusher>
     

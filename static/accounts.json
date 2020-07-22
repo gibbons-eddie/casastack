@@ -1,0 +1,31 @@
+[
+
+{
+    "firstName": "Eddie",
+    "lastName": "Gibbons",
+    "email": "gibbons.eddie@gmail.com",
+    "phoneNumber": "2479729222"
+},
+
+{
+    "firstName": "James",
+    "lastName": "Bond",
+    "email": "bond.james@gmail.com",
+    "phoneNumber": "7439774922"
+},
+
+{
+    "firstName": "Luke",
+    "lastName": "Skywalker",
+    "email": "skywalker.luke@gmail.com",
+    "phoneNumber": "47923432540"
+},
+
+{
+    "firstName": "Paul",
+    "lastName": "Atreides",
+    "email": "atreides.paul@gmail.com",
+    "phoneNumber": "8367925734"
+}
+
+]

@@ -4,7 +4,7 @@ import registerFormStyle from './signUpStyles/RegisterForm.module.css'
 import Link from 'next/link'
 import errorCatcher from '../../utils/errorCatcher';
 import axios from 'axios';
-import handleLogin from '../../utils/auth'
+import { handleLogin } from '../../utils/auth'
 
 const initializeUser = {
     firstName: "",
