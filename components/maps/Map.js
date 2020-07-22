@@ -1,33 +1,84 @@
-import React from 'react';
+/* global google */
+import React, { Component } from 'react';
 import {
   InfoWindow,
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
+  DirectionsRenderer,
+  Polyline,
 } from 'react-google-maps';
+import throttle from 'lodash.throttle';
+import debounce from 'lodash.throttle';
+
 import Geocode from 'react-geocode';
 //import Autocomplete from 'react-google-autocomplete';
-
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 class Map extends React.Component {
-  state = {
-    customerMarker: {
-      name: '',
-      id: 0,
-      address: '',
-      lat: 0,
-      lng: 0,
-    },
-    storeMarker: {
-      name: '',
-      id: 0,
-      address: '',
-      lat: 0,
-      lng: 0,
-    },
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      customerMarker: {
+        name: '',
+        id: 0,
+        address: '',
+        lat: 0,
+        lng: 0,
+      },
+      storeMarker: {
+        name: '',
+        id: 0,
+        address: '',
+        lat: 0,
+        lng: 0,
+      },
+      directions: null,
+      lineCoordinates: null,
+    };
+    this.handleMapLoad = this.handleMapLoad.bind(this);
+    //this.handleMapLoad = throttle(this.handleMapLoad, 5000);
+    //this.handleMapLoad = debounce(this.handleMapLoad, 10000);
+  }
+
+  handleMapLoad() {
+    //this.mapComponent = map;
+    //this._mapComponent = map;
+
+    // Get route between the two addresses
+    const DirectionsService = new google.maps.DirectionsService();
+
+    const origin = {
+      lat: this.state.storeMarker.lat,
+      lng: this.state.storeMarker.lng,
+    };
+    const destination = {
+      lat: this.state.customerMarker.lat,
+      lng: this.state.customerMarker.lng,
+    };
+
+    DirectionsService.route(
+      {
+        origin: new google.maps.LatLng(origin.lat, origin.lng),
+        destination: new google.maps.LatLng(destination.lat, destination.lng),
+        travelMode: google.maps.TravelMode.DRIVING,
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          const overViewCoords = result.routes[0].overview_path;
+
+          this.setState({
+            directions: result,
+            lineCoordinates: overViewCoords,
+          });
+        } else {
+          console.log(`error fetching directions ${status}`);
+        }
+      }
+    );
+  }
 
   componentDidMount() {
     // get coordinates of the store address
@@ -68,6 +119,7 @@ class Map extends React.Component {
       }
     );
   }
+
   render() {
     // Create several markers
     const markers = [this.state.customerMarker, this.state.storeMarker];
@@ -75,6 +127,10 @@ class Map extends React.Component {
     const MapWithAMarker = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
+          ref={props.onMapLoad}
+          //ref={this.onMapLoad}
+          //onMapLoad={props.onMapLoad}
+          //onMapLoad={this.handleMapLoad}
           defaultZoom={12}
           defaultCenter={{
             lat: this.state.storeMarker.lat,
@@ -94,20 +150,26 @@ class Map extends React.Component {
               </InfoWindow>
             </Marker>
           ))}
+          {this.state.directions && (
+            <DirectionsRenderer
+              directions={this.state.directions}
+              options={{ suppressMarkers: true, suppressInfoWindows: true }}
+            />
+          )}
         </GoogleMap>
       ))
     );
-
     return (
       <MapWithAMarker
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `400px` }} />}
         mapElement={<div style={{ height: `100%` }} />}
+        onMapLoad={this.handleMapLoad}
       />
     );
   }
 }
 
-// <Autocomplete types={['address']} />
 export default Map;
+// <Autocomplete types={['address']} />
