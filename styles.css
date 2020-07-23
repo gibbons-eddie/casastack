@@ -64,5 +64,9 @@
     font-size: 15px;
     border-radius: 5px;
     background-color: rgb(101, 182, 101);
-    padding: 5px;
+    padding: 10px;
+  }
+
+  .destination-link:hover {
+    color: white;
   }

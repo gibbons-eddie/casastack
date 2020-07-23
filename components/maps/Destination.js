@@ -80,7 +80,7 @@ class Destination extends React.Component {
   render() {
     var url = "https://www.google.com/maps/dir/?api=1&origin=" + this.state.storeMarker.lat + "," + this.state.storeMarker.lng + "&destination=" + this.state.customerMarker.lat + "," + this.state.customerMarker.lng;
     return (
-        <a class="destination-link" href= {url}>Click for direction to customer address</a>
+        <a class="destination-link" href= {url} target="_blank">Click for direction to customer address</a>
     );
   }
 }
