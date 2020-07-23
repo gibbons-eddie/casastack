@@ -29,14 +29,14 @@ export default async (req, res) => {
         }
         // new user? hash password and address
         const passHash = await bcrypt.hash(password, 10)
-        const addyHash = await bcrypt.hash(address, 10)
+        // const addyHash = await bcrypt.hash(address, 10)
         // submit and create user
         const newUser = await new User({
             firstName,
             lastName,
             email,
             password: passHash,
-            address: addyHash,
+            address,
             phoneNumber
         }).save()
         console.log({newUser});

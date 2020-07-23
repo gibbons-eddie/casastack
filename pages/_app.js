@@ -28,13 +28,13 @@ class MyApp extends App {
           const url = `http://localhost:3000/api/accountAPI`;
           const response = await axios.get(url, payload);
           const user = response.data;
-          /* const isRoot = user.role === 'root';
+          const isRoot = user.role === 'root';
           const isAdmin = user.role === 'admin'; // volunteer status?
           // if token is valid and is a user/customer, they shouldn't be allowed to view job listings page
           const isNotAllowed = !(isRoot || isAdmin) && ctx.pathname === '/joblisting';
           if (isNotAllowed) {
             redirectUser(ctx, '/');
-          } */
+          }
 
           pageProps.user = user;
        } catch (error) {
