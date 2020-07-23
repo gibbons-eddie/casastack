@@ -14,7 +14,7 @@ class MyApp extends App {
     let pageProps = {};
 
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
+      pageProps = await Component.getInitialProps(ctx);
     }
 
     if (!token) { // if a user isnt logged in, they cant see their profile or view listings
@@ -28,6 +28,14 @@ class MyApp extends App {
           const url = `http://localhost:3000/api/accountAPI`;
           const response = await axios.get(url, payload);
           const user = response.data;
+          /* const isRoot = user.role === 'root';
+          const isAdmin = user.role === 'admin'; // volunteer status?
+          // if token is valid and is a user/customer, they shouldn't be allowed to view job listings page
+          const isNotAllowed = !(isRoot || isAdmin) && ctx.pathname === '/joblisting';
+          if (isNotAllowed) {
+            redirectUser(ctx, '/');
+          } */
+
           pageProps.user = user;
        } catch (error) {
           console.log("Error getting current user", error);

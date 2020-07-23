@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-function Home({listings}){
+const Home = (props) =>
     //console.log(listings);
     /*React.useEffect(() => {
         getAccounts()
@@ -13,16 +13,16 @@ function Home({listings}){
         console.log(response.data);
     }*/
 
-    return <div>Welcome to casastack!</div>
-}
+    <div>Welcome to casastack!</div>
 
-Home.getInitialProps = async () => {
+
+/*Home.getInitialProps = async () => {
     // fetch data from server
     // return response data as an object
     //const url = 'http://localhost:3000/api/accountTest'
     //const response = await axios.get(url);
     //return {listings: response.data}
     //note: this object will be merged with existing props
-}
+}*/
 
 export default Home;

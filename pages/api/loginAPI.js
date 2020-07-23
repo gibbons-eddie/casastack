@@ -21,6 +21,7 @@ export default async (req, res) => {
             const token = jwt.sign({userID: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
             // send token to client
             res.status(200).json(token)
+            // console.log(user.address);
         } else {
         res.status(401).send("Incorrect password")
         } 
