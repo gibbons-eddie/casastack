@@ -56,3 +56,13 @@
     font-family: 'Montserrat';
     font-weight: 300;
   }
+
+  .destination-link {
+    color: white;
+    font-family: 'Montserrat';
+    font-weight: 450;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: rgb(101, 182, 101);
+    padding: 5px;
+  }

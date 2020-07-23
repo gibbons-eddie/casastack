@@ -12,7 +12,7 @@ import Geocode from 'react-geocode';
 
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
-class Map extends React.Component {
+class Destination extends React.Component {
   constructor(props) {
     super(props);
 
@@ -78,43 +78,11 @@ class Map extends React.Component {
 
   
   render() {
-    // Create several markers
-    const markers = [this.state.customerMarker, this.state.storeMarker];
-
-    const MapWithAMarker = withScriptjs(
-      withGoogleMap((props) => (
-        <GoogleMap
-          defaultZoom={12}
-          defaultCenter={{
-            lat: this.state.storeMarker.lat,
-            lng: this.state.storeMarker.lng,
-          }}
-        >
-          {markers.map((marker) => (
-            <Marker
-              key={marker.id}
-              position={{ lat: marker.lat, lng: marker.lng }}
-            >
-              <InfoWindow>
-                <div>
-                  <p>{marker.name}</p>
-                  <p>{marker.address}</p>
-                </div>
-              </InfoWindow>
-            </Marker>
-          ))}
-        </GoogleMap>
-      ))
-    );
+    var url = "https://www.google.com/maps/dir/?api=1&origin=" + this.state.storeMarker.lat + "," + this.state.storeMarker.lng + "&destination=" + this.state.customerMarker.lat + "," + this.state.customerMarker.lng;
     return (
-      <MapWithAMarker
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
+        <a class="destination-link" href= {url}>Click for direction to customer address</a>
     );
   }
 }
 
-export default Map;
+export default Destination;
