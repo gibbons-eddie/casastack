@@ -72,6 +72,7 @@ class Map extends React.Component {
     };
   }
 
+
   componentDidMount() {
     // get coordinates of the store address
     Geocode.fromAddress(this.props.storeAddress).then(
@@ -113,6 +114,7 @@ class Map extends React.Component {
     //
   }
 
+  
   render() {
     // Create several markers
     const markers = [this.state.customerMarker, this.state.storeMarker];
