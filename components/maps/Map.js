@@ -1,54 +1,17 @@
 /* global google */
-import React, { Component } from 'react';
+import React from 'react';
 import {
   InfoWindow,
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-  DirectionsRenderer,
 } from 'react-google-maps';
-
 import Geocode from 'react-geocode';
+import MyDirectionsRenderer from './MyDirectionsRenderer';
 
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
-function MyDirectionsRenderer(props) {
-  const [directions, setDirections] = React.useState(null);
-  const { origin, destination, travelMode } = props;
-
-  const DirectionsService = new google.maps.DirectionsService();
-
-  DirectionsService.route(
-    {
-      origin: new google.maps.LatLng(origin.lat, origin.lng),
-      destination: new google.maps.LatLng(destination.lat, destination.lng),
-      travelMode: travelMode,
-    },
-    (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        setDirections(result);
-      } else {
-        console.error(`error fetching directions ${result}`);
-      }
-    },
-    [directions]
-  );
-
-  // check
-  console.log('this function executed');
-
-  return (
-    <React.Fragment>
-      {directions && (
-        <DirectionsRenderer
-          directions={directions}
-          options={{ suppressMarkers: true, suppressInfoWindows: true }}
-        />
-      )}
-    </React.Fragment>
-  );
-}
 class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -71,7 +34,6 @@ class Map extends React.Component {
       directions: null,
     };
   }
-
 
   componentDidMount() {
     // get coordinates of the store address
@@ -114,7 +76,6 @@ class Map extends React.Component {
     //
   }
 
-  
   render() {
     // Create several markers
     const markers = [this.state.customerMarker, this.state.storeMarker];
@@ -157,17 +118,27 @@ class Map extends React.Component {
       ))
     );
 
-    var url = "https://www.google.com/maps/dir/?api=1&origin=" + this.state.storeMarker.lat + "," + this.state.storeMarker.lng + "&destination=" + this.state.customerMarker.lat + "," + this.state.customerMarker.lng;
+    var url =
+      'https://www.google.com/maps/dir/?api=1&origin=' +
+      this.state.storeMarker.lat +
+      ',' +
+      this.state.storeMarker.lng +
+      '&destination=' +
+      this.state.customerMarker.lat +
+      ',' +
+      this.state.customerMarker.lng;
     return (
       <div>
-      <MapWithAMarker
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
-      <br></br>
-      <a class="destination-link" href= {url} target="_blank">Click for direction to customer address</a>
+        <MapWithAMarker
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+        <br></br>
+        <a class='destination-link' href={url} target='_blank'>
+          Click for direction to customer address
+        </a>
       </div>
     );
   }
