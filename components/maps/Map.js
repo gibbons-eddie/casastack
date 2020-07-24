@@ -139,13 +139,13 @@ class Map extends React.Component {
 
         var url =
             'https://www.google.com/maps/dir/?api=1&origin=' +
-            this.state.storeMarker.lat +
-            ',' +
-            this.state.storeMarker.lng +
-            '&destination=' +
             this.state.customerMarker.lat +
             ',' +
-            this.state.customerMarker.lng;
+            this.state.customerMarker.lng +
+            '&destination=' +
+            this.state.storeMarker.lat +
+            ',' +
+            this.state.storeMarker.lng;
         return (
             <div>
               <div>Distance between you and the nearest hardware store is {distance()} meters.</div>
