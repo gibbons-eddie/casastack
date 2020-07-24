@@ -8,7 +8,7 @@ import isLength from 'validator/lib/isLength'
 dbConnect();
 
 export default async (req, res) => {
-    const { firstName, lastName, email, password, address, phoneNumber } = req.body;
+    const { role, firstName, lastName, email, password, address, phoneNumber } = req.body;
     try {
         // validate name, email, and password
         if (!isLength(firstName, {min: 3, max: 10}))
@@ -27,26 +27,34 @@ export default async (req, res) => {
         if (user) {
             return res.status(422).send(`User already has an account linked to the email address ${email}!`)
         }
-        // new user? hash password and address
+        // new user? hash password
         const passHash = await bcrypt.hash(password, 10)
-        const addyHash = await bcrypt.hash(address, 10)
         // submit and create user
         const newUser = await new User({
+            role,
             firstName,
             lastName,
             email,
             password: passHash,
-            address: addyHash,
+            address,
             phoneNumber
         }).save()
         console.log({newUser});
-        // create token for the new user
-        const token = jwt.sign({userID: newUser._id}, process.env.JWT_SECRET, {
-            expiresIn: '7d'})
+        // create token for the new user, links token to user
+        const token = jwt.sign(
+                { userID: newUser._id }, 
+                process.env.JWT_SECRET, 
+                { expiresIn: '7d' })
         // respond with token
-        res.status(201).json(token)
+        res.status(201).json({ token, user: {email: user.email} })
     } catch (error) {
         console.error(error)
         res.status(500).send("Sign up error occurred. Please try again later.")
     }
 }
+
+
+
+
+
+//  password for udemy: c@saStack5
