@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import Map from '../../components/maps/Map';
-import Destination from '../../components/maps/Destination';
 
 const Listing = ({ listing }) => {
   const [confirm, setConfirm] = useState(false);
@@ -60,12 +59,7 @@ const Listing = ({ listing }) => {
               customerAddress={temporaryCustomerAddress}
               storeAddress={listing.location}
             />
-            <br></br>
-            <Destination 
-              customerAddress={temporaryCustomerAddress}
-              storeAddress={listing.location}
-            />
-            <br></br>
+
             <br></br>
             <Button color='red' onClick={open}>
               Delete
