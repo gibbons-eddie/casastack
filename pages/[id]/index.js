@@ -6,77 +6,79 @@ import newListingStyle from '../../components/joblistingsPage/jobListingPageStyl
 import Map from '../../components/maps/Map';
 
 const Listing = ({ listing }) => {
-  const [confirm, setConfirm] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const router = useRouter();
+    const [confirm, setConfirm] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [distance, setDistance] = useState(0);
+    const router = useRouter();
 
-  useEffect(() => {
-    if (isDeleting) {
-      deleteListing();
-    }
-  }, [isDeleting]);
-
-  const open = () => setConfirm(true);
-
-  const close = () => setConfirm(false);
-
-  const deleteListing = async () => {
-    const listingId = router.query.id;
-    try {
-      const deleted = await fetch(
-        `http://localhost:3000/api/listings/${listingId}`,
-        {
-          method: 'Delete',
+    useEffect(() => {
+        if (isDeleting) {
+            deleteListing();
         }
-      );
+    }, [isDeleting]);
 
-      router.push('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const open = () => setConfirm(true);
 
-  const handleDelete = async () => {
-    setIsDeleting(true);
-    close();
-  };
+    const close = () => setConfirm(false);
 
-  const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
+    const deleteListing = async () => {
+        const listingId = router.query.id;
+        try {
+            const deleted = await fetch(
+                `http://localhost:3000/api/listings/${listingId}`,
+                {
+                    method: 'Delete',
+                }
+            );
 
-  return (
-    <div className={newListingStyle.newLayout}>
-      {isDeleting ? (
-        <Loader active />
-      ) : (
-        <>
-          <h1>Service: {listing.service}</h1>
-          <Segment>
-            <p>Job status: {listing.status}</p>
-            <p>Location: {listing.location}</p>
-            <p>Description: {listing.description}</p>
-            <p>*** Address and driving info here***</p>
-            <Map
-              customerAddress={temporaryCustomerAddress}
-              storeAddress={listing.location}
-            />
+            router.push('/');
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-            <br></br>
-            <Button color='red' onClick={open}>
-              Delete
+    const handleDelete = async () => {
+        setIsDeleting(true);
+        close();
+    };
+
+    const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
+
+    return (
+        <div className={newListingStyle.newLayout}>
+            {isDeleting ? (
+                <Loader active />
+            ) : (
+                    <>
+                        <h1>Service: {listing.service}</h1>
+                        <Segment>
+                            <p>Job status: {listing.status}</p>
+                            <p>Location: {listing.location}</p>
+                            <p>Description: {listing.description}</p>
+                            <p>Distance between the store and you is {distance} meters</p>
+                            <Map
+                                customerAddress={temporaryCustomerAddress}
+                                storeAddress={listing.location}
+                                distance={setDistance}
+                            />
+
+                            <br></br>
+                            <Button color='red' onClick={open}>
+                                Delete
             </Button>
-          </Segment>
-        </>
-      )}
-      <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
-    </div>
-  );
+                        </Segment>
+                    </>
+                )}
+            <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
+        </div>
+    );
 };
 
 Listing.getInitialProps = async ({ query: { id } }) => {
-  const res = await fetch(`http://localhost:3000/api/listings/${id}`);
-  const { data } = await res.json();
+    const res = await fetch(`http://localhost:3000/api/listings/${id}`);
+    const { data } = await res.json();
 
-  return { listing: data };
+    return { listing: data };
 };
 
 export default Listing;

@@ -18,17 +18,17 @@ var rad = (x) => {
 };
 
 // Calculates distance between two places based on their longitude and latitude
-var distance = (placeOne, placeTwo) => {
-    var R = 6378137;
-    var distanceLat = rad(placeTwo.lat() - placeOne.lat());
-    var distanceLong = rad(placeTwo.lng() - placeOne.lng());
-    var a = Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
-        Math.cos(rad(placeOne.lat())) * Math.cos(rad(placeTwo.lat())) *
-        Math.sin(distanceLong / 2) * Math.sin(distanceLong / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d;                   // Distance in meters
-};
+// var distance = (placeOne, placeTwo) => {
+//     var R = 6378137;
+//     var distanceLat = rad(placeTwo.lat() - placeOne.lat());
+//     var distanceLong = rad(placeTwo.lng() - placeOne.lng());
+//     var a = Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
+//         Math.cos(rad(placeOne.lat())) * Math.cos(rad(placeTwo.lat())) *
+//         Math.sin(distanceLong / 2) * Math.sin(distanceLong / 2);
+//     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//     var d = R * c;
+//     return d;                   // Distance in meters
+// };
 
 class Map extends React.Component {
     constructor(props) {
@@ -49,7 +49,6 @@ class Map extends React.Component {
                 lat: 0,
                 lng: 0,
             },
-            distance: 0,
             directions: null,
         };
     }
@@ -92,8 +91,25 @@ class Map extends React.Component {
                 console.log(error);
             }
         );
-        this.props.distance = distance(this.props.customerMarker, this.props.storeMarker);
     }
+
+    // Have to pass function to be able to read the state after it's updated
+    setDistance() {
+        this.setState((distance) => {
+            // Calculates distance between two places based on their longitude and latitude
+            var R = 6378137;        // Earth's radius
+            var distanceLat = rad(this.state.customerMarker.lat - this.state.storeMarker.lat);
+            console.log("The latitude is: ");
+            console.log(this.state.customerMarker.name);
+            var distanceLong = rad(this.state.customerMarker.lng - this.state.storeMarker.lng);
+            var a = Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
+                Math.cos(rad(this.state.storeMarker.lat)) * Math.cos(rad(this.state.customerMarker.lat)) *
+                Math.sin(distanceLong / 2) * Math.sin(distanceLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;          // Distance in meters
+            return { distance: d };
+        });
+    };
 
     render() {
         // Create several markers
