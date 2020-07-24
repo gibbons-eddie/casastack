@@ -4,14 +4,64 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Segment } from 'semantic-ui-react';
 import listingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
+import { useRouter } from 'next/router';
 
 
 const Profile = ( {listings} ) => {
+
+    function dropListing(listing) {
+        try {
+            var json;
+            for (var i = 0; i <listings.length;i++) {
+                if (listings[i]._id == listing){
+                    json = listings[i];
+                    json.acceptor = "";
+                    const res = fetch(`http://localhost:3000/api/listings/${listing}`, {
+                    method: 'PUT',
+                    headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                    },
+                body: JSON.stringify(json)
+                    })
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function completeListing(listing) {
+        try {
+            var json;
+            for (var i = 0; i <listings.length;i++) {
+                if (listings[i]._id == listing){
+                    json = listings[i];
+                    json.status = "completed";
+                    const res = fetch(`http://localhost:3000/api/listings/${listing}`, {
+                    method: 'PUT',
+                    headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                    },
+                body: JSON.stringify(json)
+                    })
+                }
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
     return(
         <div>
             <h1>My Listings</h1>
         <Segment>
-            <h1>no listings currently because my schema isnt working</h1>
+            <h1>Listings don't go away because it only filters for listings i own</h1>
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>
@@ -37,6 +87,8 @@ const Profile = ( {listings} ) => {
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>
+                                        <Button color='red' onClick={dropListing(listing._id)}>Drop</Button>
+                                        <Button color='green' onClick={completeListing(listing._id)}>Completed</Button>
                                     </div>
                                     
                                     
