@@ -7,6 +7,33 @@
   * {
     box-sizing: border-box;
   }
+
+
+.listings-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.card-button {
+  
+}
+
+.form-container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.wrapper {
+  max-width: 1200px;
+  padding: 0 16px;
+  margin: auto;
+}
   
   html, body, #__next {
     height: 100%;
