@@ -13,7 +13,7 @@ export default async (req, res) => {
         const { userID } = jwt.verify(req.headers.authorization, process.env.JWT_SECRET); // using our JWT secret password, we verify the user's token
         const user = await User.findOne({ _id: userID });
         if (user) {
-            console.log(user);
+            // console.log(user); the address is appearing ! dont why it decided to work randomly but yay !
             res.status(200).json(user);
         } else {
             res.status(404).send("User not found");

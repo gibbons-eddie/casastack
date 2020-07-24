@@ -3,7 +3,7 @@ import '../styles.css';
 import 'typeface-montserrat';
 import App from 'next/app';
 import Layout from '../components/homePage/Layout';
-import { parseCookies, destroyCookie } from 'nookies'; // next cookies dependency
+import { parseCookies, destroyCookie } from 'nookies';
 import { redirectUser } from '../utils/auth';
 import axios from 'axios';
 
@@ -29,9 +29,10 @@ class MyApp extends App {
           const response = await axios.get(url, payload);
           const user = response.data;
           const isRoot = user.role === 'root';
-          const isAdmin = user.role === 'admin'; // volunteer status?
+          const isAdmin = user.role === 'admin';
+          const isVolunteer = user.role === 'volunteer';
           // if token is valid and is a user/customer, they shouldn't be allowed to view job listings page
-          const isNotAllowed = !(isRoot || isAdmin) && ctx.pathname === '/joblisting';
+          const isNotAllowed = !(isRoot || isAdmin || isVolunteer) && ctx.pathname === '/joblisting';
           if (isNotAllowed) {
             redirectUser(ctx, '/');
           }
@@ -39,7 +40,7 @@ class MyApp extends App {
           pageProps.user = user;
        } catch (error) {
           console.log("Error getting current user", error);
-          // throw out invalid token, and redirect to login, doesn't work :(
+          // throw out invalid token, and redirect to login, works ! :)
           destroyCookie(ctx, "token");
           redirectUser(ctx, '/login');
        }
@@ -58,21 +59,4 @@ class MyApp extends App {
   }
 }
 
-// OG //
-/*function MyApp({ Component, pageProps }) {
-    return <Layout><Component {...pageProps} /></Layout>
-  }*/
-
-  // Only uncomment this method if you have blocking data requirements for
-  // every single page in your application. This disables the ability to
-  // perform automatic static optimization, causing every page in your app to
-  // be server-side rendered.
-  //
-  // MyApp.getInitialProps = async (appContext) => {
-  //   // calls page's `getInitialProps` and fills `appProps.pageProps`
-  //   const appProps = await App.getInitialProps(appContext);
-  //
-  //   return { ...appProps }
-  // }
-  
-  export default MyApp;
+export default MyApp;

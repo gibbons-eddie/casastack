@@ -1,12 +1,9 @@
 import { Segment, Label, Header, Icon } from "semantic-ui-react";
 import accountPageStyles from '../accountPage/accountPageStyles/accountPage.module.css';
 
-function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, createdAt}) { // call individuals elements of user and use them !
-    //const name = user.firstName + user.lastName;
+function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, createdAt}) { // call individual elements of user to use them for all kinds of things !
     
     return (
-        //console.log(user.firstName),
-        
         <div className={accountPageStyles.accountForm}>
             <Segment secondary inverted color ='blue'>
                 <Label

@@ -6,12 +6,13 @@ import listingStyle from '../components/joblistingsPage/jobListingPageStyles/job
 const joblistings1 = ({ listings }) => {
     return(
         <div className={listingStyle.listingLayout}>
-            <h1>Listings</h1>
-            <Button circular size='big' color='twitter' type='submit'>
+            <h1>Listings</h1>    
                 <Link href="/new">
-                    <a className="create">Create Listing</a>
+                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                        content='Create Listing'
+                    />
                 </Link>
-            </Button>
+
         <Segment className={listingStyle.listingLayout}>
             {listings.map(listing => {
                 return (

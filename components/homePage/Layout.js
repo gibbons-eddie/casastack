@@ -7,7 +7,8 @@ import { handleLogout } from '../../utils/auth'
 function Layout ({children, user}) {
   const isRoot = user && user.role === 'root';
   const isAdmin = user && user.role === 'admin';
-  const isCustomer = isRoot || isAdmin;
+  const isVolunteer = user && user.role === 'volunteer';
+  const isCustomer = isRoot || isAdmin || isVolunteer;
 
   return (
   // page overlay, including header and side nav bar

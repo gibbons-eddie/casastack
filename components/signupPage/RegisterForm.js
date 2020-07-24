@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Form, Segment, Container, Checkbox, Message } from 'semantic-ui-react';
+import React from 'react'
+import { Button, Form, Segment, Container, Message } from 'semantic-ui-react';
 import registerFormStyle from './signUpStyles/RegisterForm.module.css'
-import Link from 'next/link'
 import errorCatcher from '../../utils/errorCatcher';
 import axios from 'axios';
 import { handleLogin } from '../../utils/auth'
 
 const initializeUser = {
+    role: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -17,20 +17,32 @@ const initializeUser = {
 
 function Register()
 {
-    const [user, setUser] = React.useState(initializeUser);
+    const userOptions = [
+        { key: 'c', text: 'customer', value: 'customer' },
+        { key: 'v', text: 'volunteer', value: 'volunteer' }
+    ];
+    
+    const [newUser, setNewUser] = React.useState(initializeUser);
     const [disableButton, setDisableButton] = React.useState(true);
     const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState('')
-
-    React.useEffect(() => {
-        const isUser = Object.values(user).every(element => Boolean(element)); // Object.values(user) returns array of all vars in object 'user'
-        isUser ? setDisableButton(false) : setDisableButton(true);
-    }, [user]) // disables signup button if not all fields are completed; whenever "user" changes we want to call this function
+    const [error, setError] = React.useState('');
 
     function handleChange(event) {
         const {name, value} = event.target; // getting the name and its text value for each form input
-        setUser(prevState => ({...prevState, [name]: value})); // updating the state of each property/name
+        setNewUser(prevState => ({...prevState, [name]: value})); // updating the state of each property/name
+        console.log(newUser);
     }
+
+    const handleStatus = (event, result) => { // specifically for the role input
+        const {name, value} = result;
+        setNewUser({...newUser, [name]: value});
+    }
+
+    React.useEffect(() => {
+        const isUser = Object.values(newUser).every(element => Boolean(element)); // Object.values(user) returns array of all vars in object 'newUser'
+        isUser ? setDisableButton(false) : setDisableButton(true);
+    }, [newUser]) // disables signup button if not all fields are completed; whenever "newUser" changes we want to call this function
+
 
     async function handleSubmit(event) { // to help display errors that any user can understand (using errorCatcher in utils folder)
         event.preventDefault()
@@ -38,11 +50,11 @@ function Register()
         try {
             setLoading(true)
             setError('')
-            //console.log(user) // testing to see if array passes throught (it does !)
+            // console.log(user) // testing to see if array passes throught (it does !)
 
             /* USER TO DATABASE */
             const url = `http://localhost:3000/api/signupAPI`;
-            const payload = {...user}; // all data in 'user'
+            const payload = {...newUser}; // all data in 'user'
             const response = await axios.post(url, payload); // axios doing all the work
             handleLogin(response.data); // token and cookie initialization
         } catch (error) {
@@ -57,12 +69,18 @@ function Register()
         <h1>Create your CasaStack account</h1>
         <Segment>
             <Form error={Boolean(error)} loading={loading} size='large' onSubmit={handleSubmit}>
-            <Message error header="Whoops!" content={error}/>
-                <Form.Field>
-                    <Checkbox label='I am signing up to be a volunteer.' 
-                        onChange={() => volunteerStatus(!customerStatus)}
-                    />
-                </Form.Field>
+                <Message error header="Whoops!" content={error}/>
+                
+                <Form.Dropdown
+                    fluid
+                    label='I am signing up to be a:'
+                    options={userOptions}
+                    placeholder='user'
+                    onChange={handleStatus}
+                    name="role"
+                    value={newUser.role}
+                    selection
+                />
                 
                 <Form.Input
                     fluid
@@ -72,7 +90,7 @@ function Register()
                     placeholder='First name'
                     
                     name="firstName"
-                    value={user.firstName}
+                    value={newUser.firstName}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -83,7 +101,7 @@ function Register()
                     placeholder='Last name'
                     
                     name="lastName"
-                    value={user.lastName}
+                    value={newUser.lastName}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -95,7 +113,7 @@ function Register()
                     placeholder='Email'
                     
                     name="email"
-                    value={user.email}
+                    value={newUser.email}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -107,7 +125,7 @@ function Register()
                     placeholder='Password'
                     
                     name='password'
-                    value={user.password}
+                    value={newUser.password}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -118,7 +136,7 @@ function Register()
                     placeholder='Address'
                     
                     name="address"
-                    value={user.address}
+                    value={newUser.address}
                     onChange={handleChange}
                 />
                 <Form.Input
@@ -129,7 +147,7 @@ function Register()
                     placeholder='Phone number'
                     
                     name="phoneNumber"
-                    value={user.phoneNumber}
+                    value={newUser.phoneNumber}
                     onChange={handleChange}
                 />
             
