@@ -8,7 +8,6 @@ import Map from '../../components/maps/Map';
 const Listing = ({ listing }) => {
     const [confirm, setConfirm] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [distance, setDistance] = useState(0);
     const router = useRouter();
 
     useEffect(() => {
@@ -55,11 +54,9 @@ const Listing = ({ listing }) => {
                             <p>Job status: {listing.status}</p>
                             <p>Location: {listing.location}</p>
                             <p>Description: {listing.description}</p>
-                            <p>Distance between the store and you is {distance} meters</p>
                             <Map
                                 customerAddress={temporaryCustomerAddress}
                                 storeAddress={listing.location}
-                                distance={setDistance}
                             />
 
                             <br></br>
