@@ -18,8 +18,8 @@ const initializeUser = {
 function Register()
 {
     const userOptions = [
-        { key: 'c', text: 'customer', value: 'customer' },
-        { key: 'v', text: 'volunteer', value: 'volunteer' }
+        { key: 'c', text: 'No', value: 'customer' },
+        { key: 'v', text: 'Yes', value: 'volunteer' }
     ];
     
     const [newUser, setNewUser] = React.useState(initializeUser);
@@ -73,9 +73,9 @@ function Register()
                 
                 <Form.Dropdown
                     fluid
-                    label='I am signing up to be a:'
+                    label='I am signing up to be a volunteer.'
                     options={userOptions}
-                    placeholder='user'
+                    placeholder='Choose Yes or No'
                     onChange={handleStatus}
                     name="role"
                     value={newUser.role}
