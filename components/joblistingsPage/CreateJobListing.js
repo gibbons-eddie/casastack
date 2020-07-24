@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import ViewListings from './viewListings';
 import CreateListings from './CreateLisintgs'
 
-
 function myfunction(){
     console.log("hi");
 };

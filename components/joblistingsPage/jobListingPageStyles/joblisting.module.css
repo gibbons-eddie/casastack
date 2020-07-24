@@ -1,11 +1,6 @@
 .primaryButton {
     color: white;
     size: 50px;
-    /*flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;*/
 }
 
 .listingLayout {
@@ -20,7 +15,6 @@
 
 .newLayout {
     margin: 25px 425px;
-    
     padding: 50px 50px;
     border-style: hidden;
     border-radius: 10px;
