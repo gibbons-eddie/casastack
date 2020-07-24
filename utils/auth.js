@@ -1,6 +1,5 @@
 import cookie from 'js-cookie'
 import Router from 'next/router'
-//import User from '../models/userModel'
 
 export function handleLogin(token) {
     cookie.set('token', token); // cookie is named token
@@ -19,3 +18,4 @@ export function redirectUser(ctx, location) { // location = path to redirect use
 export function handleLogout() {
     cookie.remove('token');
     Router.push('/');
+}
