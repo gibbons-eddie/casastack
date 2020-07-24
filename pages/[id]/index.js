@@ -60,12 +60,7 @@ const Listing = ({ listing }) => {
               customerAddress={temporaryCustomerAddress}
               storeAddress={listing.location}
             />
-            <br></br>
-            <Destination 
-              customerAddress={temporaryCustomerAddress}
-              storeAddress={listing.location}
-            />
-            <br></br>
+
             <br></br>
             <Button color='red' onClick={open}>
               Delete
