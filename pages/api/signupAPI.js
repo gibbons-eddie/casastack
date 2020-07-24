@@ -40,13 +40,21 @@ export default async (req, res) => {
             phoneNumber
         }).save()
         console.log({newUser});
-        // create token for the new user
-        const token = jwt.sign({userID: newUser._id}, process.env.JWT_SECRET, {
-            expiresIn: '7d'})
+        // create token for the new user, links token to user
+        const token = jwt.sign(
+                { userID: newUser._id }, 
+                process.env.JWT_SECRET, 
+                { expiresIn: '7d' })
         // respond with token
-        res.status(201).json(token)
+        res.status(201).json({ token, user: {email: user.email} })
     } catch (error) {
         console.error(error)
         res.status(500).send("Sign up error occurred. Please try again later.")
     }
 }
+
+
+
+
+
+//  password for udemy: c@saStack5

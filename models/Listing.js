@@ -14,7 +14,13 @@ const listingSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-    }   
+    },
+    acceptor: {
+        type: String,
+    },
+    owner: {
+        type: String,
+    }
 })
 
 module.exports = mongoose.models.Listing || mongoose.model('Listing', listingSchema);
