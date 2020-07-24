@@ -46,15 +46,9 @@ export default async (req, res) => {
                 process.env.JWT_SECRET, 
                 { expiresIn: '7d' })
         // respond with token
-        res.status(201).json({ token, user: {email: user.email} })
+        res.status(201).json({ token })
     } catch (error) {
         console.error(error)
         res.status(500).send("Sign up error occurred. Please try again later.")
     }
 }
-
-
-
-
-
-//  password for udemy: c@saStack5

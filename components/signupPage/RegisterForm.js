@@ -18,7 +18,7 @@ const initializeUser = {
 function Register()
 {
     const userOptions = [
-        { key: 'c', text: 'No', value: 'customer' },
+        { key: 'c', text: 'No', value: 'user' },
         { key: 'v', text: 'Yes', value: 'volunteer' }
     ];
     
@@ -30,7 +30,7 @@ function Register()
     function handleChange(event) {
         const {name, value} = event.target; // getting the name and its text value for each form input
         setNewUser(prevState => ({...prevState, [name]: value})); // updating the state of each property/name
-        console.log(newUser);
+        // console.log(newUser);
     }
 
     const handleStatus = (event, result) => { // specifically for the role input
