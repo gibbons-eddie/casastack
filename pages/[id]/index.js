@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import cookie from 'js-cookie';
+import Map from '../../components/maps/Map';
 
 const Listing = ({ listing }) => {
     const [confirm, setConfirm] = useState(false);
@@ -14,7 +15,7 @@ const Listing = ({ listing }) => {
         if (isDeleting) {
             deleteListing();
         }
-    }, [isDeleting])
+    }, [isDeleting]);
 
     const open = () => setConfirm(true);
 
@@ -50,53 +51,59 @@ const Listing = ({ listing }) => {
     const deleteListing = async () => {
         const listingId = router.query.id;
         try {
-            const deleted = await fetch(`http://localhost:3000/api/listings/${listingId}`, {
-                method: "Delete"
-            });
+            const deleted = await fetch(
+                `http://localhost:3000/api/listings/${listingId}`,
+                {
+                    method: 'Delete',
+                }
+            );
 
-            router.push("/");
+            router.push('/');
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     const handleDelete = async () => {
         setIsDeleting(true);
         close();
-    }
+    };
+
+    const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
     return (
         <div className={newListingStyle.newLayout}>
-            {isDeleting
-                ? <Loader active />
-                :
-                <>
-                    <h1>Service: {listing.service}</h1>
-                    <Segment>
-                    <p>Job status: {listing.status}</p>
-                    <p>Location: {listing.location}</p>
-                    <p>Description: {listing.description}</p>
-                    <Button color='red' onClick={open}>Delete</Button>
-                    </Segment>
-                </>
-                
-            }
-            <Button color='green' onClick={openAccept}>Accept</Button>
-            <Confirm
-                open={confirm}
-                onCancel={close}
-                onConfirm={handleDelete}
-            />
-        </div>
-    )
+            {isDeleting ? (
+                <Loader active />
+            ) : (
+                    <>
+                        <h1>Service: {listing.service}</h1>
+                        <Segment>
+                            <p>Job status: {listing.status}</p>
+                            <p>Location: {listing.location}</p>
+                            <p>Description: {listing.description}</p>
+                            <Map
+                                customerAddress={temporaryCustomerAddress}
+                                storeAddress={listing.location}
+                            />
 
-}
+                            <br></br>
+                            <Button color='red' onClick={open}>
+                                Delete
+            </Button>
+                        </Segment>
+                    </>
+                )}
+            <Confirm open={confirm} onCancel={close} onConfirm={handleDelete} />
+        </div>
+    );
+};
 
 Listing.getInitialProps = async ({ query: { id } }) => {
     const res = await fetch(`http://localhost:3000/api/listings/${id}`);
     const { data } = await res.json();
 
-    return { listing: data }
-}
+    return { listing: data };
+};
 
 export default Listing;
