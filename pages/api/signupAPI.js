@@ -39,7 +39,6 @@ export default async (req, res) => {
             address,
             phoneNumber
         }).save()
-        console.log({newUser});
         // create token for the new user, links token to user
         const token = jwt.sign(
                 { userID: newUser._id }, 
