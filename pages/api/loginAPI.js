@@ -23,7 +23,7 @@ export default async (req, res) => {
                 process.env.JWT_SECRET, 
                 { expiresIn: '7d' })
             // send token and email linked to user to client
-            res.status(200).json({ token, user: {email: user.email} }) // email is received from here !
+            res.status(200).json(token) // email is received from here !
         } else {
         res.status(401).send("Incorrect password")
         } 
