@@ -94,3 +94,11 @@
   .destination-link:hover {
     color: white;
   }
+  
+.form {
+    min-width: 400px;
+}
+
+.segment {
+    min-width: 440px;
+}

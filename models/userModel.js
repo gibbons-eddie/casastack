@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: true,
-        select: false // same with address lol
     },
     phoneNumber: {
         type: String,
@@ -33,11 +32,10 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        default: 'user',
         enum: ["user", "volunteer", "admin", "root"]
     }
 }, {
     timestamps: true
 })
 
-export default mongoose.model.userSchema || mongoose.model("User", userSchema)
+export default mongoose.models.User || mongoose.model("User", userSchema)

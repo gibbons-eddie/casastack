@@ -1,4 +1,7 @@
-import Layout from '../components/homePage/Layout';
-const Index = () => <div>Welcome to casastack!</div>;
+import React from 'react'
 
-export default Index;
+const Home = (props) =>
+
+    <div>Welcome to casastack!</div>
+
+export default Home;

@@ -11,7 +11,7 @@ import {
 import loginFormStyle from './loginPageStyles/LoginForm.module.css';
 import errorCatcher from '../../utils/errorCatcher';
 import axios from 'axios'
-import handleLogin from '../../utils/auth'
+import { handleLogin } from '../../utils/auth'
 
 const initializeUser = {
   email: "",

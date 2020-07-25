@@ -4,17 +4,21 @@ import { Button, Card} from 'semantic-ui-react';
 
 const joblistings1 = ({ listings }) => {
     return(
+
         <div className="listings-container">
+
             <h1>Listings</h1>    
                 <Link href="/new">
                     <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
                         content='Create Listing'
                     />
                 </Link>
+
                 <br></br>
                 <br></br>
 
         <div className="grid wrapper">
+
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>

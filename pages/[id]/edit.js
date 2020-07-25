@@ -4,6 +4,7 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'; 
+import cookie from 'js-cookie';
 
 const EditListing = ({ listing }) => {
     const [form, setForm] = useState({ service: listing.service, status: listing.status, location: listing.location, description: listing.description });
@@ -24,15 +25,26 @@ const EditListing = ({ listing }) => {
 
     const updateListing = async () => {
         try {
+            //comments so people can understand - by Joseph
+            if (cookie.get('userToken')){ //if no userToken exists in the cookies then this should return undefined -> false
+                //this is whatever they input into the edit form (as a json object)
+                var json = form; 
+                //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
+                json.acceptor = (JSON.parse(cookie.get('userToken')).user.email);
+                // CONSOLE TESTING-----------------------------------------------
+                //console.log(JSON.stringify(json));
+                //console.log(json.acceptor);
+                // CONSOLE TESTING-----------------------------------------------
+            }
             const res = await fetch(`http://localhost:3000/api/listings/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(form)
+                body: JSON.stringify(json)
             })
-            router.push("/");
+            router.push("/joblisting");
         } catch (error) {
             console.log(error);
         }
