@@ -50,7 +50,7 @@ const Test1 = ({user, listings}) => {
 }
 
 Test1.getInitialProps = async ( {query: {email} } ) => {
-    const res = await fetch(`http://localhost:3000/api/profile1/${email}`);
+    const res = await fetch(`http://localhost:3000/api/myListingsVolunteer/${email}`);
     const { data } = await res.json();
 
     return { listings: data }
