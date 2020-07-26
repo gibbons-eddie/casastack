@@ -13,7 +13,7 @@ export default async (req, res) => {
     switch(method){
         case 'GET':
             try {
-                const listing = await Listing.find({acceptor: email, status: "open"});
+                const listing = await Listing.find( {$and: [{acceptor: {$eq: email}   },{status: {$ne: "completed"}}]   });
                 if(!listing){
                     return res.status(400).json({success: false});
                 }

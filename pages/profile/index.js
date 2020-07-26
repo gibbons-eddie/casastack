@@ -3,6 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Card, Segment } from 'semantic-ui-react';
 
 const Test1 = ({user, listings}) => {
+
     console.log(listings);
     return(
         <div>
