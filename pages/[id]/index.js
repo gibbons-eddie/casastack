@@ -131,6 +131,8 @@ const Listing = ({user, listing }) => {
     if (listing.owner === user.owner) {isOwner = true;} //breaks for old listings where owner is undefined
     var isCompleted = false;
     if (listing.status === "completed") {isCompleted = true;}
+    console.log(isCompleted);
+    console.log(isAcceptor);
 
     return (
         <div className={newListingStyle.newLayout}>
@@ -158,9 +160,9 @@ const Listing = ({user, listing }) => {
                             {isAcceptor ? (<Button color='red' onClick={drop}>
                                 Drop
                             </Button>) : (<div></div>) }
-                            {isCompleted ? (<div>this listing is completed</div>)  : (<Button color='green' onClick={complete}>
+                            {!isCompleted && isAcceptor ? (<Button color='green' onClick={complete}>
                                 Complete
-                            </Button>) }
+                            </Button>)  : (<div></div>) }
                         </Segment>
                     </>
                 )}
