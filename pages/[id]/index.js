@@ -48,6 +48,60 @@ const Listing = ({user, listing }) => {
         }
     }
 
+    const drop = async () => {
+        try {
+            //comments so people can understand - by Joseph
+            if (true){ //if no userToken exists in the cookies then this should return undefined -> false
+                //this is whatever they input into the edit form (as a json object)
+                var json = listing; 
+                //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
+                json.acceptor = "";
+                // CONSOLE TESTING-----------------------------------------------
+                console.log(JSON.stringify(json));
+                console.log(json.acceptor);
+                // CONSOLE TESTING-----------------------------------------------
+            }
+            const res = await fetch(`http://localhost:3000/api/listings/${router.query.id}`, {
+                method: 'PUT',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(json)
+            })
+            router.push("/joblisting");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const complete = async () => {
+        try {
+            //comments so people can understand - by Joseph
+            if (true){ //if no userToken exists in the cookies then this should return undefined -> false
+                //this is whatever they input into the edit form (as a json object)
+                var json = listing; 
+                //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
+                json.status = "completed";
+                // CONSOLE TESTING-----------------------------------------------
+                console.log(JSON.stringify(json));
+                console.log(json.acceptor);
+                // CONSOLE TESTING-----------------------------------------------
+            }
+            const res = await fetch(`http://localhost:3000/api/listings/${router.query.id}`, {
+                method: 'PUT',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(json)
+            })
+            router.push("/joblisting");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const deleteListing = async () => {
         const listingId = router.query.id;
         try {
@@ -74,9 +128,9 @@ const Listing = ({user, listing }) => {
     var isAcceptor = false;
     if (listing.acceptor === user.email) {isAcceptor = true;}
     var isOwner = false;
-    if (listing.owner === user.owner) {isOwner = true;}
-    console.log(listing.owner);
-    console.log(user.owner);
+    if (listing.owner === user.owner) {isOwner = true;} //breaks for old listings where owner is undefined
+    var isCompleted = false;
+    if (listing.status === "completed") {isCompleted = true;}
 
     return (
         <div className={newListingStyle.newLayout}>
@@ -100,6 +154,12 @@ const Listing = ({user, listing }) => {
                             </Button>) : (<div></div>)}
                             {isAcceptor ? (<div></div>)  : (<Button color='green' onClick={openAccept}>
                                 Accept
+                            </Button>) }
+                            {isAcceptor ? (<Button color='red' onClick={drop}>
+                                Drop
+                            </Button>) : (<div></div>) }
+                            {isCompleted ? (<div>this listing is completed</div>)  : (<Button color='green' onClick={complete}>
+                                Complete
                             </Button>) }
                         </Segment>
                     </>
