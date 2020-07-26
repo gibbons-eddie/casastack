@@ -6,7 +6,7 @@ import newListingStyle from '../../components/joblistingsPage/jobListingPageStyl
 import cookie from 'js-cookie';
 import Map from '../../components/maps/Map';
 
-const Listing = ({ listing }) => {
+const Listing = ({user, listing }) => {
     const [confirm, setConfirm] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const router = useRouter();
@@ -24,11 +24,11 @@ const Listing = ({ listing }) => {
     const openAccept = async () => {
         try {
             //comments so people can understand - by Joseph
-            if (cookie.get('userToken')){ //if no userToken exists in the cookies then this should return undefined -> false
+            if (true){ //if no userToken exists in the cookies then this should return undefined -> false
                 //this is whatever they input into the edit form (as a json object)
                 var json = listing; 
                 //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
-                json.acceptor = (JSON.parse(cookie.get('userToken')).user.email);
+                json.acceptor = user.email;
                 // CONSOLE TESTING-----------------------------------------------
                 console.log(JSON.stringify(json));
                 console.log(json.acceptor);
@@ -90,7 +90,10 @@ const Listing = ({ listing }) => {
                             <br></br>
                             <Button color='red' onClick={open}>
                                 Delete
-            </Button>
+                            </Button>
+                            <Button color='green' onClick={openAccept}>
+                                Accept
+                            </Button>
                         </Segment>
                     </>
                 )}
