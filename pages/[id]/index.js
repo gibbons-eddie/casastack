@@ -71,6 +71,13 @@ const Listing = ({user, listing }) => {
 
     const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
+    var isAcceptor = false;
+    if (listing.acceptor === user.email) {isAcceptor = true;}
+    var isOwner = false;
+    if (listing.owner === user.owner) {isOwner = true;}
+    console.log(listing.owner);
+    console.log(user.owner);
+
     return (
         <div className={newListingStyle.newLayout}>
             {isDeleting ? (
@@ -88,12 +95,12 @@ const Listing = ({user, listing }) => {
                             />
 
                             <br></br>
-                            <Button color='red' onClick={open}>
+                            {isOwner ? (<Button color='red' onClick={open}>
                                 Delete
-                            </Button>
-                            <Button color='green' onClick={openAccept}>
+                            </Button>) : (<div></div>)}
+                            {isAcceptor ? (<div></div>)  : (<Button color='green' onClick={openAccept}>
                                 Accept
-                            </Button>
+                            </Button>) }
                         </Segment>
                     </>
                 )}
