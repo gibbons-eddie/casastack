@@ -9,7 +9,7 @@ export default async (req, res) => {
     switch(method) {
         case 'GET':
             try{
-                const listings = await Listing.find({});
+                const listings = await Listing.find({$and: [{status: {$ne: "completed"}}, {status: {$ne: "accepted"}}]});
 
                 res.status(200).json({ success: true, data: listings })
 

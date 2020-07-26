@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
-import cookie from 'js-cookie';
 import Map from '../../components/maps/Map';
 
 const Listing = ({user, listing }) => {
@@ -23,17 +22,14 @@ const Listing = ({user, listing }) => {
 
     const openAccept = async () => {
         try {
-            //comments so people can understand - by Joseph
-            if (true){ //if no userToken exists in the cookies then this should return undefined -> false
-                //this is whatever they input into the edit form (as a json object)
                 var json = listing; 
                 //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
                 json.acceptor = user.email;
+                json.status = "accepted";
                 // CONSOLE TESTING-----------------------------------------------
                 console.log(JSON.stringify(json));
                 console.log(json.acceptor);
                 // CONSOLE TESTING-----------------------------------------------
-            }
             const res = await fetch(`http://localhost:3000/api/listings/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
@@ -50,17 +46,16 @@ const Listing = ({user, listing }) => {
 
     const drop = async () => {
         try {
-            //comments so people can understand - by Joseph
-            if (true){ //if no userToken exists in the cookies then this should return undefined -> false
+            //comments so people can understand - by Joseph //if no userToken exists in the cookies then this should return undefined -> false
                 //this is whatever they input into the edit form (as a json object)
                 var json = listing; 
                 //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
                 json.acceptor = "";
+                json.status = "open";
                 // CONSOLE TESTING-----------------------------------------------
                 console.log(JSON.stringify(json));
                 console.log(json.acceptor);
                 // CONSOLE TESTING-----------------------------------------------
-            }
             const res = await fetch(`http://localhost:3000/api/listings/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
