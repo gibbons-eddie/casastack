@@ -16,7 +16,8 @@ const ViewListing = (props) => {
         <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
         content='View my Listings'/>
         </Link></div>);
-    }   
+    } 
+    return(<div></div>);
 }
 
 export default ViewListing;
