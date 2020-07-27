@@ -1,7 +1,14 @@
 .accountForm {
-    margin: 200px 600px;
+    margin: 100px 350px 0px 200px;
     border-style: hidden;
-    padding: 50px 50px;
+    padding: 10px 50px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.accountButtons {
+    margin: 0px 0px 0px 250px;
+    border-style: hidden;
     border-radius: 10px;
     font-weight: 600;
     border-width: 1em;

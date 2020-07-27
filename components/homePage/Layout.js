@@ -26,6 +26,7 @@ function Layout ({children, user}) {
         vertical
         visible
         width="thin"
+        position='fixed'
     >
         
         <Link href="/">
