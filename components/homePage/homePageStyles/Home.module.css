@@ -27,3 +27,14 @@
     display: flex;
     flex-direction: column;
 }
+
+.homeTitle {
+    margin: 150px 600px 200px 500px;
+    
+    border-style: hidden;
+    padding: 50px 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 48px;
+    border-width: 1em;
+}
