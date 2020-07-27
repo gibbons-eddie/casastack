@@ -131,13 +131,14 @@ const Listing = ({ user, listing }) => {
   const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
   var isAcceptor = false;
-  if (listing.acceptor === user.email) {
+  if ((listing.acceptor === user.email)) {
     isAcceptor = true;
   }
   var isOwner = false;
-  if (listing.owner === user.owner) {
+  if (listing.owner === user.email) {
     isOwner = true;
-  } //breaks for old listings where owner is undefined
+  }
+  //breaks for old listings where owner is undefined
   var isCompleted = false;
   if (listing.status === 'completed') {
     isCompleted = true;
