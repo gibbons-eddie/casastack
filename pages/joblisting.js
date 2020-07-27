@@ -1,19 +1,17 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card} from 'semantic-ui-react';
+import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 
 const joblistings1 = ({ listings }) => {
     return(
 
-        <div className="listings-container">
+        <div className={jobListingStyle.listingsHeader}>
 
-            <h1>Listings</h1>    
-                <Link href="/new">
-                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
-                        content='Create Listing'
-                    />
-                </Link>
-
+            <div className={jobListingStyle.listingTitle}>
+            Listings 
+            </div>
+            
                 <br></br>
                 <br></br>
 

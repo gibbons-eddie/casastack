@@ -28,6 +28,7 @@ class MyApp extends App {
           const url = `http://localhost:3000/api/accountAPI`;
           const response = await axios.get(url, payload);
           const user = response.data;
+          
           const isRoot = user.role === 'root';
           const isAdmin = user.role === 'admin';
           const isVolunteer = user.role === 'volunteer';
