@@ -10,7 +10,7 @@
     border-radius: 10px;
     font-weight: 600;
     border-width: 1em;
-    width: 50%;
+    width: 100%;
 }
 
 .newLayout {
@@ -20,4 +20,18 @@
     border-radius: 10px;
     font-weight: 600;
     border-width: 1em;
+}
+
+.listingsHeader {
+    margin: 25px 425px;
+    
+    padding: 50px 50px;
+    border-style: hidden;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
+}
+
+.listingTitle {
+    font-size: 48px;
 }

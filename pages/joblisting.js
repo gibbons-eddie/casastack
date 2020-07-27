@@ -1,23 +1,26 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card, Segment } from 'semantic-ui-react';
-import listingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
+import { Button, Card} from 'semantic-ui-react';
+import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 
 const joblistings1 = ({ listings }) => {
     return(
-        <div className={listingStyle.listingLayout}>
-            <h1>Listings</h1>    
-                <Link href="/new">
-                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
-                        content='Create Listing'
-                    />
-                </Link>
 
-        <Segment className={listingStyle.listingLayout}>
+        <div className={jobListingStyle.listingsHeader}>
+
+            <div className={jobListingStyle.listingTitle}>
+            Listings 
+            </div>
+            
+                <br></br>
+                <br></br>
+
+        <div className="grid wrapper">
+
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>
-                        <Card centered columnCount="3">
+                        <Card>
                             <Card.Content>
                                 <Card.Header>
 
@@ -29,20 +32,15 @@ const joblistings1 = ({ listings }) => {
                             </Card.Content>
 
                             <Card.Content extra>
-
-                                
                                     <div>
-                                        <Button primary size="small">
+                                        <Button className="card-button" primary size="small">
                                             <Link href={`/${listing._id}`}>
                                                 <h3>View Listing</h3>
                                             </Link>
                                         </Button>
-                                    
-
-
-                                
-                                    
-                                        <Button primary size="small">
+                                        <br></br>
+                                        <br></br>
+                                        <Button className="card-button" primary size="small">
                                             <Link href={`/${listing._id}/edit`}>
                                                 <h3>Edit Listing</h3>
                                             </Link>
@@ -59,7 +57,7 @@ const joblistings1 = ({ listings }) => {
             })}
         
             
-        </Segment>
+        </div>
         </div>
     )
     

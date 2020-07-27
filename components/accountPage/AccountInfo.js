@@ -1,8 +1,13 @@
-import { Segment, Label, Header, Icon } from "semantic-ui-react";
+import { Segment, Label, Header, Icon, Button } from "semantic-ui-react";
+import Link from 'next/link';
 import accountPageStyles from '../accountPage/accountPageStyles/accountPage.module.css';
 
 function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, createdAt}) { // call individual elements of user to use them for all kinds of things !
-    
+    const isRoot = role === 'root';
+    const isAdmin = role === 'admin';
+    const isVolunteer = role === 'volunteer';
+    const isCustomer = isRoot || isAdmin || isVolunteer;
+
     return (
         <div className={accountPageStyles.accountForm}>
             <Segment secondary inverted color ='blue'>
@@ -24,6 +29,12 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
                     <Header.Subheader>Joined {createdAt}</Header.Subheader>
                 </Header>
             </Segment>
+
+            {!isCustomer && (<Link href="/new">
+                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                        content='Create Listing'
+                    />
+            </Link>)}
         </div>
     );
 }
