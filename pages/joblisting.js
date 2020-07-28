@@ -3,10 +3,14 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Card} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 
-const joblistings1 = ({ listings }) => {
+const joblistings1 = ({ listings, user }) => {
+    const isRoot = user.role === 'root';
+    const isAdmin = user.role === 'admin';
+    const isVolunteer = user.role === 'volunteer';
+    
     return(
 
-        <div className={jobListingStyle.listingsHeader}>
+        <div className={jobListingStyle.jobListingsHeader}>
 
             <div className={jobListingStyle.listingTitle}>
             Listings 
@@ -40,11 +44,11 @@ const joblistings1 = ({ listings }) => {
                                         </Button>
                                         <br></br>
                                         <br></br>
-                                        <Button className="card-button" primary size="small">
+                                        {(isRoot || isAdmin) && (<Button className="card-button" primary size="small">
                                             <Link href={`/${listing._id}/edit`}>
                                                 <h3>Edit Listing</h3>
                                             </Link>
-                                        </Button>
+                                        </Button>)}
                                     </div>
                                     
                                     

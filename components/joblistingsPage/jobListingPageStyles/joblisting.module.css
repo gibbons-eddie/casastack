@@ -23,7 +23,17 @@
 }
 
 .listingsHeader {
-    margin: 50px 250px 0px 200px;
+    margin: 50px 300px 0px 150px;
+    
+    padding: 50px 50px;
+    border-style: hidden;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
+}
+
+.jobListingsHeader {
+    margin: 50px 300px 0px 250px;
     
     padding: 50px 50px;
     border-style: hidden;
@@ -34,4 +44,9 @@
 
 .listingTitle {
     font-size: 48px;
+}
+
+.myListingTitle {
+    font-size: 48px;
+    padding-bottom: 20px;
 }

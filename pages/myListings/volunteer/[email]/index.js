@@ -1,14 +1,15 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Segment } from 'semantic-ui-react';
+import myListingStyle from '../../../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 
 const Test1 = ({user, listings}) => {
 
     console.log(listings);
     return(
-        <div>
-            <h1> {user.firstName}'s Listings</h1>    
-        <Segment>
+        <div className={myListingStyle.listingsHeader}>
+            <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
+        <Segment color='violet'>
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>

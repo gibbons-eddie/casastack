@@ -1,6 +1,7 @@
 import { Segment, Label, Header, Icon, Button } from "semantic-ui-react";
 import Link from 'next/link';
 import accountPageStyles from '../accountPage/accountPageStyles/accountPage.module.css';
+import formatDate from '../../utils/formatDate'
 
 function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, createdAt}) { // call individual elements of user to use them for all kinds of things !
     const isRoot = role === 'root';
@@ -10,7 +11,7 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
 
     return (
         <div className={accountPageStyles.accountForm}>
-            <Segment secondary inverted color ='blue'>
+            <Segment secondary inverted color='violet'>
                 <Label
                 size='large'
                 ribbon
@@ -26,7 +27,7 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
                     <Header.Subheader>{email}</Header.Subheader>
                     <Header.Subheader>{phoneNumber}</Header.Subheader>
                     <Header.Subheader>{address}</Header.Subheader>
-                    <Header.Subheader>Joined {createdAt}</Header.Subheader>
+                    <Header.Subheader>Joined {formatDate(createdAt)}</Header.Subheader>
                 </Header>
             </Segment>
 
