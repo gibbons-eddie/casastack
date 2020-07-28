@@ -7,7 +7,7 @@ const Test = ({user, listings}) => {
     console.log(listings);
     return(
         <div className={myListingStyle.listingsHeader}>
-            <div className={jobListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
+            <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
                 <Link href="/new">
                     <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
                         content='Create Listing'
