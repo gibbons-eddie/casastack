@@ -6,7 +6,7 @@ const listingSchema = new mongoose.Schema({
     required: true,
   },
   status: {
-    type: String,
+    type: String, // open, closed
     required: true,
   },
   location: {

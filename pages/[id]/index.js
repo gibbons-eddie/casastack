@@ -156,7 +156,7 @@ const Listing = ({ user, listing }) => {
           <Segment>
             <p>Job status: {listing.status}</p>
             {listing.service == 'delivery' ? (
-              <p>Location: {listing.location}</p>
+              <p>Store location: {listing.location}</p>
             ) : null}
 
             <p>Description: {listing.description}</p>

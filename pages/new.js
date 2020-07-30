@@ -12,16 +12,21 @@ const NewListing = ({ user }) => {
     { key: 's', text: 'Service', value: 'service' },
   ];
 
-  // To hide store location address input if the listing type is "service"
-  const [seeLocationInput, setSeeLocationInput] = useState(true);
-  const [form, setForm] = useState({
+  // set status=open by default
+  const setDefaultState = (x) => {
+    return x;
+  };
+  const defaultState = {
     service: '',
-    status: '',
+    status: 'open', // status of listing is open by default
     location: '',
     description: '',
     owner: '',
     acceptor: '',
-  });
+  };
+  const [form, setForm] = useState(setDefaultState(defaultState));
+  // To hide store location address field if the listing type is "service"
+  const [seeLocationInput, setSeeLocationInput] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const router = useRouter();
@@ -78,7 +83,7 @@ const NewListing = ({ user }) => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleStatus = (event, result) => {
+  const handleStoreStatus = (event, result) => {
     // for selecting listing type in dropdown
     const { name, value } = result;
     setForm({ ...form, [name]: value });
@@ -95,7 +100,7 @@ const NewListing = ({ user }) => {
     if (!form.status) {
       err.status = 'Status is required';
     }
-    if (!form.location) {
+    if (!form.location && seeLocationInput) {
       err.location = 'Location is required';
     }
     if (!form.description) {
@@ -124,20 +129,8 @@ const NewListing = ({ user }) => {
               placeholder='type'
               label='Select a type of listing'
               name='service'
-              onChange={handleStatus}
+              onChange={handleStoreStatus}
               selection
-            />
-            <Form.Input
-              fluid
-              error={
-                errors.status
-                  ? { content: 'Please enter a status', pointing: 'below' }
-                  : null
-              }
-              label='Status'
-              placeholder='Status'
-              name='status'
-              onChange={handleChange}
             />
             {seeLocationInput ? (
               <Form.Input
