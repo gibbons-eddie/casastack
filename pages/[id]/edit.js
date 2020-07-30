@@ -5,6 +5,7 @@ import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'; 
 import cookie from 'js-cookie';
+import baseURL from '../../utils/baseURL';
 
 const EditListing = ({ listing }) => {
     const [form, setForm] = useState({ service: listing.service, status: listing.status, location: listing.location, description: listing.description });
@@ -36,7 +37,7 @@ const EditListing = ({ listing }) => {
                 //console.log(json.acceptor);
                 // CONSOLE TESTING-----------------------------------------------
             }
-            const res = await fetch(`http://localhost:3000/api/listings/${router.query.id}`, {
+            const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
                     "Accept": "application/json",
@@ -136,7 +137,7 @@ const EditListing = ({ listing }) => {
 }
 
 EditListing.getInitialProps = async ({ query: { id } }) => {
-    const res = await fetch(`http://localhost:3000/api/listings/${id}`);
+    const res = await fetch(`${baseURL}/api/listings/${id}`);
     const { data } = await res.json();
 
     return { listing: data }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Segment } from 'semantic-ui-react';
+import baseURL from '../../utils/baseURL';
 
 const Test1 = ({user, listings}) => {
 
@@ -66,7 +67,7 @@ const Test1 = ({user, listings}) => {
 }
 
 Test1.getInitialProps = async ( {query: {email} } ) => {
-    const res = await fetch(`http://localhost:3000/api/profile/${email}`);
+    const res = await fetch(`${baseURL}/api/profile/${email}`);
     const { data } = await res.json();
 
     return { listings: data }

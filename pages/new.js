@@ -5,6 +5,7 @@ import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import cookie from 'js-cookie';
+import baseURL from '../utils/baseURL';
 
 const NewListing = ({ user }) => {
   const [form, setForm] = useState({
@@ -45,7 +46,7 @@ const NewListing = ({ user }) => {
         // Add owner's address to listing object
         json.ownerAddress = user.address;
       }
-      const res = await fetch('http://localhost:3000/api/listings', {
+      const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

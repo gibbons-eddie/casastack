@@ -2,6 +2,7 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import baseURL from '../utils/baseURL';
 
 const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
@@ -68,7 +69,7 @@ const joblistings1 = ({ listings, user }) => {
 }
 
 joblistings1.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/listings');
+    const res = await fetch(`${baseURL}/api/listings`);
     const { data } = await res.json();
 
     return { listings: data }

@@ -6,6 +6,7 @@ import Layout from '../components/homePage/Layout';
 import { parseCookies, destroyCookie } from 'nookies';
 import { redirectUser } from '../utils/auth';
 import axios from 'axios';
+import baseURL from '../utils/baseURL';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -25,7 +26,7 @@ class MyApp extends App {
      } else {
        try {
           const payload = { headers: { Authorization: token } }; // with a token provided, we need to make a GET request with an authorization header
-          const url = `http://localhost:3000/api/accountAPI`;
+          const url = `${baseURL}/api/accountAPI`;
           const response = await axios.get(url, payload);
           const user = response.data;
           

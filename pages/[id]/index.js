@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import Map from '../../components/maps/Map';
+import baseURL from '../../utils/baseURL';
 
 const Listing = ({ user, listing }) => {
   const [confirm, setConfirm] = useState(false);
@@ -31,7 +32,7 @@ const Listing = ({ user, listing }) => {
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
       const res = await fetch(
-        `http://localhost:3000/api/listings/${router.query.id}`,
+        `${baseURL}/api/listings/${router.query.id}`,
         {
           method: 'PUT',
           headers: {
@@ -60,7 +61,7 @@ const Listing = ({ user, listing }) => {
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
       const res = await fetch(
-        `http://localhost:3000/api/listings/${router.query.id}`,
+        `${baseURL}/api/listings/${router.query.id}`,
         {
           method: 'PUT',
           headers: {
@@ -91,7 +92,7 @@ const Listing = ({ user, listing }) => {
         // CONSOLE TESTING-----------------------------------------------
       }
       const res = await fetch(
-        `http://localhost:3000/api/listings/${router.query.id}`,
+        `${baseURL}/api/listings/${router.query.id}`,
         {
           method: 'PUT',
           headers: {
@@ -111,7 +112,7 @@ const Listing = ({ user, listing }) => {
     const listingId = router.query.id;
     try {
       const deleted = await fetch(
-        `http://localhost:3000/api/listings/${listingId}`,
+        `${baseURL}/api/listings/${listingId}`,
         {
           method: 'Delete',
         }
@@ -201,7 +202,7 @@ const Listing = ({ user, listing }) => {
 };
 
 Listing.getInitialProps = async ({ query: { id } }) => {
-  const res = await fetch(`http://localhost:3000/api/listings/${id}`);
+  const res = await fetch(`${baseURL}/api/listings/${id}`);
   const { data } = await res.json();
 
   return { listing: data };

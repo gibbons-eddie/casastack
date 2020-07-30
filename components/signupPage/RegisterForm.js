@@ -4,6 +4,7 @@ import registerFormStyle from './signUpStyles/RegisterForm.module.css'
 import errorCatcher from '../../utils/errorCatcher';
 import axios from 'axios';
 import { handleLogin } from '../../utils/auth'
+import baseURL from '../../utils/baseURL';
 
 const initializeUser = {
     role: "",
@@ -53,7 +54,7 @@ function Register()
             // console.log(user) // testing to see if array passes throught (it does !)
 
             /* USER TO DATABASE */
-            const url = `http://localhost:3000/api/signupAPI`;
+            const url = `${baseURL}/api/signupAPI`;
             const payload = {...newUser}; // all data in 'user'
             const response = await axios.post(url, payload); // axios doing all the work
             handleLogin(response.data); // token and cookie initialization
