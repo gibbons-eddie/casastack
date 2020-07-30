@@ -30,7 +30,11 @@ const joblistings1 = ({ listings, user }) => {
                                 <Card.Header>
 
                                     <Link href={`/${listing._id}`}>
-                                        <h1>{listing.service}</h1>
+                                        <h1>{listing.status}</h1>
+                                    </Link>
+
+                                    <Link href={`/${listing._id}`}>
+                                        <h2>{listing.service}</h2>
                                     </Link>
                                     
                                 </Card.Header>
