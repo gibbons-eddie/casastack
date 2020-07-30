@@ -7,6 +7,13 @@ import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/
 import cookie from 'js-cookie';
 
 const NewListing = ({ user }) => {
+  const listingOptions = [
+    { key: 'd', text: 'Delivery', value: 'delivery' },
+    { key: 's', text: 'Service', value: 'service' },
+  ];
+
+  // To hide store location address input if the listing type is "service"
+  const [seeLocationInput, setSeeLocationInput] = useState(true);
   const [form, setForm] = useState({
     service: '',
     status: '',
@@ -71,11 +78,19 @@ const NewListing = ({ user }) => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleStatus = (event, result) => {
+    // for selecting listing type in dropdown
+    const { name, value } = result;
+    setForm({ ...form, [name]: value });
+
+    // set state for store location input field. hide if listing is a service
+    value == 'service' ? setSeeLocationInput(false) : setSeeLocationInput(true);
+  };
 
   const validate = () => {
     let err = {};
     if (!form.service) {
-      err.service = 'Service is required';
+      err.service = 'Listing type is required';
     }
     if (!form.status) {
       err.status = 'Status is required';
@@ -98,17 +113,19 @@ const NewListing = ({ user }) => {
           <Loader active inline='centered' />
         ) : (
           <Form onSubmit={handleSubmit}>
-            <Form.Input
+            <Form.Dropdown
               fluid
               error={
                 errors.service
-                  ? { content: 'Please enter a service', pointing: 'below' }
+                  ? { content: 'Please select a service', pointing: 'below' }
                   : null
               }
-              label='Service'
-              placeholder='Service'
+              options={listingOptions}
+              placeholder='type'
+              label='Select a type of listing'
               name='service'
-              onChange={handleChange}
+              onChange={handleStatus}
+              selection
             />
             <Form.Input
               fluid
@@ -122,18 +139,21 @@ const NewListing = ({ user }) => {
               name='status'
               onChange={handleChange}
             />
-            <Form.Input
-              fluid
-              error={
-                errors.location
-                  ? { content: 'Please enter a location', pointing: 'below' }
-                  : null
-              }
-              label='Location'
-              placeholder='Store Name'
-              name='location'
-              onChange={handleChange}
-            />
+            {seeLocationInput ? (
+              <Form.Input
+                fluid
+                error={
+                  errors.location
+                    ? { content: 'Please enter a location', pointing: 'below' }
+                    : null
+                }
+                label='Location'
+                placeholder='Store Name'
+                name='location'
+                onChange={handleChange}
+              />
+            ) : null}
+
             <Form.TextArea
               fluid
               label='Description'

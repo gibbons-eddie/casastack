@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const listingSchema = new mongoose.Schema({
   service: {
-    type: String,
+    type: String, // listing type
     required: true,
   },
   status: {
@@ -10,7 +10,7 @@ const listingSchema = new mongoose.Schema({
     required: true,
   },
   location: {
-    type: String,
+    type: String, // store location, only for deliveries
   },
   description: {
     type: String,

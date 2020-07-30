@@ -131,7 +131,7 @@ const Listing = ({ user, listing }) => {
   const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
   var isAcceptor = false;
-  if ((listing.acceptor === user.email)) {
+  if (listing.acceptor === user.email) {
     isAcceptor = true;
   }
   var isOwner = false;
@@ -152,10 +152,13 @@ const Listing = ({ user, listing }) => {
         <Loader active />
       ) : (
         <>
-          <h1>Service: {listing.service}</h1>
+          <h1>{listing.service}</h1>
           <Segment>
             <p>Job status: {listing.status}</p>
-            <p>Location: {listing.location}</p>
+            {listing.service == 'delivery' ? (
+              <p>Location: {listing.location}</p>
+            ) : null}
+
             <p>Description: {listing.description}</p>
             <Map
               listingObj={listing}
