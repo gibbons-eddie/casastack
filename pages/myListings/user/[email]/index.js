@@ -2,6 +2,7 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Segment } from 'semantic-ui-react';
 import myListingStyle from '../../../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import baseURL from '../../../../utils/baseURL';
 
 const Test = ({user, listings}) => {
     console.log(listings);
@@ -66,7 +67,7 @@ const Test = ({user, listings}) => {
 }
 
 Test.getInitialProps = async ( {query: {email} } ) => {
-    const res = await fetch(`http://localhost:3000/api/myListingsUser/${email}`);
+    const res = await fetch(`${baseURL}/api/myListingsUser/${email}`);
     const { data } = await res.json();
 
     return { listings: data }
