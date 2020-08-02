@@ -2,8 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Form, Segment, Container} from 'semantic-ui-react';
-import accountButtonStyles from '../accountPage/accountPageStyles/accountPage.module.css'
-
+import accountButtonStyles from '../accountPage/accountPageStyles/accountPage.module.css';
 
 const ViewListing = (props) => {
     if (props.role ==="user") {

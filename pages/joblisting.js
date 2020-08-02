@@ -1,46 +1,50 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card} from 'semantic-ui-react';
-import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import { Button, Card } from 'semantic-ui-react';
+import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../utils/baseURL';
 
 const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-    
-    return(
+
+    return (
 
         <div className={jobListingStyle.jobListingsHeader}>
 
             <div className={jobListingStyle.listingTitle}>
-            Listings 
+                Listings
             </div>
-            
-                <br></br>
-                <br></br>
 
-        <div className="grid wrapper">
+            <br></br>
+            <br></br>
 
-            {listings.map(listing => {
-                return (
-                    <div key={listing._id}>
-                        <Card>
-                            <Card.Content>
-                                <Card.Header>
+            <div className="grid wrapper">
 
-                                    <Link href={`/${listing._id}`}>
-                                        <h1>{listing.status}</h1>
-                                    </Link>
+                {listings.map(listing => {
+                    return (
+                        <div key={listing._id}>
+                            <Card>
+                                <Card.Content>
+                                    <Card.Header>
 
-                                    <Link href={`/${listing._id}`}>
-                                        <h2>{listing.service}</h2>
-                                    </Link>
-                                    
-                                </Card.Header>
-                            </Card.Content>
+                                        <Link href={`/${listing._id}`}>
+                                            <h1>Status: {listing.status}</h1>
+                                        </Link>
 
-                            <Card.Content extra>
+                                        <Link href={`/${listing._id}`}>
+                                            <h2>Type: {listing.service}</h2>
+                                        </Link>
+
+                                        <Link href={`/${listing._id}`}>
+                                            <h4>Description: {listing.description}</h4>
+                                        </Link>
+
+                                    </Card.Header>
+                                </Card.Content>
+
+                                <Card.Content extra>
                                     <div>
                                         <Button className="card-button" primary size="small">
                                             <Link href={`/${listing._id}`}>
@@ -55,21 +59,21 @@ const joblistings1 = ({ listings, user }) => {
                                             </Link>
                                         </Button>)}
                                     </div>
-                                    
-                                    
-                            
 
-                            </Card.Content>
-                        </Card>
-                    </div>
-                )
-            })}
-        
-            
-        </div>
+
+
+
+                                </Card.Content>
+                            </Card>
+                        </div>
+                    )
+                })}
+
+
+            </div>
         </div>
     )
-    
+
 }
 
 joblistings1.getInitialProps = async () => {
