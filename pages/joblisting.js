@@ -66,21 +66,20 @@ const joblistings1 = ({ listings, user }) => {
                                 </Card.Content>
                             </Card>
                         </div>
-                    )
+                    );
                 })}
 
 
             </div>
         </div>
-    )
-
-}
+    );
+};
 
 joblistings1.getInitialProps = async () => {
     const res = await fetch(`${baseURL}/api/listings`);
     const { data } = await res.json();
 
-    return { listings: data }
-}
+    return { listings: data };
+};
 
 export default joblistings1;
