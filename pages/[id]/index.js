@@ -50,7 +50,7 @@ const Listing = ({ user, listing }) => {
 
   const drop = async () => {
     try {
-      //comments so people can understand - by Joseph //if no userToken exists in the cookies then this should return undefined -> false
+      //comments so people can understand - by Joseph //if no token exists in the cookies then this should return undefined -> false
       //this is whatever they input into the edit form (as a json object)
       var json = listing;
       //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
@@ -81,7 +81,7 @@ const Listing = ({ user, listing }) => {
     try {
       //comments so people can understand - by Joseph
       if (true) {
-        //if no userToken exists in the cookies then this should return undefined -> false
+        //if no token exists in the cookies then this should return undefined -> false
         //this is whatever they input into the edit form (as a json object)
         var json = listing;
         //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
@@ -158,6 +158,7 @@ const Listing = ({ user, listing }) => {
             <p>Job status: {listing.status}</p>
             <p>Location: {listing.location}</p>
             <p>Description: {listing.description}</p>
+            <p>Price: ${listing.price}</p>
             <Map
               listingObj={listing}
               //customerAddress={temporaryCustomerAddress}

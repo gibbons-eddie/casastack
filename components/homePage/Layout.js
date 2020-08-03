@@ -13,7 +13,7 @@ function Layout ({children, user}) {
   return (
   // page overlay, including header and side nav bar
   <div className={homeStyles.Layout}>
-    <Head>
+    <Head stackable>
       <title>casastack</title>
       <meta charSet="utf-8"/>
     </Head>
@@ -27,6 +27,7 @@ function Layout ({children, user}) {
         visible
         width="thin"
         position='fixed'
+        stackable
     >
         
         <Link href="/">
