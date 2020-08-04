@@ -26,17 +26,7 @@ const EditListing = ({ listing }) => {
 
     const updateListing = async () => {
         try {
-            //comments so people can understand - by Joseph
-            if (cookie.get('userToken')){ //if no userToken exists in the cookies then this should return undefined -> false
-                //this is whatever they input into the edit form (as a json object)
-                var json = form; 
-                //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
-                json.acceptor = (JSON.parse(cookie.get('userToken')).user.email);
-                // CONSOLE TESTING-----------------------------------------------
-                //console.log(JSON.stringify(json));
-                //console.log(json.acceptor);
-                // CONSOLE TESTING-----------------------------------------------
-            }
+            var json = form;
             const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
