@@ -9,9 +9,9 @@ import baseURL from '../../utils/baseURL';
 
 const EditListing = ({ listing }) => {
   const [form, setForm] = useState({
-    service: listing.service,
-    status: listing.status,
-    location: listing.location,
+    // service: listing.service,
+    // status: listing.status,
+    // location: listing.location,
     description: listing.description,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -74,15 +74,15 @@ const EditListing = ({ listing }) => {
   const validate = () => {
     let err = {};
 
-    if (!form.service) {
-      err.service = 'Service is required';
-    }
-    if (!form.status) {
-      err.status = 'Status is required';
-    }
-    if (!form.location) {
-      err.location = 'Location is required';
-    }
+    // if (!form.service) {
+    //   err.service = 'Service is required';
+    // }
+    // if (!form.status) {
+    //   err.status = 'Status is required';
+    // }
+    // if (!form.location) {
+    //   err.location = 'Location is required';
+    // }
     if (!form.description) {
       err.description = 'Description is required';
     }
@@ -93,12 +93,23 @@ const EditListing = ({ listing }) => {
   return (
     <div className={newListingStyle.newLayout}>
       <h1>Update Listing</h1>
+      <p>
+        Listing type: <b>{listing.service}</b>
+      </p>
+      <p>
+        Status: <b>{listing.status}</b>
+      </p>
+      {listing.service === 'delivery' ? (
+        <p>
+          Store location: <b>{listing.location}</b>
+        </p>
+      ) : null}
       <div>
         {isSubmitting ? (
           <Loader active inline='centered' />
         ) : (
           <Form onSubmit={handleSubmit}>
-            <Form.Input
+            {/* <Form.Input
               fluid
               error={
                 errors.service
@@ -110,8 +121,8 @@ const EditListing = ({ listing }) => {
               name='service'
               value={form.service}
               onChange={handleChange}
-            />
-            <Form.Input
+            /> */}
+            {/* <Form.Input
               fluid
               error={
                 errors.status
@@ -123,8 +134,8 @@ const EditListing = ({ listing }) => {
               name='status'
               value={form.status}
               onChange={handleChange}
-            />
-            <Form.Input
+            /> */}
+            {/* <Form.Input
               fluid
               error={
                 errors.location
@@ -136,10 +147,10 @@ const EditListing = ({ listing }) => {
               name='location'
               value={form.location}
               onChange={handleChange}
-            />
+            /> */}
             <Form.TextArea
               fluid
-              label='Descriprtion'
+              label='Description'
               placeholder='Description'
               name='description'
               error={

@@ -31,17 +31,14 @@ const Listing = ({ user, listing }) => {
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -60,17 +57,14 @@ const Listing = ({ user, listing }) => {
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -91,17 +85,14 @@ const Listing = ({ user, listing }) => {
         console.log(json.acceptor);
         // CONSOLE TESTING-----------------------------------------------
       }
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -111,12 +102,9 @@ const Listing = ({ user, listing }) => {
   const deleteListing = async () => {
     const listingId = router.query.id;
     try {
-      const deleted = await fetch(
-        `${baseURL}/api/listings/${listingId}`,
-        {
-          method: 'Delete',
-        }
-      );
+      const deleted = await fetch(`${baseURL}/api/listings/${listingId}`, {
+        method: 'Delete',
+      });
 
       router.push('/');
     } catch (error) {
@@ -155,12 +143,18 @@ const Listing = ({ user, listing }) => {
         <>
           <h1>{listing.service}</h1>
           <Segment>
-            <p>Job status: {listing.status}</p>
+            <p>
+              Job status: <b>{listing.status}</b>
+            </p>
             {listing.service == 'delivery' ? (
-              <p>Store location: {listing.location}</p>
+              <p>
+                Store location: <b>{listing.location}</b>
+              </p>
             ) : null}
 
-            <p>Description: {listing.description}</p>
+            <p>
+              Description: <b>{listing.description}</b>
+            </p>
             <Map
               listingObj={listing}
               //customerAddress={temporaryCustomerAddress}
