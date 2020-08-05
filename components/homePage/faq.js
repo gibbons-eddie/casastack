@@ -8,7 +8,9 @@ function Faq() {
       <Header size='huge' textAlign='center'>
         Welcome to Casastack!
       </Header>
-
+      <Header size='large' textAlign='center'>
+        FAQ
+      </Header>
       <Segment floated='left'>
         <Header as='h2'>Create a listing</Header>
         <p>
