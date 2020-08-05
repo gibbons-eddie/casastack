@@ -5,7 +5,7 @@ import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import Map from '../../components/maps/Map';
 import baseURL from '../../utils/baseURL';
-import Link from 'next/link';
+import calculateTotal from '../../utils/calculateTotal';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import catchErrors from '../../utils/errorCatcher';
@@ -225,9 +225,9 @@ const Listing = ({ user, listing }) => {
             {!isCompleted && isOwner && isAccepted ? (
               // <Checkout {...listing}/>
               <StripeCheckout
-                name='Pay for'
-                description={listing.service}
-                amount={listing.price}
+                name={listing.service}
+                description='CasaStack'
+                amount={calculateTotal(listing.price)}
                 currency='USD'
                 shippingAddress={true}
                 billingAddress={true}

@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
+import calculateTotal from '../../utils/calculateTotal';
 import Listing from '../../models/Listing';
 import Order from '../../models/Order';
 
@@ -30,11 +31,12 @@ export default async (req, res) => {
         const customer = (isPrevCustomer && prevCustomer.data[0].id) || newCustomer.id; // save existing customer's id into 'customer' variable if they already have an account
                                                                                         // else save the new customer's id
         
-        const listingInfo = await Listing.findOne({owner: paymentData.email}) // for security purposes: get price on database is safer getting it on the client side
+        const listingInfo = await Listing.findOne({owner: paymentData.email}); // for security purposes: get price on database is safer getting it on the client side
+        const stripeTotal = calculateTotal(listingInfo.price);
         // final charge, send email receipt
         const charge = await stripe.charges.create({
             currency: 'usd',
-            amount: listingInfo.price,
+            amount: stripeTotal,
             receipt_email: paymentData.email,
             customer,
             description: `Checkout | ${paymentData.email} | ${paymentData.id}`
