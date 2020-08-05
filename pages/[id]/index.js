@@ -5,10 +5,17 @@ import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import Map from '../../components/maps/Map';
 import baseURL from '../../utils/baseURL';
+import Link from 'next/link';
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
+import catchErrors from '../../utils/errorCatcher';
+import cookie from 'js-cookie';
 
 const Listing = ({ user, listing }) => {
   const [confirm, setConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [success, setSuccess] = useState(false); // for checkout
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -129,7 +136,7 @@ const Listing = ({ user, listing }) => {
     close();
   };
 
-  const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
+  // const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
   var isAcceptor = false;
   if ((listing.acceptor === user.email)) {
@@ -144,8 +151,29 @@ const Listing = ({ user, listing }) => {
   if (listing.status === 'completed') {
     isCompleted = true;
   }
-  console.log(isCompleted);
-  console.log(isAcceptor);
+
+  var isAccepted = false;
+  if (listing.status === 'accepted') {
+    isAccepted = true;
+  }
+  // console.log(isCompleted);
+  // console.log(isAcceptor);
+
+  async function handleCheckout(paymentData) {
+    try {
+      setLoading(true);
+      const url = `${baseURL}/api/checkoutAPI`;
+      const token = cookie.get('token');
+      const payload = {paymentData};
+      const headers = {headers: {Authorization: token}};
+      await axios.post(url, payload, headers);
+      setSuccess(true);
+    } catch (error) {
+      catchErrors(error, window.alert);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className={newListingStyle.newLayout}>
@@ -155,10 +183,10 @@ const Listing = ({ user, listing }) => {
         <>
           <h1>Service: {listing.service}</h1>
           <Segment>
-            <p>Job status: {listing.status}</p>
-            <p>Location: {listing.location}</p>
-            <p>Description: {listing.description}</p>
-            <p>Price: ${listing.price}</p>
+            <p><strong>Job status:</strong> {listing.status}</p>
+            <p><strong>Location:</strong> {listing.location}</p>
+            <p><strong>Description:</strong> {listing.description}</p>
+            <p><strong>Price:</strong> ${listing.price}</p>
             <Map
               listingObj={listing}
               //customerAddress={temporaryCustomerAddress}
@@ -166,31 +194,51 @@ const Listing = ({ user, listing }) => {
             />
 
             <br></br>
-            {isOwner ? (
-              <Button color='red' onClick={open}>
+            {isOwner && !isAccepted ? (
+              <Button color='red' onClick={open} style={{fontFamily: 'Montserrat'}}>
                 Delete
               </Button>
             ) : (
               <div></div>
             )}
-            {isAcceptor ? (
+            {isAcceptor || isOwner ? (
               <div></div>
             ) : (
-              <Button color='green' onClick={openAccept}>
+              <Button color='green' onClick={openAccept} style={{fontFamily: 'Montserrat'}}>
                 Accept
               </Button>
             )}
             {isAcceptor ? (
-              <Button color='red' onClick={drop}>
+              <Button color='red' onClick={drop} style={{fontFamily: 'Montserrat'}}>
                 Drop
               </Button>
             ) : (
               <div></div>
             )}
             {!isCompleted && isAcceptor ? (
-              <Button color='green' onClick={complete}>
+              <Button color='green' onClick={complete} style={{fontFamily: 'Montserrat'}}>
                 Complete
               </Button>
+            ) : (
+              <div></div>
+            )}
+            {!isCompleted && isOwner && isAccepted ? (
+              // <Checkout {...listing}/>
+              <StripeCheckout
+                name='Pay for'
+                description={listing.service}
+                amount={listing.price}
+                currency='USD'
+                shippingAddress={true}
+                billingAddress={true}
+                zipCode={true}
+                token={handleCheckout}
+                stripeKey='pk_test_51HCSooLmX91vqtCStqJ5fm1FmJ8n01j4rK64f3S7txpXe0Qp01u60bBQuHoyglckPLcW8tb6zpQSJ4ErBgBc8hyc00MvrbrWGj'
+                triggerEvent='onClick'
+                style={{fontFamily: 'Montserrat'}}
+              >
+                <Button color='violet' content='Pay' style={{fontFamily: 'Montserrat'}}/>
+              </StripeCheckout>
             ) : (
               <div></div>
             )}
