@@ -37,28 +37,84 @@ class Map extends React.Component {
         lng: 0,
       },
       directions: null,
+      showOnePin: false,
     };
   }
 
   componentDidMount() {
-    // get coordinates of the store address
-    Geocode.fromAddress(this.props.listingObj.location).then(
-      (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        this.setState({
-          storeMarker: {
-            name: 'Store',
-            id: 1,
-            address: this.props.listingObj.location,
-            lat: lat,
-            lng: lng,
+    // If service is a delivery, get store and customer coordinates
+    // listing status and logged in user role does not matter
+    if (this.props.listingObj.service === 'delivery') {
+      // get coordinates of the store address
+      Geocode.fromAddress(this.props.listingObj.location).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          this.setState({
+            storeMarker: {
+              name: 'Store',
+              id: 1,
+              address: this.props.listingObj.location,
+              lat: lat,
+              lng: lng,
+            },
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      // If listing is a service, check listing status
+      if (this.props.listingObj.status === 'open') {
+        // if this listing is OPEN, check the role of the user
+        if (this.props.user.role === 'volunteer') {
+          // if a volunteer is logged in, show 2 pins: volunteer's address (user.address) and customer's address
+          // so the volunteer can visualize their potential route (volunteer has not accepted this listing yet)
+          Geocode.fromAddress(this.props.user.address).then(
+            (response) => {
+              const { lat, lng } = response.results[0].geometry.location;
+              this.setState({
+                storeMarker: {
+                  name: 'You (volunteer)',
+                  id: 1,
+                  address: this.props.user.address,
+                  lat: lat,
+                  lng: lng,
+                },
+              });
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        } else {
+          // if a customer/admin/root is logged in, show 1 pin: customer's address
+          // because no volunteer has accepted this listing (service) yet
+          this.setState({ showOnePin: true });
+        }
+      } else if (this.props.listingObj.status === 'accepted') {
+        // if this listing is ACCEPTED, logged in user role does not matter
+        // Show 2 pins: listing obj's location and customer's address
+        Geocode.fromAddress(this.props.listingObj.location).then(
+          (response) => {
+            const { lat, lng } = response.results[0].geometry.location;
+            this.setState({
+              storeMarker: {
+                name: 'Volunteer',
+                id: 1,
+                address: this.props.listingObj.location,
+                lat: lat,
+                lng: lng,
+              },
+            });
           },
-        });
-      },
-      (error) => {
-        console.log(error);
+          (error) => {
+            console.log(error);
+          }
+        );
       }
-    );
+    }
+    /////////////////////////////// keep code below
 
     // get coordinates of the customer address
     Geocode.fromAddress(this.props.listingObj.ownerAddress).then(
@@ -115,31 +171,49 @@ class Map extends React.Component {
             lng: this.state.storeMarker.lng,
           }}
         >
-          {markers.map((marker) => (
+          {this.state.showOnePin ? (
             <Marker
-              key={marker.id}
-              position={{ lat: marker.lat, lng: marker.lng }}
+              key={this.state.customerMarker.id}
+              position={{
+                lat: this.state.customerMarker.lat,
+                lng: this.state.customerMarker.lng,
+              }}
             >
               <InfoWindow>
                 <div>
-                  <p>{marker.name}</p>
-                  <p>{marker.address}</p>
+                  <p>{this.state.customerMarker.name}</p>
+                  <p>{this.state.customerMarker.address}</p>
                 </div>
               </InfoWindow>
             </Marker>
-          ))}
-
-          <MyDirectionsRenderer
-            origin={{
-              lat: this.state.storeMarker.lat,
-              lng: this.state.storeMarker.lng,
-            }}
-            destination={{
-              lat: this.state.customerMarker.lat,
-              lng: this.state.customerMarker.lng,
-            }}
-            travelMode={google.maps.TravelMode.DRIVING}
-          />
+          ) : (
+            <>
+              {markers.map((marker) => (
+                <Marker
+                  key={marker.id}
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                >
+                  <InfoWindow>
+                    <div>
+                      <p>{marker.name}</p>
+                      <p>{marker.address}</p>
+                    </div>
+                  </InfoWindow>
+                </Marker>
+              ))}
+              <MyDirectionsRenderer
+                origin={{
+                  lat: this.state.storeMarker.lat,
+                  lng: this.state.storeMarker.lng,
+                }}
+                destination={{
+                  lat: this.state.customerMarker.lat,
+                  lng: this.state.customerMarker.lng,
+                }}
+                travelMode={google.maps.TravelMode.DRIVING}
+              />
+            </>
+          )}
         </GoogleMap>
       ))
     );
@@ -156,10 +230,10 @@ class Map extends React.Component {
 
     return (
       <div>
-        <div>
+        {/* <div>
           Distance between you and the nearest hardware store is{' '}
-          {Math.round(distance() * 100) / 100} miles.
-        </div>
+          //{Math.round(distance() * 100) / 100} miles.
+        </div> */}
         <MapWithAMarker
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
           loadingElement={<div style={{ height: `100%` }} />}

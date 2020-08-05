@@ -9,9 +9,6 @@ import baseURL from '../../utils/baseURL';
 
 const EditListing = ({ listing }) => {
   const [form, setForm] = useState({
-    // service: listing.service,
-    // status: listing.status,
-    // location: listing.location,
     description: listing.description,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -61,16 +58,6 @@ const EditListing = ({ listing }) => {
 
   const validate = () => {
     let err = {};
-
-    // if (!form.service) {
-    //   err.service = 'Service is required';
-    // }
-    // if (!form.status) {
-    //   err.status = 'Status is required';
-    // }
-    // if (!form.location) {
-    //   err.location = 'Location is required';
-    // }
     if (!form.description) {
       err.description = 'Description is required';
     }
@@ -97,45 +84,6 @@ const EditListing = ({ listing }) => {
           <Loader active inline='centered' />
         ) : (
           <Form onSubmit={handleSubmit}>
-            {/* <Form.Input
-              fluid
-              error={
-                errors.service
-                  ? { content: 'Please enter a service', pointing: 'below' }
-                  : null
-              }
-              label='Service'
-              placeholder='Service'
-              name='service'
-              value={form.service}
-              onChange={handleChange}
-            /> */}
-            {/* <Form.Input
-              fluid
-              error={
-                errors.status
-                  ? { content: 'Please enter a status', pointing: 'below' }
-                  : null
-              }
-              label='Status'
-              placeholder='Status'
-              name='status'
-              value={form.status}
-              onChange={handleChange}
-            /> */}
-            {/* <Form.Input
-              fluid
-              error={
-                errors.location
-                  ? { content: 'Please enter a location', pointing: 'below' }
-                  : null
-              }
-              label='Location'
-              placeholder='Location'
-              name='location'
-              value={form.location}
-              onChange={handleChange}
-            /> */}
             <Form.TextArea
               fluid
               label='Description'

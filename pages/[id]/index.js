@@ -27,6 +27,9 @@ const Listing = ({ user, listing }) => {
       //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
       json.acceptor = user.email;
       json.status = 'accepted';
+      // If listing is a service, add the volunteer's address as listing's location
+      if (user.role === 'volunteer' && listing.service === 'service')
+        json.location = user.address;
       // CONSOLE TESTING-----------------------------------------------
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
@@ -159,8 +162,8 @@ const Listing = ({ user, listing }) => {
               listingObj={listing}
               //customerAddress={temporaryCustomerAddress}
               //storeAddress={listing.location}
+              user={user}
             />
-
             <br></br>
             {isOwner ? (
               <Button color='red' onClick={open}>

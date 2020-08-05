@@ -25,7 +25,7 @@ function MyDirectionsRenderer(props) {
   );
 
   // check
-  console.log('this function executed');
+  console.log('MyDirectionsRenderer executed');
 
   return (
     <React.Fragment>
