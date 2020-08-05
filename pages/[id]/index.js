@@ -156,18 +156,36 @@ const Listing = ({ user, listing }) => {
   if (listing.status === 'accepted') {
     isAccepted = true;
   }
+
+  var isPaid = false;
+  if (listing.status === 'paid') {
+    isPaid = true;
+  }
   // console.log(isCompleted);
   // console.log(isAcceptor);
 
   async function handleCheckout(paymentData) {
     try {
+      var json = listing;
       setLoading(true);
       const url = `${baseURL}/api/checkoutAPI`;
       const token = cookie.get('token');
-      const payload = {paymentData};
+      const payload = { paymentData, ...listing };
       const headers = {headers: {Authorization: token}};
       await axios.post(url, payload, headers);
       setSuccess(true);
+      json.status = 'paid';
+      const pay = await fetch(
+        `${baseURL}/api/listings/${router.query.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(json),
+        }
+      );
     } catch (error) {
       catchErrors(error, window.alert);
     } finally {
@@ -194,9 +212,9 @@ const Listing = ({ user, listing }) => {
             />
 
             <br></br>
-            {isOwner && !isAccepted ? (
+            {isOwner && !isAccepted && !isPaid ? (
               <Button color='red' onClick={open} style={{fontFamily: 'Montserrat'}}>
-                Delete
+                Close
               </Button>
             ) : (
               <div></div>
@@ -208,14 +226,14 @@ const Listing = ({ user, listing }) => {
                 Accept
               </Button>
             )}
-            {isAcceptor ? (
+            {isAcceptor && !isPaid ? (
               <Button color='red' onClick={drop} style={{fontFamily: 'Montserrat'}}>
                 Drop
               </Button>
             ) : (
               <div></div>
             )}
-            {!isCompleted && isAcceptor ? (
+            {!isCompleted && isAcceptor && isPaid ? (
               <Button color='green' onClick={complete} style={{fontFamily: 'Montserrat'}}>
                 Complete
               </Button>
@@ -237,8 +255,15 @@ const Listing = ({ user, listing }) => {
                 triggerEvent='onClick'
                 style={{fontFamily: 'Montserrat'}}
               >
-                <Button color='violet' content='Pay' style={{fontFamily: 'Montserrat'}}/>
+                <Button color='violet' content='Pay' disabled={success || isPaid} style={{fontFamily: 'Montserrat'}}/>
               </StripeCheckout>
+            ) : (
+              <div></div>
+            )}
+            { !isCompleted && isOwner && isPaid ? (
+              <Button color='violet' disabled style={{fontFamily: 'Montserrat'}}>
+                Paid!
+              </Button>
             ) : (
               <div></div>
             )}

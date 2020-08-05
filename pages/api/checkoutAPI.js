@@ -8,7 +8,7 @@ import Order from '../../models/Order';
 const stripe = Stripe(process.env.STRIPE_KEY);
 
 export default async (req, res) => {
-    const { paymentData } = req.body;
+    const { paymentData, service } = req.body;
 
     try {
         // verify user id from token
@@ -31,7 +31,7 @@ export default async (req, res) => {
         const customer = (isPrevCustomer && prevCustomer.data[0].id) || newCustomer.id; // save existing customer's id into 'customer' variable if they already have an account
                                                                                         // else save the new customer's id
         
-        const listingInfo = await Listing.findOne({owner: paymentData.email}); // for security purposes: get price on database is safer getting it on the client side
+        const listingInfo = await Listing.findOne({service: service}); // for security purposes: get price on database is safer getting it on the client side
         const stripeTotal = calculateTotal(listingInfo.price);
         // final charge, send email receipt
         const charge = await stripe.charges.create({
