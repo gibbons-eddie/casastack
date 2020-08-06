@@ -43,19 +43,9 @@ const NewListing = ({ user }) => {
         json.ownerAddress = user.address;
       }
       if (true) {
-        Geocode.fromAddress(user.address).then(
+        await Geocode.fromAddress(user.address).then(
           (response) => {
-            json.ownerCoords=response.results[0].geometry.location;
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-      if (true) {
-        Geocode.fromAddress(json.location).then(
-          (response) => {
-            json.locationCoords = response.results[0].geometry.location;
+            json.ownerCoords = {lat: response.results[0].geometry.location.lat, lng: response.results[0].geometry.location.lng};
           },
           (error) => {
             console.log(error);
@@ -63,6 +53,16 @@ const NewListing = ({ user }) => {
         );
       }
       console.log(json);
+      if (true) {
+        await Geocode.fromAddress(json.location).then(
+          (response) => {
+            json.locationCoords = {lat: response.results[0].geometry.location.lat, lng: response.results[0].geometry.location.lng}
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
       const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
         headers: {
