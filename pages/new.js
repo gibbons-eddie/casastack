@@ -4,8 +4,11 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
-import cookie from 'js-cookie';
 import baseURL from '../utils/baseURL';
+import Geocode from 'react-geocode';
+
+  
+Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 const NewListing = ({ user }) => {
   const [form, setForm] = useState({
@@ -18,6 +21,7 @@ const NewListing = ({ user }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [destination, setDestination] = useState();
   const router = useRouter();
 
   useEffect(() => {
@@ -34,18 +38,31 @@ const NewListing = ({ user }) => {
     try {
       var json = form;
       if (true) {
-        //if no userToken exists in the cookies then this should return undefined -> false
-        //this is whatever they input into the edit form (as a json object)
-        //this grabs the (hopefully) logged in user's email through cookies and sets the json's OWNER attribute to that email
         json.owner = user.email;
-        // CONSOLE TESTING-----------------------------------------------
-        console.log(JSON.stringify(json));
-        console.log(json.owner);
-        // CONSOLE TESTING-----------------------------------------------
-
         // Add owner's address to listing object
         json.ownerAddress = user.address;
       }
+      if (true) {
+        Geocode.fromAddress(user.address).then(
+          (response) => {
+            json.ownerCoords=response.results[0].geometry.location;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      if (true) {
+        Geocode.fromAddress(json.location).then(
+          (response) => {
+            json.locationCoords = response.results[0].geometry.location;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      console.log(json);
       const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
         headers: {
@@ -90,6 +107,7 @@ const NewListing = ({ user }) => {
 
     return err;
   };
+
 
   return (
     <div className={newListingStyle.newLayout}>

@@ -24,6 +24,12 @@ const listingSchema = new mongoose.Schema({
   ownerAddress: {
     type: String,
   },
+  locationCoords: {
+    lat: Number, lng: Number,
+  },
+  ownerCoords: {
+    lat: Number, lng: Number,
+  },
 });
 
 module.exports =
