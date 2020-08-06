@@ -8,18 +8,17 @@ function OrderHistory({orders}) {
         return orders.map(order => ({
             key: order._id,
             title: {
-                content: <Label color='violet' content={formatDate(order.createdAt)}/>
+                content: <>
+                        <Label color='violet' content={formatDate(order.createdAt)}/>
+                        <Label content={order.service}/>
+                        </>
             },
             content: {
                 content: (
                     <>
                         <List.Header as='h3'>
                             Price: ${order.price}
-                            <Label icon='clipboard' basic horizontal content={order.service} 
-                            style={{
-                                marginLeft: '1em'
-                            }}
-                            />
+                            
                             <Label icon='map' basic horizontal content={order.location}
                             style={{
                                 marginLeft: '1em'
@@ -27,8 +26,8 @@ function OrderHistory({orders}) {
                             />
                         </List.Header>
                         <List.Content>
-                            <List.Header><strong>Volunteer's email</strong> {order.acceptor}</List.Header>
-                            <List.Description><strong>Listing description</strong> {order.description}</List.Description>
+                            <List.Header><strong>Volunteer's email:</strong> {order.acceptor}</List.Header>
+                            <List.Description><strong>Listing description:</strong> {order.description}</List.Description>
                         </List.Content>
                     </>
                 )
