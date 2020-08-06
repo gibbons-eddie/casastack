@@ -9,7 +9,7 @@ import baseURL from '../utils/baseURL';
 const NewReward = ({ user }) => {
   const [form, setForm] = useState({
     name: '',
-    points: '',
+    condition: '',
     description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -74,8 +74,8 @@ const NewReward = ({ user }) => {
     if (!form.name) {
       err.service = 'Name is required';
     }
-    if (!form.points) {
-      err.status = 'Points are required';
+    if (!form.condition) {
+      err.status = 'Condition is required';
     }
     if (!form.description) {
       err.location = 'Description is required';
@@ -108,12 +108,12 @@ const NewReward = ({ user }) => {
               fluid
               error={
                 errors.points
-                  ? { content: 'Please enter points', pointing: 'below' }
+                  ? { content: 'Please enter a condition', pointing: 'below' }
                   : null
               }
-              label='Points'
-              placeholder='Points'
-              name='points'
+              label='Condition'
+              placeholder='Condition'
+              name='condition'
               onChange={handleChange}
             />
             <Form.TextArea

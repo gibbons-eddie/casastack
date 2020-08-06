@@ -61,8 +61,8 @@ const EditReward = ({ reward }) => {
         if (!form.name) {
             err.service = 'Name is required';
         }
-        if (!form.points) {
-            err.status = 'Points are required';
+        if (!form.condition) {
+            err.status = 'Condition is required';
         }
         if (!form.description) {
             err.description = 'Description is required';
@@ -90,10 +90,10 @@ const EditReward = ({ reward }) => {
                             />
                             <Form.Input
                                 fluid
-                                error={errors.status ? { content: 'Please enter points', pointing: 'below' } : null}
-                                label='Points'
-                                placeholder='Points'
-                                name='points'
+                                error={errors.status ? { content: 'Please enter condition', pointing: 'below' } : null}
+                                label='Condition'
+                                placeholder='Condition'
+                                name='condition'
                                 value={form.status}
                                 onChange={handleChange}
                             />

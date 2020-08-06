@@ -6,7 +6,11 @@ import newListingStyle from '../../../components/joblistingsPage/jobListingPageS
 import baseURL from '../../../utils/baseURL';
 
 
-const Reward = ({ reward }) => {
+const Reward = ({ reward, user }) => {
+    const isRoot = user.role === 'root';
+    const isAdmin = user.role === 'admin';
+    const isVolunteer = user.role === 'volunteer';
+
     const [confirm, setConfirm] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const router = useRouter();
@@ -48,7 +52,7 @@ const Reward = ({ reward }) => {
                     <h1>{reward.name}</h1>
                     <p>{reward.points}</p>
                     <p>{reward.description}</p>
-                    <Button color='red' onClick={open}>Delete</Button>
+                    {(isRoot || isAdmin) && (<Button color='red' onClick={open}>Delete</Button>)}
                 </>
             }
             <Confirm

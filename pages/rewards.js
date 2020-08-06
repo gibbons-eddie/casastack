@@ -29,11 +29,11 @@ const rewards1 = ({ rewards, user }) => {
                             <Card.Content>
                                 <Card.Header>
 
-                                    <Link href={`/${rewards._id}`}>
+                                    <Link href={`/rewardInfo/${rewards._id}`}>
                                         <h1>{rewards.name}</h1>
                                     </Link>
 
-                                    <Link href={`/${rewards._id}`}>
+                                    <Link href={`/rewardInfo/${rewards._id}`}>
                                         <h2>{rewards.points}</h2>
                                     </Link>
                                     
@@ -49,6 +49,7 @@ const rewards1 = ({ rewards, user }) => {
                                         </Button>
                                         <br></br>
                                         <br></br>
+                                        
                                         {(isRoot || isAdmin) && (<Button className="card-button" primary size="small">
                                             <Link href={`/rewardInfo/${rewards._id}/edit`}>
                                                 <h3>Edit Reward</h3>
