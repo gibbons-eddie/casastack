@@ -6,16 +6,13 @@ const rewardSchema = new mongoose.Schema({
     required: true,
   },
   points: {
-    type: int,
+    type: String,
     required: true,
   },
   description: {
-    type: String,
-  },
-  acceptor: {
     type: String,
   } 
 });
 
 module.exports =
-  mongoose.models.Listing || mongoose.model('Reward', rewardSchema);
+  mongoose.models.Reward || mongoose.model('Reward', rewardSchema);

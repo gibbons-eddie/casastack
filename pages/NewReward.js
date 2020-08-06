@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
@@ -7,14 +6,11 @@ import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/
 import cookie from 'js-cookie';
 import baseURL from '../utils/baseURL';
 
-const NewListing = ({ user }) => {
+const NewReward = ({ user }) => {
   const [form, setForm] = useState({
-    service: '',
-    status: '',
-    location: '',
-    description: '',
-    owner: '',
-    acceptor: '',
+    name: '',
+    points: '',
+    description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -23,16 +19,16 @@ const NewListing = ({ user }) => {
   useEffect(() => {
     if (isSubmitting) {
       if (Object.keys(errors).length === 0) {
-        createList();
+        createReward();
       } else {
         setIsSubmitting(false);
       }
     }
   }, [errors]);
 
-  const createList = async () => {
+  const createReward = async () => {
     try {
-      var json = form;
+        var json = form;
       if (true) {
         //if no userToken exists in the cookies then this should return undefined -> false
         //this is whatever they input into the edit form (as a json object)
@@ -46,10 +42,10 @@ const NewListing = ({ user }) => {
         // Add owner's address to listing object
         json.ownerAddress = user.address;
       }
-      const res = await fetch(`${baseURL}/api/listings`, {
+      const res = await fetch(`${baseURL}/api/rewards`, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
+          "Accept": 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(json),
@@ -75,17 +71,14 @@ const NewListing = ({ user }) => {
 
   const validate = () => {
     let err = {};
-    if (!form.service) {
-      err.service = 'Service is required';
+    if (!form.name) {
+      err.service = 'Name is required';
     }
-    if (!form.status) {
-      err.status = 'Status is required';
-    }
-    if (!form.location) {
-      err.location = 'Location is required';
+    if (!form.points) {
+      err.status = 'Points are required';
     }
     if (!form.description) {
-      err.description = 'Description is required';
+      err.location = 'Description is required';
     }
 
     return err;
@@ -93,7 +86,7 @@ const NewListing = ({ user }) => {
 
   return (
     <div className={newListingStyle.newLayout}>
-      <h1>Create Listing</h1>
+      <h1>Create Reward</h1>
       <div>
         {isSubmitting ? (
           <Loader active inline='centered' />
@@ -102,37 +95,25 @@ const NewListing = ({ user }) => {
             <Form.Input
               fluid
               error={
-                errors.service
-                  ? { content: 'Please enter a service', pointing: 'below' }
+                errors.name
+                  ? { content: 'Please enter a name', pointing: 'below' }
                   : null
               }
-              label='Service'
-              placeholder='Service'
-              name='service'
+              label='Name'
+              placeholder='Name'
+              name='name'
               onChange={handleChange}
             />
             <Form.Input
               fluid
               error={
-                errors.status
-                  ? { content: 'Please enter a status', pointing: 'below' }
+                errors.points
+                  ? { content: 'Please enter points', pointing: 'below' }
                   : null
               }
-              label='Status'
-              placeholder='Status'
-              name='status'
-              onChange={handleChange}
-            />
-            <Form.Input
-              fluid
-              error={
-                errors.location
-                  ? { content: 'Please enter a location', pointing: 'below' }
-                  : null
-              }
-              label='Location'
-              placeholder='Store Name'
-              name='location'
+              label='Points'
+              placeholder='Points'
+              name='points'
               onChange={handleChange}
             />
             <Form.TextArea
@@ -155,4 +136,4 @@ const NewListing = ({ user }) => {
   );
 };
 
-export default NewListing;
+export default NewReward;
