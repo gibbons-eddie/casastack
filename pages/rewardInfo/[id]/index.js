@@ -50,7 +50,7 @@ const Reward = ({ reward, user }) => {
                 :
                 <>
                     <h1>{reward.name}</h1>
-                    <p>{reward.points}</p>
+                    <p>{reward.condition}</p>
                     <p>{reward.description}</p>
                     {(isRoot || isAdmin) && (<Button color='red' onClick={open}>Delete</Button>)}
                 </>

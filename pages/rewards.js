@@ -34,7 +34,7 @@ const rewards1 = ({ rewards, user }) => {
                                     </Link>
 
                                     <Link href={`/rewardInfo/${rewards._id}`}>
-                                        <h2>{rewards.points}</h2>
+                                        <h2>{rewards.condition}</h2>
                                     </Link>
                                     
                                 </Card.Header>
