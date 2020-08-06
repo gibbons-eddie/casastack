@@ -1,6 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+const {ObjectId, Number} = mongoose.Schema.Types;
 
 const orderSchema = new mongoose.Schema({
+  user: {
+    type: ObjectId,
+    ref: "User"
+  },
   service: {
     type: String,
     required: true,
@@ -18,9 +24,6 @@ const orderSchema = new mongoose.Schema({
   acceptor: {
     type: String,
   },
-  owner: {
-    type: String,
-  },
   ownerAddress: {
     type: String,
   },
@@ -32,5 +35,4 @@ const orderSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports =
-  mongoose.models.Order || mongoose.model('Order', orderSchema);
+module.exports = mongoose.models.Order || mongoose.model('Order', orderSchema);

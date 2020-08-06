@@ -12,7 +12,7 @@ export default async (req, res) => {
 
     try {
         // verify user id from token
-        jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+        const {userID} = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
         // check payListing email with user email
         const prevCustomer = await stripe.customers.list({
             email: paymentData.email,
@@ -46,13 +46,13 @@ export default async (req, res) => {
         })
         // add order to database
         await new Order({
+            user: userID,
             service: listingInfo.service,
             location: listingInfo.location,
             description: listingInfo.description,
             price: listingInfo.price,
             acceptor: listingInfo.acceptor,
-            owner: listingInfo.owner,
-            ownerAddress: listingInfo.address,
+            ownerAddress: listingInfo.ownerAddress,
             email: paymentData.email
         }).save()
         // send back 200 status code for success
