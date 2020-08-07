@@ -20,30 +20,30 @@ const rewards1 = ({ rewards, user }) => {
                 Rewards
             </div>
 
-            <br></br>
-            <br></br>
+                <br></br>
+                <br></br>
 
-            <div className="grid wrapper">
+        <div className="grid wrapper">
 
-                {rewards.map(rewards => {
-                    return (
-                        <div key={rewards._id}>
-                            <Card>
-                                <Card.Content>
-                                    <Card.Header>
+            {rewards.map(rewards => {
+                return (
+                    <div key={rewards._id}>
+                        <Card>
+                            <Card.Content>
+                                <Card.Header>
 
-                                        <Link href={`/rewardInfo/${rewards._id}`}>
-                                            <h1>{rewards.name}</h1>
-                                        </Link>
+                                    <Link href={`/rewardInfo/${rewards._id}`}>
+                                        <h1>{rewards.name}</h1>
+                                    </Link>
 
-                                        <Link href={`/rewardInfo/${rewards._id}`}>
-                                            <h2>{rewards.points}</h2>
-                                        </Link>
+                                    <Link href={`/rewardInfo/${rewards._id}`}>
+                                        <h2>{rewards.condition}</h2>
+                                    </Link>
 
-                                    </Card.Header>
-                                </Card.Content>
+                                </Card.Header>
+                            </Card.Content>
 
-                                <Card.Content extra>
+                            <Card.Content extra>
                                     <div>
                                         <Button className="card-button" primary size="small">
                                             <Link href={`/rewardInfo/${rewards._id}`}>
