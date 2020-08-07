@@ -40,6 +40,7 @@ function Layout ({children, user}) {
         </Link>
 
       {isCustomer && (
+        <>
         <Link href="/joblisting">
           <Menu.Item>
             <Icon
@@ -48,6 +49,16 @@ function Layout ({children, user}) {
             Listings
           </Menu.Item>
         </Link>
+
+        <Link href="/rewards">
+        <Menu.Item>
+          <Icon
+            name="certificate"
+          />
+          Rewards
+        </Menu.Item>
+        </Link>
+        </>
       )}
 
       {user ? (

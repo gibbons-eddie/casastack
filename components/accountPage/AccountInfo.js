@@ -31,6 +31,19 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
                     <Header.Subheader><strong>Joined </strong>{formatDate(createdAt)}</Header.Subheader>
                 </Header>
             </Segment>
+
+            {isAdmin && (<Link href="/NewReward">
+                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                        content='Create Reward'
+                    />
+            </Link>)}
+
+            {!isCustomer && (<Link href="/new">
+                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                        content='Create Listing'
+                    />
+            </Link>)}
+
         </div>
     );
 }
