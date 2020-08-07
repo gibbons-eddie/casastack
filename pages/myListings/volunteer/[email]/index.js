@@ -6,19 +6,37 @@ import baseURL from '../../../../utils/baseURL';
 
 const Test1 = ({user, listings}) => {
     // console.log(listings);
-    return(
+    if(!listings.length){
+        return(
+            <Segment style={{textAlign: "center"}}>
+
+                    <h1>No Listings Accepted</h1>
+                   
+            </Segment>
+            
+        )
+    }
+    else{
+        return(
         <div className={myListingStyle.listingsHeader}>
             <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
-        <Segment color='violet'>
+        <Segment style={{ minHeight: 1000}} color='violet'>
             {listings.map(listing => {
-                return (
+                    return (
                     <div key={listing._id}>
-                        <Card centered columnCount="3">
+                        
+                        <Card style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
                             <Card.Content>
                                 <Card.Header>
 
-                                    <Link href={`/${listing._id}`}>
-                                        <h1>{listing.service}</h1>
+                                   <Link href={`/${listing._id}`}>
+                                        <>
+                                        <h1 style={{textAlign: "center"}} >{listing.service}</h1>
+                                        <h5 style={{color:"grey"}}>Description:
+                                        <br></br>
+                                        {listing.description}</h5>
+                                        
+                                        </>
                                     </Link>
                                     
                                 </Card.Header>
@@ -27,7 +45,7 @@ const Test1 = ({user, listings}) => {
                             <Card.Content extra>
 
                                 
-                                    <div>
+                                    <div style={{textAlign: "center"}}>
                                         <Button primary size="small">
                                             <Link href={`/${listing._id}`}>
                                                 <h3>View Listing</h3>
@@ -41,13 +59,17 @@ const Test1 = ({user, listings}) => {
                             </Card.Content>
                         </Card>
                     </div>
+                   
                 )
-            })}
+            
+            })
+            }
         
             
         </Segment>
         </div>
     )
+        }
 }
 
 Test1.getInitialProps = async ( {query: {email} } ) => {

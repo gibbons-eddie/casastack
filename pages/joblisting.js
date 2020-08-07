@@ -8,8 +8,18 @@ const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-    
-    return(
+    if(!listings.length){
+        return(
+            <Segment style={{textAlign: "center"}}>
+
+                    <h1>No Listings Created</h1>
+                   
+            </Segment>
+            
+        )
+    }
+    else{
+        return(
 
         <div className={jobListingStyle.jobListingsHeader}>
 
@@ -71,6 +81,7 @@ const joblistings1 = ({ listings, user }) => {
         </Segment>
         </div>
     )
+        }
     
 }
 

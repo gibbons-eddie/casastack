@@ -5,11 +5,20 @@ import myListingStyle from '../../../../components/joblistingsPage/jobListingPag
 import baseURL from '../../../../utils/baseURL';
 
 const Test = ({user, listings}) => {
-    // console.log(listings);
+    if(!listings.length){
+        return(
+            <Segment style={{textAlign: "center"}}>
+
+                    <h1>No Listings Created</h1>
+                   
+            </Segment>
+            
+        )
+    }
+    else {
     return(
         <div className={myListingStyle.listingsHeader}>
             <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
-                
 
         <Segment  style={{ minHeight: 1000}} color='violet'>
             <div className="grid wrapper">
@@ -26,6 +35,7 @@ const Test = ({user, listings}) => {
                                         <h5 style={{color:"grey"}}>Description:
                                         <br></br>
                                         {listing.description}</h5>
+                                        <h5>{listing-_id}</h5>
                                         </>
                                     </Link>
                                     
@@ -60,12 +70,15 @@ const Test = ({user, listings}) => {
                         </Card>
                     </div>
                 )
-            })}
+            }
+            )//this is the end of the map call
+            }
         
         </div>
         </Segment>
         </div>
     )
+        }
 }
 
 Test.getInitialProps = async ( {query: {email} } ) => {
