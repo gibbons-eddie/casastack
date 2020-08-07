@@ -162,21 +162,18 @@ const Listing = ({ user, listing }) => {
       const url = `${baseURL}/api/checkoutAPI`;
       const token = cookie.get('token');
       const payload = { paymentData, ...listing };
-      const headers = {headers: {Authorization: token}};
+      const headers = { headers: { Authorization: token } };
       await axios.post(url, payload, headers);
       setSuccess(true);
       json.status = 'paid';
-      const pay = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const pay = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
     } catch (error) {
       catchErrors(error, window.alert);
     } finally {
@@ -193,23 +190,29 @@ const Listing = ({ user, listing }) => {
           <h1>{listing.service}</h1>
           <Segment>
             <p>
-              Job status: <b>{listing.status}</b>
+              <b>Job status:</b> {listing.status}
             </p>
             {listing.service == 'delivery' ? (
               <p>
-                Store location: <b>{listing.location}</b>
+                <b>Store location:</b> {listing.location}
               </p>
             ) : null}
             <p>
-              Description: <b>{listing.description}</b>
+              <b>Description:</b> {listing.description}
             </p>
-            <p><strong>Price:</strong> ${listing.price}</p>
+            <p>
+              <b>Price:</b> ${listing.price}
+            </p>
 
             <Map listingObj={listing} user={user} />
 
             <br></br>
             {isOwner && !isAccepted && !isPaid ? (
-              <Button color='red' onClick={open} style={{fontFamily: 'Montserrat'}}>
+              <Button
+                color='red'
+                onClick={open}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Close
               </Button>
             ) : (
@@ -218,19 +221,31 @@ const Listing = ({ user, listing }) => {
             {isAcceptor || isOwner ? (
               <div></div>
             ) : (
-              <Button color='green' onClick={openAccept} style={{fontFamily: 'Montserrat'}}>
+              <Button
+                color='green'
+                onClick={openAccept}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Accept
               </Button>
             )}
             {isAcceptor && !isPaid ? (
-              <Button color='red' onClick={drop} style={{fontFamily: 'Montserrat'}}>
+              <Button
+                color='red'
+                onClick={drop}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Drop
               </Button>
             ) : (
               <div></div>
             )}
             {!isCompleted && isAcceptor && isPaid ? (
-              <Button color='green' onClick={complete} style={{fontFamily: 'Montserrat'}}>
+              <Button
+                color='green'
+                onClick={complete}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Complete
               </Button>
             ) : (
@@ -249,15 +264,24 @@ const Listing = ({ user, listing }) => {
                 token={handleCheckout}
                 stripeKey='pk_test_51HCSooLmX91vqtCStqJ5fm1FmJ8n01j4rK64f3S7txpXe0Qp01u60bBQuHoyglckPLcW8tb6zpQSJ4ErBgBc8hyc00MvrbrWGj'
                 triggerEvent='onClick'
-                style={{fontFamily: 'Montserrat'}}
+                style={{ fontFamily: 'Montserrat' }}
               >
-                <Button color='violet' content='Pay' disabled={success || isPaid} style={{fontFamily: 'Montserrat'}}/>
+                <Button
+                  color='violet'
+                  content='Pay'
+                  disabled={success || isPaid}
+                  style={{ fontFamily: 'Montserrat' }}
+                />
               </StripeCheckout>
             ) : (
               <div></div>
             )}
-            { !isCompleted && isOwner && isPaid ? (
-              <Button color='violet' disabled style={{fontFamily: 'Montserrat'}}>
+            {!isCompleted && isOwner && isPaid ? (
+              <Button
+                color='violet'
+                disabled
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Paid!
               </Button>
             ) : (
