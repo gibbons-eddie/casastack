@@ -110,8 +110,6 @@ class Map extends React.Component {
         );
       }
     }
-    /////////////////////////////// keep code below
-
     // get coordinates of the customer address
     Geocode.fromAddress(this.props.listingObj.ownerAddress).then(
       (response) => {

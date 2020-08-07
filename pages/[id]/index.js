@@ -158,12 +158,7 @@ const Listing = ({ user, listing }) => {
             <p>
               Description: <b>{listing.description}</b>
             </p>
-            <Map
-              listingObj={listing}
-              //customerAddress={temporaryCustomerAddress}
-              //storeAddress={listing.location}
-              user={user}
-            />
+            <Map listingObj={listing} user={user} />
             <br></br>
             {isOwner ? (
               <Button color='red' onClick={open}>

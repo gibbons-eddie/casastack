@@ -26,7 +26,7 @@ function displayDistance({ customerMarker, locationMarker, isDelivery }) {
     <div>
       {isDelivery ? (
         <>
-          Distance between you and the nearest hardware store is{' '}
+          Distance between customer and the nearest hardware store is{' '}
           {Math.round(distance() * 100) / 100} miles.
         </>
       ) : (
