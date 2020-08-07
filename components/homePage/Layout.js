@@ -72,6 +72,15 @@ function Layout ({children, user}) {
           </Menu.Item>
         </Link>
 
+        <Link href="/profile">
+          <Menu.Item>
+            <Icon
+              name="id card"
+            />
+            Create Listing
+          </Menu.Item>
+        </Link>
+
         <Menu.Item onClick={handleLogout}>
           <Icon name="sign-out alternate"
           />
