@@ -15,6 +15,9 @@ const listingSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  price: {
+    type: Number,
+  },
   acceptor: {
     type: String,
   },
@@ -24,7 +27,8 @@ const listingSchema = new mongoose.Schema({
   ownerAddress: {
     type: String,
   },
-});
+}, {
+  timestamps: true
+})
 
-module.exports =
-  mongoose.models.Listing || mongoose.model('Listing', listingSchema);
+module.exports = mongoose.models.Listing || mongoose.model('Listing', listingSchema);

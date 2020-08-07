@@ -22,6 +22,7 @@ const NewListing = ({ user }) => {
     status: 'open', // status of listing is open by default
     location: '',
     description: '',
+    price: '',
     owner: '',
     acceptor: '',
   };
@@ -46,7 +47,7 @@ const NewListing = ({ user }) => {
     try {
       var json = form;
       if (true) {
-        //if no userToken exists in the cookies then this should return undefined -> false
+        //if no token exists in the cookies then this should return undefined -> false
         //this is whatever they input into the edit form (as a json object)
         //this grabs the (hopefully) logged in user's email through cookies and sets the json's OWNER attribute to that email
         json.owner = user.email;
@@ -66,11 +67,18 @@ const NewListing = ({ user }) => {
         },
         body: JSON.stringify(json),
       });
-      router.push('/joblisting');
+      router.push('/profile');
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getPrice = () => {
+    if (form.description != '')
+    {
+      form.price = form.description.match(/\d+/g).map(Number);
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -106,6 +114,9 @@ const NewListing = ({ user }) => {
     }
     if (!form.description) {
       err.description = 'Description is required';
+    }
+    if (!form.price) {
+      err.price = 'Estimate is required';
     }
 
     return err;
@@ -156,6 +167,17 @@ const NewListing = ({ user }) => {
               error={
                 errors.description
                   ? { content: 'Please enter a description', pointing: 'below' }
+                  : null
+              }
+              onChange={handleChange}
+            />
+            <Form.Input inline
+              label='Estimated price: $'
+              placeholder='0.00'
+              name='price'
+              error={
+                errors.price
+                  ? { content: 'Please enter an estimated price', pointing: 'below' }
                   : null
               }
               onChange={handleChange}

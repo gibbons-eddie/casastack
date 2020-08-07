@@ -1,7 +1,8 @@
 import { Segment, Label, Header, Icon, Button } from "semantic-ui-react";
 import Link from 'next/link';
 import accountPageStyles from '../accountPage/accountPageStyles/accountPage.module.css';
-import formatDate from '../../utils/formatDate'
+import formatDate from '../../utils/formatDate';
+import formatNumber from '../../utils/formatNumber';
 
 function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, createdAt}) { // call individual elements of user to use them for all kinds of things !
     const isRoot = role === 'root';
@@ -24,18 +25,25 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
                     <Icon name="user"/>
                     {firstName}
                     <Header.Subheader style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>{lastName}</Header.Subheader>
-                    <Header.Subheader>{email}</Header.Subheader>
-                    <Header.Subheader>{phoneNumber}</Header.Subheader>
-                    <Header.Subheader>{address}</Header.Subheader>
-                    <Header.Subheader>Joined {formatDate(createdAt)}</Header.Subheader>
+                    <Header.Subheader><strong>Email | </strong>{email}</Header.Subheader>
+                    <Header.Subheader><strong>Phone number | </strong>{formatNumber(phoneNumber)}</Header.Subheader>
+                    <Header.Subheader><strong>Address | </strong>{address}</Header.Subheader>
+                    <Header.Subheader><strong>Joined </strong>{formatDate(createdAt)}</Header.Subheader>
                 </Header>
             </Segment>
+
+            {isAdmin && (<Link href="/NewReward">
+                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                        content='Create Reward'
+                    />
+            </Link>)}
 
             {!isCustomer && (<Link href="/new">
                     <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
                         content='Create Listing'
                     />
             </Link>)}
+
         </div>
     );
 }

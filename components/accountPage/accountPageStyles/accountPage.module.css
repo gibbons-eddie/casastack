@@ -13,3 +13,11 @@
     font-weight: 600;
     border-width: 1em;
 }
+
+.viewButton {
+    margin: 50px 350px 50px 200px;
+    border-style: hidden;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
+}

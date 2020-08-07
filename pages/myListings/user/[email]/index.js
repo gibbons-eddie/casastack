@@ -5,7 +5,7 @@ import myListingStyle from '../../../../components/joblistingsPage/jobListingPag
 import baseURL from '../../../../utils/baseURL';
 
 const Test = ({user, listings}) => {
-    console.log(listings);
+    // console.log(listings);
     return(
         <div className={myListingStyle.listingsHeader}>
             <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    

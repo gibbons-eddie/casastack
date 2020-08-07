@@ -13,7 +13,7 @@ function Layout ({children, user}) {
   return (
   // page overlay, including header and side nav bar
   <div className={homeStyles.Layout}>
-    <Head>
+    <Head stackable>
       <title>casastack</title>
       <meta charSet="utf-8"/>
     </Head>
@@ -27,6 +27,7 @@ function Layout ({children, user}) {
         visible
         width="thin"
         position='fixed'
+        stackable
     >
         
         <Link href="/">
@@ -39,6 +40,7 @@ function Layout ({children, user}) {
         </Link>
 
       {isCustomer && (
+        <>
         <Link href="/joblisting">
           <Menu.Item>
             <Icon
@@ -47,6 +49,16 @@ function Layout ({children, user}) {
             Listings
           </Menu.Item>
         </Link>
+
+        <Link href="/rewards">
+        <Menu.Item>
+          <Icon
+            name="certificate"
+          />
+          Rewards
+        </Menu.Item>
+        </Link>
+        </>
       )}
 
       {user ? (

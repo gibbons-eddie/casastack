@@ -49,6 +49,7 @@ const EditListing = ({ listing }) => {
     setIsSubmitting(true);
   };
 
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -61,7 +62,6 @@ const EditListing = ({ listing }) => {
     if (!form.description) {
       err.description = 'Description is required';
     }
-
     return err;
   };
 
@@ -104,6 +104,7 @@ const EditListing = ({ listing }) => {
     </div>
   );
 };
+
 
 EditListing.getInitialProps = async ({ query: { id } }) => {
   const res = await fetch(`${baseURL}/api/listings/${id}`);
