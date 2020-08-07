@@ -34,21 +34,21 @@ const Listing = ({ user, listing }) => {
       //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
       json.acceptor = user.email;
       json.status = 'accepted';
+      // If listing is a service, add the volunteer's address as listing's location
+      if (user.role === 'volunteer' && listing.service === 'service')
+        json.location = user.address;
       // CONSOLE TESTING-----------------------------------------------
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -67,17 +67,14 @@ const Listing = ({ user, listing }) => {
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -98,17 +95,14 @@ const Listing = ({ user, listing }) => {
         console.log(json.acceptor);
         // CONSOLE TESTING-----------------------------------------------
       }
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -118,12 +112,9 @@ const Listing = ({ user, listing }) => {
   const deleteListing = async () => {
     const listingId = router.query.id;
     try {
-      const deleted = await fetch(
-        `${baseURL}/api/listings/${listingId}`,
-        {
-          method: 'Delete',
-        }
-      );
+      const deleted = await fetch(`${baseURL}/api/listings/${listingId}`, {
+        method: 'Delete',
+      });
 
       router.push('/');
     } catch (error) {
@@ -139,7 +130,7 @@ const Listing = ({ user, listing }) => {
   // const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
   var isAcceptor = false;
-  if ((listing.acceptor === user.email)) {
+  if (listing.acceptor === user.email) {
     isAcceptor = true;
   }
   var isOwner = false;
@@ -199,17 +190,22 @@ const Listing = ({ user, listing }) => {
         <Loader active />
       ) : (
         <>
-          <h1>Service: {listing.service}</h1>
+          <h1>{listing.service}</h1>
           <Segment>
-            <p><strong>Job status:</strong> {listing.status}</p>
-            <p><strong>Location:</strong> {listing.location}</p>
-            <p><strong>Description:</strong> {listing.description}</p>
+            <p>
+              Job status: <b>{listing.status}</b>
+            </p>
+            {listing.service == 'delivery' ? (
+              <p>
+                Store location: <b>{listing.location}</b>
+              </p>
+            ) : null}
+            <p>
+              Description: <b>{listing.description}</b>
+            </p>
             <p><strong>Price:</strong> ${listing.price}</p>
-            <Map
-              listingObj={listing}
-              //customerAddress={temporaryCustomerAddress}
-              //storeAddress={listing.location}
-            />
+
+            <Map listingObj={listing} user={user} />
 
             <br></br>
             {isOwner && !isAccepted && !isPaid ? (
