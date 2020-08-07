@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card} from 'semantic-ui-react';
+import { Button, Card, Segment} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 
@@ -19,29 +19,30 @@ const joblistings1 = ({ listings, user }) => {
             
                 <br></br>
                 <br></br>
-
+        <Segment style={{ minHeight: 1000}} color='violet'>
         <div className="grid wrapper">
 
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>
-                        <Card>
+                        <Card style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
                             <Card.Content>
                                 <Card.Header>
 
-                                    <Link href={`/${listing._id}`}>
-                                        <h1>{listing.status}</h1>
-                                    </Link>
-
-                                    <Link href={`/${listing._id}`}>
-                                        <h2>{listing.service}</h2>
+                                     <Link href={`/${listing._id}`}>
+                                        <>
+                                        <h1 style={{textAlign: "center"}} >{listing.service}</h1>
+                                        <h5 style={{color:"grey"}}>Description:
+                                        <br></br>
+                                        {listing.description}</h5>
+                                        </>
                                     </Link>
                                     
                                 </Card.Header>
                             </Card.Content>
 
                             <Card.Content extra>
-                                    <div>
+                                    <div style={{textAlign: "center"}}>
                                         <Button className="card-button" primary size="small">
                                             <Link href={`/${listing._id}`}>
                                                 <h3>View Listing</h3>
@@ -67,6 +68,7 @@ const joblistings1 = ({ listings, user }) => {
         
             
         </div>
+        </Segment>
         </div>
     )
     
