@@ -8,7 +8,7 @@ import cookie from 'js-cookie';
 import baseURL from '../../utils/baseURL';
 
 const EditListing = ({ listing }) => {
-    const [form, setForm] = useState({ service: listing.service, status: listing.status, location: listing.location, description: listing.description });
+    const [form, setForm] = useState({ service: listing.service, status: listing.status, location: listing.location, description: listing.description, price: listing.price });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
     const router = useRouter();
@@ -26,7 +26,17 @@ const EditListing = ({ listing }) => {
 
     const updateListing = async () => {
         try {
-            var json = form;
+            //comments so people can understand - by Joseph
+            if (cookie.get('token')){ //if no token (changed token's name to just 'token') exists in the cookies then this should return undefined -> false
+                //this is whatever they input into the edit form (as a json object)
+                var json = form; 
+                //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
+                json.acceptor = (JSON.parse(cookie.get('token')).user.email);
+                // CONSOLE TESTING-----------------------------------------------
+                //console.log(JSON.stringify(json));
+                //console.log(json.acceptor);
+                // CONSOLE TESTING-----------------------------------------------
+            }
             const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
                 method: 'PUT',
                 headers: {
@@ -70,6 +80,9 @@ const EditListing = ({ listing }) => {
         if (!form.description) {
             err.description = 'Description is required';
         }
+        if (!form.price) {
+            err.price = 'Estimated price is required';
+        }
 
         return err;
     }
@@ -111,11 +124,20 @@ const EditListing = ({ listing }) => {
                             />
                             <Form.TextArea
                                 fluid
-                                label='Descriprtion'
+                                label='Description'
                                 placeholder='Description'
                                 name='description'
                                 error={errors.description ? { content: 'Please enter a description', pointing: 'below' } : null}
                                 value={form.description}
+                                onChange={handleChange}
+                            />
+                            <Form.TextArea
+                                fluid
+                                label='Estimated price'
+                                placeholder='$0.00'
+                                name='price'
+                                error={errors.price ? { content: 'Please enter an estimated price', pointing: 'below' } : null}
+                                value={form.price}
                                 onChange={handleChange}
                             />
                             <Button type='submit'>Update</Button>

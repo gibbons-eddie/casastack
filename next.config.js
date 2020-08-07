@@ -7,5 +7,7 @@ module.exports = {
     JWT_SECRET:
       '9CF3420A3B00BD97E783743E0A83C20B2909D088ADF0EE2A3574AB9E12D0E1F3',
     MAPS_API_KEY: process.env.MAPS_API_KEY,
+    STRIPE_KEY:
+      process.env.STRIPE_KEY,
   },
 };
