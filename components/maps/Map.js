@@ -9,13 +9,9 @@ import {
 } from 'react-google-maps';
 import Geocode from 'react-geocode';
 import MyDirectionsRenderer from './MyDirectionsRenderer';
+import DisplayDistance from './DisplayDistance';
 
 Geocode.setApiKey(process.env.MAPS_API_KEY);
-
-// Helper function for calculating distance
-var rad = (x) => {
-  return (x * Math.PI) / 180;
-};
 
 class Map extends React.Component {
   constructor(props) {
@@ -140,28 +136,6 @@ class Map extends React.Component {
     // Create several markers
     const markers = [this.state.customerMarker, this.state.storeMarker];
 
-    var distance = () => {
-      // Calculates distance between two places based on their longitude and latitude
-      var R = 3958.8; // Earth's radius in miles
-      var distanceLat = rad(
-        this.state.customerMarker.lat - this.state.storeMarker.lat
-      );
-      var distanceLong = rad(
-        this.state.customerMarker.lng - this.state.storeMarker.lng
-      );
-      var a =
-        Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
-        Math.cos(rad(this.state.storeMarker.lat)) *
-          Math.cos(rad(this.state.customerMarker.lat)) *
-          Math.sin(distanceLong / 2) *
-          Math.sin(distanceLong / 2);
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      var d = R * c; // Distance in miles
-      return d;
-    };
-
-    // this.setDistance();
-
     const MapWithAMarker = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
@@ -230,10 +204,22 @@ class Map extends React.Component {
 
     return (
       <div>
-        {/* <div>
-          Distance between you and the nearest hardware store is{' '}
-          //{Math.round(distance() * 100) / 100} miles.
-        </div> */}
+        {this.state.showOnePin ? null : (
+          <DisplayDistance
+            customerMarker={{
+              lat: this.state.customerMarker.lat,
+              lng: this.state.customerMarker.lng,
+            }}
+            locationMarker={{
+              lat: this.state.storeMarker.lat,
+              lng: this.state.storeMarker.lng,
+            }}
+            isDelivery={
+              this.props.listingObj.service === 'delivery' ? true : false
+            }
+          />
+        )}
+
         <MapWithAMarker
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.MAPS_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
           loadingElement={<div style={{ height: `100%` }} />}
@@ -241,7 +227,7 @@ class Map extends React.Component {
           mapElement={<div style={{ height: `100%` }} />}
         />
         <br></br>
-        <a class='destination-link' href={url} target='_blank'>
+        <a className='destination-link' href={url} target='_blank'>
           Click for direction to customer address
         </a>
       </div>

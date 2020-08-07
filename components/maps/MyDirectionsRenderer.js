@@ -1,5 +1,5 @@
 /* global google */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DirectionsRenderer } from 'react-google-maps';
 
 function MyDirectionsRenderer(props) {
@@ -8,26 +8,29 @@ function MyDirectionsRenderer(props) {
 
   const DirectionsService = new google.maps.DirectionsService();
 
-  DirectionsService.route(
-    {
-      origin: new google.maps.LatLng(origin.lat, origin.lng),
-      destination: new google.maps.LatLng(destination.lat, destination.lng),
-      travelMode: travelMode,
-    },
-    (result, status) => {
-      if (status === google.maps.DirectionsStatus.OK) {
-        setDirections(result);
-      } else {
-        console.error(`error fetching directions ${result}`);
-      }
-    },
-    [directions]
-  );
+  useEffect(() => {
+    DirectionsService.route(
+      {
+        origin: new google.maps.LatLng(origin.lat, origin.lng),
+        destination: new google.maps.LatLng(destination.lat, destination.lng),
+        travelMode: travelMode,
+      },
+      (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          setDirections(result);
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      },
+      [directions]
+    );
 
-  // check
-  console.log('MyDirectionsRenderer executed');
+    // check
+    console.log('MyDirectionsRenderer executed (useEffect)');
+  }, []);
 
   return (
+    // check
     <React.Fragment>
       {directions && (
         <DirectionsRenderer
