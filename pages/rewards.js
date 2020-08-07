@@ -20,30 +20,30 @@ const rewards1 = ({ rewards, user }) => {
                 Rewards
             </div>
 
-                <br></br>
-                <br></br>
+            <br></br>
+            <br></br>
 
-        <div className="grid wrapper">
+            <div className="grid wrapper">
 
-            {rewards.map(rewards => {
-                return (
-                    <div key={rewards._id}>
-                        <Card>
-                            <Card.Content>
-                                <Card.Header>
+                {rewards.map(rewards => {
+                    return (
+                        <div key={rewards._id}>
+                            <Card>
+                                <Card.Content>
+                                    <Card.Header>
 
-                                    <Link href={`/rewardInfo/${rewards._id}`}>
-                                        <h1>{rewards.name}</h1>
-                                    </Link>
+                                        <Link href={`/rewardInfo/${rewards._id}`}>
+                                            <h1>{rewards.name}</h1>
+                                        </Link>
 
-                                    <Link href={`/rewardInfo/${rewards._id}`}>
-                                        <h2>{rewards.condition}</h2>
-                                    </Link>
+                                        <Link href={`/rewardInfo/${rewards._id}`}>
+                                            <h2>{rewards.condition}</h2>
+                                        </Link>
 
-                                </Card.Header>
-                            </Card.Content>
+                                    </Card.Header>
+                                </Card.Content>
 
-                            <Card.Content extra>
+                                <Card.Content extra>
                                     <div>
                                         <Button className="card-button" primary size="small">
                                             <Link href={`/rewardInfo/${rewards._id}`}>
@@ -66,18 +66,132 @@ const rewards1 = ({ rewards, user }) => {
                                 </Card.Content>
                             </Card>
                         </div>
-                    )
+                    );
                 })}
             </div>
+
             <Table celled padded>
                 <Table.Header>
                     <Table.Row>
+                        <Table.HeaderCell>Rank</Table.HeaderCell>
                         <Table.HeaderCell singleLine>User</Table.HeaderCell>
                         <Table.HeaderCell>Number of Deliveries</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
-            </Table>
 
+                <Table.Body>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            1
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 1
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            100
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            2
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 2
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            099
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            3
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 3
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            098
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            4
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 4
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            097
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            5
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 5
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            096
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            6
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 6
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            095
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            7
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 7
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            094
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            8
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 8
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            093
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            9
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 9
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            092
+                    </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                        <Table.Cell textAlign="center">
+                            10
+                    </Table.Cell>
+                        <Table.Cell singleLine textAlign="center">
+                            User 10
+                    </Table.Cell>
+                        <Table.Cell textAlign="right">
+                            091
+                    </Table.Cell>
+                    </Table.Row>
+                </Table.Body>
+            </Table>
         </div>
     );
 };
