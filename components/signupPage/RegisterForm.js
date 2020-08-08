@@ -69,11 +69,8 @@ function Register()
                 }
               );
               console.log(json);
-              console.log(json.coords);
-              console.log(json.coords.lat);
-              console.log(json.coords.lng);
             const url = `${baseURL}/api/signupAPI`;
-            const payload = {...newUser}; // all data in 'user'
+            const payload = json; // all data in 'user'
             const response = await axios.post(url, payload); // axios doing all the work
             handleLogin(response.data); // token and cookie initialization
         } catch (error) {
