@@ -5,9 +5,6 @@ import { Container, Header, Segment, Divider } from 'semantic-ui-react';
 function Faq() {
   return (
     <Container>
-      <Header size='huge' textAlign='center'>
-        Welcome to Casastack!
-      </Header>
       <Header size='large' textAlign='center'>
         FAQ
       </Header>
