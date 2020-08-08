@@ -4,30 +4,28 @@ import { Button, Card} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 import Geocode from 'react-geocode';
+import { useState, useEffect } from 'react';
 
   
 Geocode.setApiKey(process.env.MAPS_API_KEY);
+
+var rad = (x) => {
+    return (x * Math.PI) / 180;
+  };
+
 
 
 const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-    var userCoords = {};
-    Geocode.fromAddress(user.address).then(
-        (response) => {
-            userCoords = response.results[0].geometry.location;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-      console.log(userCoords);
+    var userCoords ={};
 
+    console.log("hi");
+    console.log(user);
 
     
     return(
-
         <div className={jobListingStyle.jobListingsHeader}>
 
             <div className={jobListingStyle.listingTitle}>
