@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../utils/baseURL';
 import Geocode from 'react-geocode';
+import axios from 'axios';
 
   
 Geocode.setApiKey(process.env.MAPS_API_KEY);
@@ -18,6 +19,9 @@ const NewListing = ({ user }) => {
     description: '',
     owner: '',
     acceptor: '',
+    ownerAddress: '',
+    ownerCoords:'',
+    locationCoords:'',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -63,14 +67,23 @@ const NewListing = ({ user }) => {
           }
         );
       }
-      const res = await fetch(`${baseURL}/api/listings`, {
+      console.log(json);
+      /* const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(json),
-      });
+      }); */
+      const url = `${baseURL}/api/postlistingAPI`;
+      const headers = {headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    };
+      const payload = {...json};
+      await axios.post(url,payload,headers);
       router.push('/joblisting');
     } catch (error) {
       console.log(error);

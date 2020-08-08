@@ -25,10 +25,10 @@ const listingSchema = new mongoose.Schema({
     type: String,
   },
   locationCoords: {
-    lat: Number, lng: Number,
+    lat: {type: Number}, lng: {type: Number},
   },
   ownerCoords: {
-    lat: Number, lng: Number,
+    lat: {type: Number}, lng: {type: Number},
   },
 });
 
