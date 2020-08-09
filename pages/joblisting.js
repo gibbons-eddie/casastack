@@ -3,11 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Card} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
-import Geocode from 'react-geocode';
 import { useState, useEffect } from 'react';
-
-  
-Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 var rad = (x) => {
     return (x * Math.PI) / 180;
@@ -19,10 +15,35 @@ const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-    var userCoords ={};
+    const [filter, setFilter] = useState(10000);
+
+    const calcDistance = (listing) => {
+        // Calculates distance between two places based on their longitude and latitude
+      var R = 3958.8; // Earth's radius in miles
+      var distanceLat = rad(
+        user.lat - listing.locationLat
+      );
+      var distanceLong = rad(
+        user.lng - listing.locationLng
+      );
+      var a =
+        Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
+        Math.cos(rad(listing.locationLat)) *
+          Math.cos(rad(user.lat)) *
+          Math.sin(distanceLong / 2) *
+          Math.sin(distanceLong / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c; // Distance in miles
+      return d;
+    }
+    const hasCoords = (listing) => {
+        if (listing.locationLat && listing.locationLng) {return true;}
+        return false;
+    }
 
     console.log("hi");
-    console.log(user);
+    console.log(user.lat);
+    console.log(user.lng);
 
     
     return(
@@ -69,6 +90,7 @@ const joblistings1 = ({ listings, user }) => {
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>)}
+                                        {(hasCoords(listing)) && (<h1>{calcDistance(listing)}</h1>)}
                                     </div>
                                     
                                     
