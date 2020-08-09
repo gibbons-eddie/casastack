@@ -18,7 +18,6 @@ const initializeUser = {
     password: "",
     address: "",
     phoneNumber: "",
-    coords: {lng:"", lat:""}
 }
 
 function Register()
@@ -62,8 +61,8 @@ function Register()
             await Geocode.fromAddress(newUser.address).then(
                 (response) => {
                     console.log(response.results[0].geometry.location);
-                  json.coords.lat = response.results[0].geometry.location.lat;
-                  json.coords.lng = response.results[0].geometry.location.lng;
+                  json.lat = response.results[0].geometry.location.lat;
+                  json.lng = response.results[0].geometry.location.lng;
                 },
                 (error) => {
                   console.log(error);
