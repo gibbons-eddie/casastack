@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from 'next/link';
 import homeStyles from './homePageStyles/Home.module.css'
 import { Sidebar, Icon, Menu } from "semantic-ui-react";
-import { handleLogout } from '../../utils/auth'
+import { handleLogout } from '../../utils/auth';
 
 function Layout ({children, user}) {
   const isRoot = user && user.role === 'root';
@@ -29,7 +29,7 @@ function Layout ({children, user}) {
         position='fixed'
         stackable
     >
-        
+
         <Link href="/">
           <Menu.Item>
             <Icon
@@ -88,7 +88,7 @@ function Layout ({children, user}) {
             Log In
           </Menu.Item>
         </Link>
-        
+
         <Link href="/signup">
           <Menu.Item>
             <Icon
@@ -101,16 +101,16 @@ function Layout ({children, user}) {
       )}
 
     </Sidebar>
-      
+
       <Sidebar.Pusher>
-      <div className={homeStyles.Content}> 
+      <div className={homeStyles.Content}>
         <div className={homeStyles.Header}>
           Casastack
         </div>
         {children}
       </div>
       </Sidebar.Pusher>
-    
+
   </div>
   );
 }
