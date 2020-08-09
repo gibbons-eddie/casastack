@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    jobsCompleted: {
+        type: Number,
+    },
     role: {
         type: String,
         required: true,
