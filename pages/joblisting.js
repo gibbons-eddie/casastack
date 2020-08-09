@@ -4,6 +4,7 @@ import { Button, Card} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 import { useState, useEffect } from 'react';
+import Search from '../components/joblistingsPage/Search'
 
 var rad = (x) => {
     return (x * Math.PI) / 180;
@@ -15,7 +16,12 @@ const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-    const [filter, setFilter] = useState(10000);
+    const [filter, setFilter] = useState('');
+
+    const filterUpdate = (evt) => {
+        //Here you can set the filterText property of state to the value passed into this function
+        setFilter(evt.target.value);
+    };
 
     const calcDistance = (listing) => {
         // Calculates distance between two places based on their longitude and latitude
@@ -40,11 +46,6 @@ const joblistings1 = ({ listings, user }) => {
         if (listing.locationLat && listing.locationLng) {return true;}
         return false;
     }
-
-    console.log("hi");
-    console.log(user.lat);
-    console.log(user.lng);
-
     
     return(
         <div className={jobListingStyle.jobListingsHeader}>
@@ -52,6 +53,7 @@ const joblistings1 = ({ listings, user }) => {
             <div className={jobListingStyle.listingTitle}>
             Listings 
             </div>
+            <Search onFilterChange ={filterUpdate}></Search>
             
                 <br></br>
                 <br></br>
