@@ -16,7 +16,7 @@ const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState('100');
 
     const filterUpdate = (evt) => {
         //Here you can set the filterText property of state to the value passed into this function
@@ -62,7 +62,7 @@ const joblistings1 = ({ listings, user }) => {
 
             {listings.map(listing => {
                 return (
-                    <div key={listing._id}>
+                    <div key={listing._id}>{(hasCoords(listing) && (calcDistance(listing) <filter)) && (
                         <Card>
                             <Card.Content>
                                 <Card.Header>
@@ -94,14 +94,11 @@ const joblistings1 = ({ listings, user }) => {
                                         </Button>)}
                                         {(hasCoords(listing)) && (<h1>{calcDistance(listing)}</h1>)}
                                     </div>
-                                    
-                                    
-                            
-
                             </Card.Content>
                         </Card>
-                    </div>
-                )
+                    )}
+                        
+                    </div>)
             })}
         
             
