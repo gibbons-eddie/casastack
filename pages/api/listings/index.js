@@ -20,8 +20,10 @@ export default async (req, res) => {
             break;
         case 'POST':
             try {
+                console.log('in the api')
+                console.log(json)
                 //const listing = await Listing.create(json);
-                await new Listing({
+                /*await new Listing({
                     service: json.service,
                     status: json.status,
                     location: json.location,
@@ -31,7 +33,7 @@ export default async (req, res) => {
                     ownerAddress: json.ownerAddress,
                     locationCoords: json.locationCoords,
                     ownerCoords: json.ownerCoords,
-                }).save()
+                }).save()*/
 
                 res.status(201).json({ success: true, data: listing})
 

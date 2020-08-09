@@ -11,18 +11,22 @@ import axios from 'axios';
   
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
+const initializeForm = {
+  service: '',
+  status: '',
+  location: '',
+  description: '',
+  owner: '',
+  acceptor: '',
+  ownerAddress: '',
+  locationLat: 0,
+  locationLng: 0,
+  ownerLat: 0,
+  ownerLng: 0,
+}
+
 const NewListing = ({ user }) => {
-  const [form, setForm] = useState({
-    service: '',
-    status: '',
-    location: '',
-    description: '',
-    owner: '',
-    acceptor: '',
-    ownerAddress: '',
-    ownerCoords:'',
-    locationCoords:'',
-  });
+  const [form, setForm] = useState(initializeForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [destination, setDestination] = useState();
@@ -49,7 +53,8 @@ const NewListing = ({ user }) => {
       if (true) {
         await Geocode.fromAddress(user.address).then(
           (response) => {
-            json.ownerCoords = {lat: response.results[0].geometry.location.lat, lng: response.results[0].geometry.location.lng};
+            json.ownerLat = response.results[0].geometry.location.lat;
+            json.ownerLng = response.results[0].geometry.location.lng;
           },
           (error) => {
             console.log(error);
@@ -60,7 +65,8 @@ const NewListing = ({ user }) => {
       if (true) {
         await Geocode.fromAddress(json.location).then(
           (response) => {
-            json.locationCoords = {lat: response.results[0].geometry.location.lat, lng: response.results[0].geometry.location.lng}
+            json.locationLat = response.results[0].geometry.location.lat;
+            json.locationLng = response.results[0].geometry.location.lng;
           },
           (error) => {
             console.log(error);
@@ -68,22 +74,17 @@ const NewListing = ({ user }) => {
         );
       }
       console.log(json);
-      /* const res = await fetch(`${baseURL}/api/listings`, {
+      /*const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(json),
-      }); */
+        body: JSON.stringify(...json),
+      });*/
       const url = `${baseURL}/api/postlistingAPI`;
-      const headers = {headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }
-    };
-      const payload = {...json};
-      await axios.post(url,payload,headers);
+      const payload = json;
+      await axios.post(url,payload);
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
