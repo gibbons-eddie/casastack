@@ -9,7 +9,7 @@ function Faq() {
         FAQ
       </Header>
       <Segment floated='left'>
-        <Header as='h2'>Create a listing</Header>
+        <Header as='h2'>How do you create a listing?</Header>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -21,7 +21,19 @@ function Faq() {
         </p>
         <Divider section />
 
-        <Header as='h2'>View your new listing</Header>
+        <Header as='h2'>How can I view a listing I just created?</Header>
+        <p>
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum."
+        </p>
+        <Divider section />
+
+        <Header as='h2'>What happens when my listing is not accepted by any volunteer?</Header>
         <p>
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

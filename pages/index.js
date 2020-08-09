@@ -8,15 +8,25 @@ const Home = (props) => (
     <h4>
       Welcome to Casastack!
     </h4>
+
+    <div style={{padding: 100}}>
+    <h5 style={{textAlign: "center"}}>Mission Statement</h5>
+    <h3>Casastack is a web service designed to eliminate the hassle of having to run back and forth between hardware stores and the site of a project currently being worked on. Users of this site will create requests for volunteers to fulfill, either being a delivery of items or just personal help with a project such as hanging a ceiling fan. Whether you are too old to fix the door you've been needing to fix for a while now or simply just on the job and lack time to run to the wardware store for 50 packs of screws you need immediately, Casastack is here to ensure you are able to get your projects done accordingly.</h3>
+    </div>
+
+    <br/>
+
     <h6>
         As a customer...
     </h6>
+    
     <Grid divided='vertically'>
       <Grid.Row columns={2}>
       <div className={homepageStyles.container}>
       <h5>
         Make listings
       </h5>
+        Here is where the creation of listings will be explained.
         Whether you require a delivery of various goods from any store or help with moving some furniture around in your home,
         Casastack allows you to create whichever type of listing accommodates your needs.
       </div>
