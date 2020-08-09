@@ -21,6 +21,7 @@ const Test1 = ({user, listings}) => {
         <div className={myListingStyle.listingsHeader}>
             <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
         <Segment style={{ minHeight: 1000}} color='violet'>
+            <div className="grid wrapper">
             {listings.map(listing => {
                     return (
                     <div key={listing._id}>
@@ -65,7 +66,7 @@ const Test1 = ({user, listings}) => {
             })
             }
         
-            
+        </div>
         </Segment>
         </div>
     )
