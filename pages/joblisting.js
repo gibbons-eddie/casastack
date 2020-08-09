@@ -53,11 +53,9 @@ const joblistings1 = ({ listings, user }) => {
             <div className={jobListingStyle.listingTitle}>
             Listings 
             </div>
-            <Search onFilterChange ={filterUpdate}></Search>
-            
                 <br></br>
                 <br></br>
-
+                <Search onFilterChange ={filterUpdate}></Search>
         <div className="grid wrapper">
 
             {listings.map(listing => {
@@ -92,7 +90,7 @@ const joblistings1 = ({ listings, user }) => {
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>)}
-                                        {(hasCoords(listing)) && (<h1>{calcDistance(listing)}</h1>)}
+                                        {(hasCoords(listing)) && (<h1>{Math.round(calcDistance(listing)*100)/100} miles!</h1>)}
                                     </div>
                             </Card.Content>
                         </Card>
