@@ -35,7 +35,6 @@ const Test = ({user, listings}) => {
                                         <h5 style={{color:"grey"}}>Description:
                                         <br></br>
                                         {listing.description}</h5>
-                                        <h5>{listing-_id}</h5>
                                         </>
                                     </Link>
                                     
