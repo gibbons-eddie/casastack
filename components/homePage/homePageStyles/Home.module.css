@@ -18,7 +18,7 @@
   font-weight: bold;
   color: white;
   text-transform: uppercase;
-  background-color: rgb(45, 20, 90);
+  background-color: #280853;
   cursor: pointer;
 }
 
@@ -43,8 +43,13 @@
 .container {
   flex: 1;
   padding-top: 5px;
-  margin-left: 100px;
+  margin-left: 75px;
   padding-right: 25px;
-  margin-right: 100px;
+  margin-right: 75px;
   
+}
+
+.Logo {
+  height: 56px;
+  width: 56px;
 }

@@ -10,12 +10,17 @@ function Layout({ children, user }) {
   const isVolunteer = user && user.role === 'volunteer';
   const isCustomer = isRoot || isAdmin || isVolunteer;
 
+  //const logo = require('../../static/casastack_favicon.png');
+
   return (
     // page overlay, including header and side nav bar
     <div className={homeStyles.Layout}>
       <Head>
-        <title>casastack</title>
+        <title>
+          casastack
+        </title>
         <meta charSet='utf-8' />
+        <link rel="meta icon" href="/casastack_favicon_32_32.png" />
       </Head>
 
       <Sidebar
@@ -79,7 +84,9 @@ function Layout({ children, user }) {
 
       <Sidebar.Pusher>
         <div className={homeStyles.Content}>
-          <div className={homeStyles.Header}>Casastack</div>
+          <div className={homeStyles.Header}>
+            CASASTACK
+          </div>
           {children}
         </div>
       </Sidebar.Pusher>
