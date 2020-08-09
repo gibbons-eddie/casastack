@@ -17,8 +17,8 @@ const joblistings1 = ({ listings, user }) => {
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
     const [filter, setFilter] = useState('100');
-    const [filterDelivery, setFilterDelivery] = useState(false);
-    const [filterService, setFilterService] = useState(false);
+    const [filterDelivery, setFilterDelivery] = useState(true);
+    const [filterService, setFilterService] = useState(true);
 
     const filterUpdate = (evt) => {
         //Here you can set the filterText property of state to the value passed into this function
@@ -31,6 +31,10 @@ const joblistings1 = ({ listings, user }) => {
 
     const deliveryUpdate = () => {
         setFilterDelivery(!filterDelivery);
+    }
+
+    const serviceUpdate = () => {
+        setFilterService(!filterService);
     }
 
     const calcDistance = (listing) => {
@@ -85,12 +89,14 @@ const joblistings1 = ({ listings, user }) => {
                 <br></br>
                 <br></br>
                 <Search onFilterChange ={filterUpdate}></Search>
-                <Button onClick={deliveryUpdate}>hide deliveries</Button>
+                {filterDelivery ? (<Button onClick={deliveryUpdate}>Hide Services</Button>) : (<Button onClick={deliveryUpdate}>Show Services</Button>)}
+                {filterService ? (<Button onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button onClick={serviceUpdate}>Show Deliveries</Button>)}
         <div className="grid wrapper">
 
             {listings.map(listing => {
                 return (
-                    <div key={listing._id}>{(hasCoords(listing) && (calcDistance(listing) <filter)&& (filterDelivery || listing.service==='delivery')) && (
+                    <div key={listing._id}>{(hasCoords(listing) && (calcDistance(listing) <filter)
+                        && (filterDelivery || listing.service==='delivery')&& (filterService || listing.service==='service')) && (
                         <Card>
                             <Card.Content>
                                 <Card.Header>
