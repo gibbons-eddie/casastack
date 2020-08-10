@@ -85,10 +85,10 @@ const rewards1 = ({ rewards, user }) => {
                             1
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 1
+                            Eddie Gibson
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            100
+                            18
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -96,10 +96,10 @@ const rewards1 = ({ rewards, user }) => {
                             2
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 2
+                            Zayra Azul
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            099
+                            14
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -107,10 +107,10 @@ const rewards1 = ({ rewards, user }) => {
                             3
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 3
+                            Seth Lucas
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            098
+                            13
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -118,10 +118,10 @@ const rewards1 = ({ rewards, user }) => {
                             4
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 4
+                            Clark Rich
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            097
+                            10
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -129,10 +129,10 @@ const rewards1 = ({ rewards, user }) => {
                             5
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 5
+                            Dimitri Vegas
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            096
+                            7
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -140,10 +140,10 @@ const rewards1 = ({ rewards, user }) => {
                             6
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 6
+                            Steve Jobs
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            095
+                            5
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -151,10 +151,10 @@ const rewards1 = ({ rewards, user }) => {
                             7
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 7
+                            Sean Cortes
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            094
+                            5
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -162,10 +162,10 @@ const rewards1 = ({ rewards, user }) => {
                             8
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 8
+                            Bob Name
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            093
+                            2
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -173,10 +173,10 @@ const rewards1 = ({ rewards, user }) => {
                             9
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 9
+                            Florida Man
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            092
+                            1
                     </Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -184,10 +184,10 @@ const rewards1 = ({ rewards, user }) => {
                             10
                     </Table.Cell>
                         <Table.Cell singleLine textAlign="center">
-                            User 10
+                            Tom Nook
                     </Table.Cell>
                         <Table.Cell textAlign="right">
-                            091
+                            0
                     </Table.Cell>
                     </Table.Row>
                 </Table.Body>
