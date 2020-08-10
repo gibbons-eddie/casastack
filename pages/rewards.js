@@ -28,7 +28,7 @@ const rewards1 = ({ rewards, user }) => {
                 {rewards.map(rewards => {
                     return (
                         <div key={rewards._id}>
-                            <Card>
+                            <Card style={{marginLeft: 20}}>
                                 <Card.Content>
                                     <Card.Header>
 
