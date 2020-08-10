@@ -8,12 +8,9 @@ import baseURL from '../utils/baseURL';
 import Geocode from 'react-geocode';
 import axios from 'axios';
 
-  
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
-
 const NewListing = ({ user }) => {
-
   const listingOptions = [
     { key: 'd', text: 'Delivery', value: 'delivery' },
     { key: 's', text: 'Service', value: 'service' },
@@ -63,30 +60,36 @@ const NewListing = ({ user }) => {
         json.owner = user.email;
         // Add owner's address to listing object
         json.ownerAddress = user.address;
+
+        / * Add logged in user's coordinates to the ownerLat & ownerLng  * /;
+        json.ownerLat = user.lat;
+        json.ownerLng = user.lng;
       }
-      if (true) {
-        await Geocode.fromAddress(user.address).then(
-          (response) => {
-            json.ownerLat = response.results[0].geometry.location.lat;
-            json.ownerLng = response.results[0].geometry.location.lng;
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-      console.log(json);
-      if (true) {
-        await Geocode.fromAddress(json.location).then(
-          (response) => {
-            json.locationLat = response.results[0].geometry.location.lat;
-            json.locationLng = response.results[0].geometry.location.lng;
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
+
+      / * Save coordinates via geocode api request in server instead */;
+      // if (true) {
+      //   await Geocode.fromAddress(user.address).then(
+      //     (response) => {
+      //       json.ownerLat = response.results[0].geometry.location.lat;
+      //       json.ownerLng = response.results[0].geometry.location.lng;
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   );
+      // }
+      // console.log(json);
+      // if (true) {
+      //   await Geocode.fromAddress(json.location).then(
+      //     (response) => {
+      //       json.locationLat = response.results[0].geometry.location.lat;
+      //       json.locationLng = response.results[0].geometry.location.lng;
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   );
+      // }
       console.log(json);
       /*const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
@@ -98,7 +101,7 @@ const NewListing = ({ user }) => {
       });*/
       const url = `${baseURL}/api/postlistingAPI`;
       const payload = json;
-      await axios.post(url,payload);
+      await axios.post(url, payload);
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -106,11 +109,10 @@ const NewListing = ({ user }) => {
   };
 
   const getPrice = () => {
-    if (form.description != '')
-    {
+    if (form.description != '') {
       form.price = form.description.match(/\d+/g).map(Number);
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -154,7 +156,6 @@ const NewListing = ({ user }) => {
     return err;
   };
 
-
   return (
     <div className={newListingStyle.newLayout}>
       <h1>Create Listing</h1>
@@ -178,7 +179,6 @@ const NewListing = ({ user }) => {
               selection
             />
             {seeLocationInput ? (
-              
               <Form.Input
                 fluid
                 error={
@@ -191,7 +191,6 @@ const NewListing = ({ user }) => {
                 name='location'
                 onChange={handleChange}
               />
-              
             ) : null}
 
             <Form.TextArea
@@ -206,13 +205,17 @@ const NewListing = ({ user }) => {
               }
               onChange={handleChange}
             />
-            <Form.Input inline
+            <Form.Input
+              inline
               label='Estimated price: $'
               placeholder='0.00'
               name='price'
               error={
                 errors.price
-                  ? { content: 'Please enter an estimated price', pointing: 'below' }
+                  ? {
+                      content: 'Please enter an estimated price',
+                      pointing: 'below',
+                    }
                   : null
               }
               onChange={handleChange}

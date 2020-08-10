@@ -142,7 +142,8 @@ const Listing = ({ user, listing }) => {
     isOwner = true;
   }
   var isCompleted = false;
-  if (listing.status === 'completed') { //breaks for old listings where owner is undefined
+  if (listing.status === 'completed') {
+    //breaks for old listings where owner is undefined
     isCompleted = true;
   }
 
@@ -206,7 +207,10 @@ const Listing = ({ user, listing }) => {
             <p>
               <b>Price:</b> ${listing.price}
             </p>
-
+            <p>
+              <b>**TESTING** Listing coordinates: : </b>
+              {listing.locationLat + ' ' + listing.locationLng}
+            </p>
             <Map listingObj={listing} user={user} />
 
             <br></br>
