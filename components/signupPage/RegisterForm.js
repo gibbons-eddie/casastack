@@ -152,7 +152,7 @@ function Register() {
             icon='bed'
             iconPosition='left'
             label='Address'
-            placeholder='Address'
+            placeholder='Address ex: 123 Apple St, Gainesville, FL'
             name='address'
             value={newUser.address}
             onChange={handleChange}
