@@ -100,12 +100,12 @@ const joblistings1 = ({ listings, user }) => {
                 <br></br>
                 <br></br>
 
-        <Segment style={{ minHeight: 1000}} color='violet'>
+        <Segment style={{ textAlign: "center", minHeight: 1000}} color='violet'>
 
                 <Search onFilterChange ={filterUpdate}></Search>
                 <br/>
-                {filterDelivery ? (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={deliveryUpdate}>Hide Services</Button>) : (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={deliveryUpdate}>Show Services</Button>)}
-                {filterService ? (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={serviceUpdate}>Show Deliveries</Button>)}
+                {filterDelivery ? (<Button style={{minHeight: 75, minWidth: 560, fontSize: 25}} onClick={deliveryUpdate}>Hide Services</Button>) : (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={deliveryUpdate}>Show Services</Button>)}
+                {filterService ? (<Button style={{minHeight: 75, minWidth: 560, fontSize: 25}} onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={serviceUpdate}>Show Deliveries</Button>)}
                 <br/>
                 <br/>
         <div className="grid wrapper">
