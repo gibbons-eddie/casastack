@@ -1,5 +1,5 @@
 .accountForm {
-    margin: 100px 350px 0px 200px;
+    margin: 150px 200px 0px 200px;
     border-style: hidden;
     padding: 10px 50px;
     border-radius: 10px;
@@ -15,7 +15,7 @@
 }
 
 .viewButton {
-    margin: 50px 350px 50px 200px;
+    margin: 50px 200px 50px 200px;
     border-style: hidden;
     border-radius: 10px;
     font-weight: 600;
