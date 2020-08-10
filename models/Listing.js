@@ -27,6 +27,20 @@ const listingSchema = new mongoose.Schema({
   ownerAddress: {
     type: String,
   },
+
+  locationLat: {
+    type: Number,
+  },
+  locationLng: {
+    type: Number,
+  },
+  ownerLat: {
+    type: Number,
+  },
+  ownerLng: {
+    type: Number,
+  },
+
 }, {
   timestamps: true
 })

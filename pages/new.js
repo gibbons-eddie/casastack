@@ -4,10 +4,16 @@ import fetch from 'isomorphic-unfetch';
 import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
-import cookie from 'js-cookie';
 import baseURL from '../utils/baseURL';
+import Geocode from 'react-geocode';
+import axios from 'axios';
+
+  
+Geocode.setApiKey(process.env.MAPS_API_KEY);
+
 
 const NewListing = ({ user }) => {
+
   const listingOptions = [
     { key: 'd', text: 'Delivery', value: 'delivery' },
     { key: 's', text: 'Service', value: 'service' },
@@ -25,12 +31,19 @@ const NewListing = ({ user }) => {
     price: '',
     owner: '',
     acceptor: '',
+    ownerAddress: '',
+    locationLat: 0,
+    locationLng: 0,
+    ownerLat: 0,
+    ownerLng: 0,
   };
   const [form, setForm] = useState(setDefaultState(defaultState));
   // To hide store location address field if the listing type is "service"
   const [seeLocationInput, setSeeLocationInput] = useState(true);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const [destination, setDestination] = useState();
   const router = useRouter();
 
   useEffect(() => {
@@ -47,27 +60,46 @@ const NewListing = ({ user }) => {
     try {
       var json = form;
       if (true) {
-        //if no token exists in the cookies then this should return undefined -> false
-        //this is whatever they input into the edit form (as a json object)
-        //this grabs the (hopefully) logged in user's email through cookies and sets the json's OWNER attribute to that email
         json.owner = user.email;
-        // CONSOLE TESTING-----------------------------------------------
-        console.log(JSON.stringify(json));
-        console.log(json.owner);
-        // CONSOLE TESTING-----------------------------------------------
-
         // Add owner's address to listing object
         json.ownerAddress = user.address;
       }
-      const res = await fetch(`${baseURL}/api/listings`, {
+      if (true) {
+        await Geocode.fromAddress(user.address).then(
+          (response) => {
+            json.ownerLat = response.results[0].geometry.location.lat;
+            json.ownerLng = response.results[0].geometry.location.lng;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      console.log(json);
+      if (true) {
+        await Geocode.fromAddress(json.location).then(
+          (response) => {
+            json.locationLat = response.results[0].geometry.location.lat;
+            json.locationLng = response.results[0].geometry.location.lng;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+      console.log(json);
+      /*const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(json),
-      });
-      router.push('/profile');
+        body: JSON.stringify(...json),
+      });*/
+      const url = `${baseURL}/api/postlistingAPI`;
+      const payload = json;
+      await axios.post(url,payload);
+      router.push('/joblisting');
     } catch (error) {
       console.log(error);
     }
@@ -121,6 +153,7 @@ const NewListing = ({ user }) => {
 
     return err;
   };
+
 
   return (
     <div className={newListingStyle.newLayout}>

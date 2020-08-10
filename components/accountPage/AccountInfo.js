@@ -38,7 +38,6 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
                     />
             </Link>)}
 
-            
 
         </div>
     );

@@ -60,12 +60,12 @@ function Layout ({children, user}) {
         </Link>
 
         <Link href="/rewards">
-        <Menu.Item>
-          <Icon
-            name="certificate"
-          />
-          Rewards
-        </Menu.Item>
+          <Menu.Item>
+            <Icon
+              name="certificate"
+            />
+            Rewards
+          </Menu.Item>
         </Link>
         </>
       )}
