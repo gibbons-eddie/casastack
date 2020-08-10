@@ -1,40 +1,55 @@
 .Layout {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .Header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    padding: 0 20px;
-    font-family: 'Montserrat', serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    background-color: rgb(45, 20, 90);
-    cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  padding: 0 20px;
+  font-family: 'Montserrat', serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  background-color: #280853;
+  cursor: pointer;
 }
 
 .Content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  /* display: flex; */
+  flex-direction: column;
+  padding-right: 150px;
+  padding-bottom: 150px;
 }
 
 .homeTitle {
-    margin: 150px 600px 200px 500px;
-    
-    border-style: hidden;
-    padding: 50px 50px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 48px;
-    border-width: 1em;
+  margin: 150px 600px 200px 500px;
+  border-style: hidden;
+  padding: 50px 50px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 48px;
+  border-width: 1em;
+}
+
+.container {
+  flex: 1;
+  padding-top: 5px;
+  margin-left: 75px;
+  padding-right: 25px;
+  margin-right: 75px;
+  
+}
+
+.Logo {
+  height: 56px;
+  width: 56px;
 }
