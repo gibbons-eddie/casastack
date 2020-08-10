@@ -4,7 +4,7 @@ import Listing from '../../../models/Listing';
 dbConnect();
 
 export default async (req, res) => {
-    const { method } = req;
+    const { method, json } = req;
 
     switch(method) {
         case 'GET':
@@ -20,7 +20,20 @@ export default async (req, res) => {
             break;
         case 'POST':
             try {
-                const listing = await Listing.create(req.body);
+                console.log('in the api')
+                console.log(json)
+                //const listing = await Listing.create(json);
+                /*await new Listing({
+                    service: json.service,
+                    status: json.status,
+                    location: json.location,
+                    description: json.description,
+                    acceptor: json.acceptor,
+                    owner: json.owner,
+                    ownerAddress: json.ownerAddress,
+                    locationCoords: json.locationCoords,
+                    ownerCoords: json.ownerCoords,
+                }).save()*/
 
                 res.status(201).json({ success: true, data: listing})
 
