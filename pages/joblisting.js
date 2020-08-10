@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card, Segment} from 'semantic-ui-react';
-import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import { Button, Card} from 'semantic-ui-react';
+import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../utils/baseURL';
 import { useState, useEffect } from 'react';
 import Search from '../components/joblistingsPage/Search'
@@ -19,7 +19,7 @@ const joblistings1 = ({ listings, user }) => {
     const [filter, setFilter] = useState('100');
     const [filterDelivery, setFilterDelivery] = useState(true);
     const [filterService, setFilterService] = useState(true);
-    
+
     const deliveryUpdate = () => {
             setFilterDelivery(!filterDelivery);
     }
@@ -31,11 +31,11 @@ const joblistings1 = ({ listings, user }) => {
             setFilter(evt.target.value);
         }
     };
-    
+
     const serviceUpdate = () => {
             setFilterService(!filterService);
         }
-    
+
     const calcDistance = (listing) => {
             // Calculates distance between two places based on their longitude and latitude
             if (listing.service === 'delivery') {
@@ -84,9 +84,9 @@ const joblistings1 = ({ listings, user }) => {
             <Segment style={{textAlign: "center"}}>
 
                     <h1>No Listings Created</h1>
-                   
+
             </Segment>
-            
+
         )
     }
     else{
@@ -95,7 +95,7 @@ const joblistings1 = ({ listings, user }) => {
 
         <div className={jobListingStyle.jobListingsHeader}>
             <div className={jobListingStyle.listingTitle}>
-            Listings 
+            Listings
             </div>
                 <br></br>
                 <br></br>
@@ -126,7 +126,7 @@ const joblistings1 = ({ listings, user }) => {
                                         {listing.description}</h5>
                                         </>
                                     </Link>
-                                    
+
                                 </Card.Header>
                             </Card.Content>
 
@@ -144,24 +144,24 @@ const joblistings1 = ({ listings, user }) => {
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>)}
-                                        {(hasCoords(listing)) && ((listing.service==='service') ? <h1>Estimated distance:  
-                                         {Math.round(calcDistance(listing)*100)/100} miles</h1> 
+                                        {(hasCoords(listing)) && ((listing.service==='service') ? <h1>Estimated distance:
+                                         {Math.round(calcDistance(listing)*100)/100} miles</h1>
                                         : <h1>Estimated distance: {Math.round(calcDistance(listing)*100)/100} miles</h1>)}
                                     </div>
                             </Card.Content>
                         </Card>
                     )}
-                        
+
                     </div>)
             })}
-        
-            
+
+
         </div>
         </Segment>
         </div>
     )
         }
-    
+
 }
 
 joblistings1.getInitialProps = async () => {

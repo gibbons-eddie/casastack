@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Segment } from 'semantic-ui-react';
-import myListingStyle from '../../../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import myListingStyle from '../../../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../../../../utils/baseURL';
 
+<<<<<<< Updated upstream
 const Test = ({user, listings}) => {
     if(!listings.length){
         return(
@@ -40,27 +41,60 @@ const Test = ({user, listings}) => {
                                     
                                 </Card.Header>
                             </Card.Content>
+=======
+const Test = ({ user, listings }) => {
+    // console.log(listings);
+    return (
+        <div className={myListingStyle.listingsHeader}>
+            <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>
+            <Link href="/new">
+                <Button circular size='big' color='twitter' type='submit' style={{ fontFamily: 'Montserrat', fontWeight: '350' }}
+                    content='Create Listing'
+                />
+            </Link>
 
-                            <Card.Content extra>
+            <Segment color='violet'>
+                {listings.map(listing => {
+                    return (
+                        <div key={listing._id}>
+                            <Card centered columnCount="3">
+                                <Card.Content>
+                                    <Card.Header>
 
+                                        <Link href={`/${listing._id}`}>
+                                            <h1>{listing.service}</h1>
+                                        </Link>
+
+                                    </Card.Header>
+                                </Card.Content>
+
+                                <Card.Content extra>
+>>>>>>> Stashed changes
+
+
+<<<<<<< Updated upstream
                                 
                                     <div style={{textAlign: "center"}}>
+=======
+                                    <div>
+>>>>>>> Stashed changes
                                         <Button primary size="small">
                                             <Link href={`/${listing._id}`}>
                                                 <h3>View Listing</h3>
                                             </Link>
                                         </Button>
-                                    
+
 
                                         <br></br>
                                         <br></br>
-                                    
+
                                         <Button primary size="small">
                                             <Link href={`/${listing._id}/edit`}>
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>
                                     </div>
+<<<<<<< Updated upstream
                                     
                                     
                             
@@ -78,13 +112,23 @@ const Test = ({user, listings}) => {
         </div>
     )
         }
+=======
+                                </Card.Content>
+                            </Card>
+                        </div>
+                    );
+                })}
+            </Segment>
+        </div>
+    );
+>>>>>>> Stashed changes
 }
 
-Test.getInitialProps = async ( {query: {email} } ) => {
+Test.getInitialProps = async ({ query: { email } }) => {
     const res = await fetch(`${baseURL}/api/myListingsUser/${email}`);
     const { data } = await res.json();
 
-    return { listings: data }
+    return { listings: data };
 }
 
 export default Test;

@@ -4,9 +4,6 @@ import { Button, Card, Table } from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 
-// const rewardsTable = () => (
-// );
-
 const rewards1 = ({ rewards, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
@@ -135,6 +132,7 @@ const rewards1 = ({ rewards, user }) => {
                             7
                     </Table.Cell>
                     </Table.Row>
+<<<<<<< Updated upstream
                     <Table.Row>
                         <Table.Cell textAlign="center">
                             6
@@ -190,6 +188,8 @@ const rewards1 = ({ rewards, user }) => {
                             0
                     </Table.Cell>
                     </Table.Row>
+=======
+>>>>>>> Stashed changes
                 </Table.Body>
             </Table>
         </div>
