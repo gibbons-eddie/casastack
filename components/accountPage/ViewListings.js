@@ -6,15 +6,21 @@ import accountButtonStyles from '../accountPage/accountPageStyles/accountPage.mo
 
 
 const ViewListing = (props) => {
-    if (props.role ==="user") {
+    if (props.role === "user") {
         return(
         <div className={accountButtonStyles.accountButtons}>
+            <Link href="/new">
+                <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                        content='Create Listing'
+                />
+            </Link>
+            
             <Link href={`/myListings/user/${props.email}`}>
-            <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
-                content='View My Listings'/>
+                <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
+                    content='View My Listings'/>
             </Link>
         </div>
-            );
+        );
     }
     if (props.role === "volunteer") { 
         return(

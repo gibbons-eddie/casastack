@@ -11,22 +11,36 @@ import axios from 'axios';
   
 Geocode.setApiKey(process.env.MAPS_API_KEY);
 
-const initializeForm = {
-  service: '',
-  status: '',
-  location: '',
-  description: '',
-  owner: '',
-  acceptor: '',
-  ownerAddress: '',
-  locationLat: 0,
-  locationLng: 0,
-  ownerLat: 0,
-  ownerLng: 0,
-}
 
 const NewListing = ({ user }) => {
-  const [form, setForm] = useState(initializeForm);
+
+  const listingOptions = [
+    { key: 'd', text: 'Delivery', value: 'delivery' },
+    { key: 's', text: 'Service', value: 'service' },
+  ];
+
+  // set status=open by default
+  const setDefaultState = (x) => {
+    return x;
+  };
+  const defaultState = {
+    service: '',
+    status: 'open', // status of listing is open by default
+    location: '',
+    description: '',
+    price: '',
+    owner: '',
+    acceptor: '',
+    ownerAddress: '',
+    locationLat: 0,
+    locationLng: 0,
+    ownerLat: 0,
+    ownerLng: 0,
+  };
+  const [form, setForm] = useState(setDefaultState(defaultState));
+  // To hide store location address field if the listing type is "service"
+  const [seeLocationInput, setSeeLocationInput] = useState(true);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   const [destination, setDestination] = useState();
@@ -91,6 +105,13 @@ const NewListing = ({ user }) => {
     }
   };
 
+  const getPrice = () => {
+    if (form.description != '')
+    {
+      form.price = form.description.match(/\d+/g).map(Number);
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let errs = validate();
@@ -103,20 +124,31 @@ const NewListing = ({ user }) => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleStoreStatus = (event, result) => {
+    // for selecting listing type in dropdown
+    const { name, value } = result;
+    setForm({ ...form, [name]: value });
+
+    // set state for store location input field. hide if listing is a service
+    value == 'service' ? setSeeLocationInput(false) : setSeeLocationInput(true);
+  };
 
   const validate = () => {
     let err = {};
     if (!form.service) {
-      err.service = 'Service is required';
+      err.service = 'Listing type is required';
     }
     if (!form.status) {
       err.status = 'Status is required';
     }
-    if (!form.location) {
+    if (!form.location && seeLocationInput) {
       err.location = 'Location is required';
     }
     if (!form.description) {
       err.description = 'Description is required';
+    }
+    if (!form.price) {
+      err.price = 'Estimate is required';
     }
 
     return err;
@@ -131,42 +163,35 @@ const NewListing = ({ user }) => {
           <Loader active inline='centered' />
         ) : (
           <Form onSubmit={handleSubmit}>
-            <Form.Input
+            <Form.Dropdown
               fluid
               error={
                 errors.service
-                  ? { content: 'Please enter a service', pointing: 'below' }
+                  ? { content: 'Please select a service', pointing: 'below' }
                   : null
               }
-              label='Service'
-              placeholder='Service'
+              options={listingOptions}
+              placeholder='type'
+              label='Select a type of listing'
               name='service'
-              onChange={handleChange}
+              onChange={handleStoreStatus}
+              selection
             />
-            <Form.Input
-              fluid
-              error={
-                errors.status
-                  ? { content: 'Please enter a status', pointing: 'below' }
-                  : null
-              }
-              label='Status'
-              placeholder='Status'
-              name='status'
-              onChange={handleChange}
-            />
-            <Form.Input
-              fluid
-              error={
-                errors.location
-                  ? { content: 'Please enter a location', pointing: 'below' }
-                  : null
-              }
-              label='Location'
-              placeholder='Store Name'
-              name='location'
-              onChange={handleChange}
-            />
+            {seeLocationInput ? (
+              <Form.Input
+                fluid
+                error={
+                  errors.location
+                    ? { content: 'Please enter a location', pointing: 'below' }
+                    : null
+                }
+                label='Location'
+                placeholder='Store Name'
+                name='location'
+                onChange={handleChange}
+              />
+            ) : null}
+
             <Form.TextArea
               fluid
               label='Description'
@@ -175,6 +200,17 @@ const NewListing = ({ user }) => {
               error={
                 errors.description
                   ? { content: 'Please enter a description', pointing: 'below' }
+                  : null
+              }
+              onChange={handleChange}
+            />
+            <Form.Input inline
+              label='Estimated price: $'
+              placeholder='0.00'
+              name='price'
+              error={
+                errors.price
+                  ? { content: 'Please enter an estimated price', pointing: 'below' }
                   : null
               }
               onChange={handleChange}
