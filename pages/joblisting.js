@@ -120,8 +120,8 @@ const joblistings1 = ({ listings, user }) => {
 
                                      <Link href={`/${listing._id}`}>
                                         <>
-                                        <h1 style={{textAlign: "center"}} >{listing.service}</h1>
-                                        <h5 style={{color:"grey"}}>Description:
+                                        <h1 style={{textAlign: "center", textTransform: 'capitalize'}} >{listing.service}</h1>
+                                        <h5 style={{color:"grey", fontSize: 20}}>Description:
                                         <br></br>
                                         {listing.description}</h5>
                                         </>
@@ -144,9 +144,9 @@ const joblistings1 = ({ listings, user }) => {
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>)}
-                                        {(hasCoords(listing)) && ((listing.service==='service') ? <h1>Estimated distance:  
-                                         {Math.round(calcDistance(listing)*100)/100} miles</h1> 
-                                        : <h1>Estimated distance: {Math.round(calcDistance(listing)*100)/100} miles</h1>)}
+                                        {(hasCoords(listing)) && ((listing.service==='service') ? 
+                                        <h1 style={{fontSize: 15}}>Estimated distance: {Math.round(calcDistance(listing)*100)/100} miles</h1> 
+                                        : <h1 style={{fontSize: 15}}>Estimated distance: {Math.round(calcDistance(listing)*100)/100} miles</h1>)}
                                     </div>
                             </Card.Content>
                         </Card>

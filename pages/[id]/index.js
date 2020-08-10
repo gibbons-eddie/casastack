@@ -266,7 +266,7 @@ const Listing = ({ user, listing }) => {
                 billingAddress={true}
                 zipCode={true}
                 token={handleCheckout}
-                stripeKey='pk_test_51HCSooLmX91vqtCStqJ5fm1FmJ8n01j4rK64f3S7txpXe0Qp01u60bBQuHoyglckPLcW8tb6zpQSJ4ErBgBc8hyc00MvrbrWGj'
+                stripeKey={process.env.REACT_CHECKOUT_KEY}
                 triggerEvent='onClick'
                 style={{ fontFamily: 'Montserrat' }}
               >

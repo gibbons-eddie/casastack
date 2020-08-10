@@ -32,8 +32,8 @@ const Test1 = ({user, listings}) => {
 
                                    <Link href={`/${listing._id}`}>
                                         <>
-                                        <h1 style={{textAlign: "center"}} >{listing.service}</h1>
-                                        <h5 style={{color:"grey"}}>Description:
+                                        <h1 style={{textAlign: "center", textTransform: 'capitalize'}} >{listing.service}</h1>
+                                        <h5 style={{color:"grey", fontSize: 20}}>Description:
                                         <br></br>
                                         {listing.description}</h5>
                                         

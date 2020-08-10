@@ -226,7 +226,7 @@ class Map extends React.Component {
         />
         <br></br>
         <a className='destination-link' href={url} target='_blank'>
-          Click for direction to customer address
+          Directions
         </a>
       </div>
     );
