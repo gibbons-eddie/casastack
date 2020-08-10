@@ -126,9 +126,9 @@ const joblistings1 = ({ listings, user }) => {
                                                 <h3>Edit Listing</h3>
                                             </Link>
                                         </Button>)}
-                                        {(hasCoords(listing)) && ((listing.service==='service') ? <h1>distance to customer is: 
-                                        {Math.round(calcDistance(listing)*100)/100} miles!</h1> 
-                                        : <h1>distance to store is: {Math.round(calcDistance(listing)*100)/100} miles!</h1>)}
+                                        {(hasCoords(listing)) && ((listing.service==='service') ? <h1>Estimated distance:  
+                                         {Math.round(calcDistance(listing)*100)/100} miles</h1> 
+                                        : <h1>Estimated distance: {Math.round(calcDistance(listing)*100)/100} miles</h1>)}
                                     </div>
                             </Card.Content>
                         </Card>
