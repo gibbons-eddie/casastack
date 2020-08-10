@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import homeStyles from './homePageStyles/Home.module.css';
-import { Sidebar, Icon, Menu } from 'semantic-ui-react';
+import homeStyles from './homePageStyles/Home.module.css'
+import { Sidebar, Icon, Menu } from "semantic-ui-react";
 import { handleLogout } from '../../utils/auth';
 
 function Layout({ children, user }) {

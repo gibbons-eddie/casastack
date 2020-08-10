@@ -5,10 +5,17 @@ import { Confirm, Button, Loader, Segment } from 'semantic-ui-react';
 import newListingStyle from '../../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import Map from '../../components/maps/Map';
 import baseURL from '../../utils/baseURL';
+import calculateTotal from '../../utils/calculateTotal';
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
+import catchErrors from '../../utils/errorCatcher';
+import cookie from 'js-cookie';
 
 const Listing = ({ user, listing }) => {
   const [confirm, setConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [success, setSuccess] = useState(false); // for checkout
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,21 +34,21 @@ const Listing = ({ user, listing }) => {
       //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
       json.acceptor = user.email;
       json.status = 'accepted';
+      // If listing is a service, add the volunteer's address as listing's location
+      if (user.role === 'volunteer' && listing.service === 'service')
+        json.location = user.address;
       // CONSOLE TESTING-----------------------------------------------
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -50,7 +57,7 @@ const Listing = ({ user, listing }) => {
 
   const drop = async () => {
     try {
-      //comments so people can understand - by Joseph //if no userToken exists in the cookies then this should return undefined -> false
+      //comments so people can understand - by Joseph //if no token exists in the cookies then this should return undefined -> false
       //this is whatever they input into the edit form (as a json object)
       var json = listing;
       //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
@@ -60,17 +67,14 @@ const Listing = ({ user, listing }) => {
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
       // CONSOLE TESTING-----------------------------------------------
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -81,7 +85,7 @@ const Listing = ({ user, listing }) => {
     try {
       //comments so people can understand - by Joseph
       if (true) {
-        //if no userToken exists in the cookies then this should return undefined -> false
+        //if no token exists in the cookies then this should return undefined -> false
         //this is whatever they input into the edit form (as a json object)
         var json = listing;
         //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
@@ -91,17 +95,14 @@ const Listing = ({ user, listing }) => {
         console.log(json.acceptor);
         // CONSOLE TESTING-----------------------------------------------
       }
-      const res = await fetch(
-        `${baseURL}/api/listings/${router.query.id}`,
-        {
-          method: 'PUT',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(json),
-        }
-      );
+      const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
       router.push('/joblisting');
     } catch (error) {
       console.log(error);
@@ -111,12 +112,9 @@ const Listing = ({ user, listing }) => {
   const deleteListing = async () => {
     const listingId = router.query.id;
     try {
-      const deleted = await fetch(
-        `${baseURL}/api/listings/${listingId}`,
-        {
-          method: 'Delete',
-        }
-      );
+      const deleted = await fetch(`${baseURL}/api/listings/${listingId}`, {
+        method: 'Delete',
+      });
 
       router.push('/');
     } catch (error) {
@@ -129,23 +127,62 @@ const Listing = ({ user, listing }) => {
     close();
   };
 
-  const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
+  // const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
+  /*
+  simple logical functions for determining information about the user/listing for the purposes
+  of conditionally rendering the various buttons. all of them should execute as the page is loaded.
+  */
   var isAcceptor = false;
-  if ((listing.acceptor === user.email)) {
+  if (listing.acceptor === user.email) {
     isAcceptor = true;
   }
   var isOwner = false;
   if (listing.owner === user.email) {
     isOwner = true;
   }
-  //breaks for old listings where owner is undefined
   var isCompleted = false;
-  if (listing.status === 'completed') {
+  if (listing.status === 'completed') { //breaks for old listings where owner is undefined
     isCompleted = true;
   }
-  console.log(isCompleted);
-  console.log(isAcceptor);
+
+  var isAccepted = false;
+  if (listing.status === 'accepted') {
+    isAccepted = true;
+  }
+
+  var isPaid = false;
+  if (listing.status === 'paid') {
+    isPaid = true;
+  }
+  // console.log(isCompleted);
+  // console.log(isAcceptor);
+
+  async function handleCheckout(paymentData) {
+    try {
+      var json = listing;
+      setLoading(true);
+      const url = `${baseURL}/api/checkoutAPI`;
+      const token = cookie.get('token');
+      const payload = { paymentData, ...listing };
+      const headers = { headers: { Authorization: token } };
+      await axios.post(url, payload, headers);
+      setSuccess(true);
+      json.status = 'paid';
+      const pay = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(json),
+      });
+    } catch (error) {
+      catchErrors(error, window.alert);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className={newListingStyle.newLayout}>
@@ -153,42 +190,103 @@ const Listing = ({ user, listing }) => {
         <Loader active />
       ) : (
         <>
-          <h1>Service: {listing.service}</h1>
+          <h1>{listing.service}</h1>
           <Segment>
-            <p>Job status: {listing.status}</p>
-            <p>Location: {listing.location}</p>
-            <p>Description: {listing.description}</p>
-            <Map
-              listingObj={listing}
-              //customerAddress={temporaryCustomerAddress}
-              //storeAddress={listing.location}
-            />
+            <p>
+              <b>Job status:</b> {listing.status}
+            </p>
+            {listing.service == 'delivery' ? (
+              <p>
+                <b>Store location:</b> {listing.location}
+              </p>
+            ) : null}
+            <p>
+              <b>Description:</b> {listing.description}
+            </p>
+            <p>
+              <b>Price:</b> ${listing.price}
+            </p>
+
+            <Map listingObj={listing} user={user} />
 
             <br></br>
-            {isOwner ? (
-              <Button color='red' onClick={open}>
-                Delete
+            {isOwner && !isAccepted && !isPaid ? (
+              <Button
+                color='red'
+                onClick={open}
+                style={{ fontFamily: 'Montserrat' }}
+              >
+                Close
               </Button>
             ) : (
               <div></div>
             )}
-            {isAcceptor ? (
+
+            {isAcceptor || isOwner ? (
               <div></div>
             ) : (
-              <Button color='green' onClick={openAccept}>
+              <Button
+                color='green'
+                onClick={openAccept}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Accept
               </Button>
             )}
-            {isAcceptor ? (
-              <Button color='red' onClick={drop}>
+            {isAcceptor && !isPaid ? (
+              <Button
+                color='red'
+                onClick={drop}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Drop
               </Button>
             ) : (
               <div></div>
             )}
-            {!isCompleted && isAcceptor ? (
-              <Button color='green' onClick={complete}>
+            {!isCompleted && isAcceptor && isPaid ? (
+              <Button
+                color='green'
+                onClick={complete}
+                style={{ fontFamily: 'Montserrat' }}
+              >
                 Complete
+              </Button>
+            ) : (
+              <div></div>
+            )}
+            {!isCompleted && isOwner && isAccepted ? (
+              // <Checkout {...listing}/>
+              <StripeCheckout
+                name={listing.service}
+                description='CasaStack'
+                amount={calculateTotal(listing.price)}
+                currency='USD'
+                shippingAddress={true}
+                billingAddress={true}
+                zipCode={true}
+                token={handleCheckout}
+                stripeKey='pk_test_51HCSooLmX91vqtCStqJ5fm1FmJ8n01j4rK64f3S7txpXe0Qp01u60bBQuHoyglckPLcW8tb6zpQSJ4ErBgBc8hyc00MvrbrWGj'
+                triggerEvent='onClick'
+                style={{ fontFamily: 'Montserrat' }}
+              >
+                <Button
+                  color='violet'
+                  content='Pay'
+                  disabled={success || isPaid}
+                  style={{ fontFamily: 'Montserrat' }}
+                />
+              </StripeCheckout>
+            ) : (
+              <div></div>
+            )}
+            {!isCompleted && isOwner && isPaid ? (
+              <Button
+                color='violet'
+                disabled
+                style={{ fontFamily: 'Montserrat' }}
+              >
+                Paid!
               </Button>
             ) : (
               <div></div>
