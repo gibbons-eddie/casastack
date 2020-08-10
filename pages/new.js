@@ -171,13 +171,14 @@ const NewListing = ({ user }) => {
                   : null
               }
               options={listingOptions}
-              placeholder='type'
+              placeholder='Listing type'
               label='Select a type of listing'
               name='service'
               onChange={handleStoreStatus}
               selection
             />
             {seeLocationInput ? (
+              
               <Form.Input
                 fluid
                 error={
@@ -186,10 +187,11 @@ const NewListing = ({ user }) => {
                     : null
                 }
                 label='Location'
-                placeholder='Store Name'
+                placeholder='Store Address ex: 123 Apple St, Gainesville, FL'
                 name='location'
                 onChange={handleChange}
               />
+              
             ) : null}
 
             <Form.TextArea
