@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card} from 'semantic-ui-react';
+import { Button, Card, Segment} from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 import { useState, useEffect } from 'react';
@@ -16,6 +16,21 @@ const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
+
+    if(!listings.length){
+        return(
+            <Segment style={{textAlign: "center"}}>
+
+                    <h1>No Listings Created</h1>
+                   
+            </Segment>
+            
+        )
+    }
+    else{
+        return(
+
+
     const [filter, setFilter] = useState('100');
     const [filterDelivery, setFilterDelivery] = useState(true);
     const [filterService, setFilterService] = useState(true);
@@ -82,38 +97,46 @@ const joblistings1 = ({ listings, user }) => {
     }
     
     return(
+
         <div className={jobListingStyle.jobListingsHeader}>
             <div className={jobListingStyle.listingTitle}>
             Listings 
             </div>
                 <br></br>
                 <br></br>
+
+        <Segment style={{ minHeight: 1000}} color='violet'>
+
                 <Search onFilterChange ={filterUpdate}></Search>
                 {filterDelivery ? (<Button onClick={deliveryUpdate}>Hide Services</Button>) : (<Button onClick={deliveryUpdate}>Show Services</Button>)}
                 {filterService ? (<Button onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button onClick={serviceUpdate}>Show Deliveries</Button>)}
+
         <div className="grid wrapper">
 
             {listings.map(listing => {
                 return (
+
                     <div key={listing._id}>{(hasCoords(listing) && (calcDistance(listing) <filter)
                         && (filterDelivery || listing.service==='delivery')&& (filterService || listing.service==='service')) && (
-                        <Card>
+                        <Card style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
+
                             <Card.Content>
                                 <Card.Header>
 
-                                    <Link href={`/${listing._id}`}>
-                                        <h1>{listing.status}</h1>
-                                    </Link>
-
-                                    <Link href={`/${listing._id}`}>
-                                        <h2>{listing.service}</h2>
+                                     <Link href={`/${listing._id}`}>
+                                        <>
+                                        <h1 style={{textAlign: "center"}} >{listing.service}</h1>
+                                        <h5 style={{color:"grey"}}>Description:
+                                        <br></br>
+                                        {listing.description}</h5>
+                                        </>
                                     </Link>
                                     
                                 </Card.Header>
                             </Card.Content>
 
                             <Card.Content extra>
-                                    <div>
+                                    <div style={{textAlign: "center"}}>
                                         <Button className="card-button" primary size="small">
                                             <Link href={`/${listing._id}`}>
                                                 <h3>View Listing</h3>
@@ -139,8 +162,10 @@ const joblistings1 = ({ listings, user }) => {
         
             
         </div>
+        </Segment>
         </div>
     )
+        }
     
 }
 
