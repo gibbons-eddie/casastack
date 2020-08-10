@@ -103,9 +103,11 @@ const joblistings1 = ({ listings, user }) => {
         <Segment style={{ minHeight: 1000}} color='violet'>
 
                 <Search onFilterChange ={filterUpdate}></Search>
-                {filterDelivery ? (<Button style={{marginTop: 20, marginBottom: 20}} onClick={deliveryUpdate}>Hide Services</Button>) : (<Button style={{marginTop: 20, marginBottom: 20}} onClick={deliveryUpdate}>Show Services</Button>)}
-                {filterService ? (<Button style={{marginTop: 20, marginBottom: 20}} onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button style={{marginTop: 20, marginBottom: 20}} onClick={serviceUpdate}>Show Deliveries</Button>)}
-
+                <br/>
+                {filterDelivery ? (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={deliveryUpdate}>Hide Services</Button>) : (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={deliveryUpdate}>Show Services</Button>)}
+                {filterService ? (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button style={{minHeight: 75, minWidth: 525, fontSize: 25}} onClick={serviceUpdate}>Show Deliveries</Button>)}
+                <br/>
+                <br/>
         <div className="grid wrapper">
 
             {listings.map(listing => {
