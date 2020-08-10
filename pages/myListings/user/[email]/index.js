@@ -5,26 +5,37 @@ import myListingStyle from '../../../../components/joblistingsPage/jobListingPag
 import baseURL from '../../../../utils/baseURL';
 
 const Test = ({user, listings}) => {
-    // console.log(listings);
+    if(!listings.length){
+        return(
+            <Segment style={{textAlign: "center"}}>
+
+                    <h1>No Listings Created</h1>
+                   
+            </Segment>
+            
+        )
+    }
+    else {
     return(
         <div className={myListingStyle.listingsHeader}>
             <div className={myListingStyle.myListingTitle}>{user.firstName}'s Listings</div>    
-                <Link href="/new">
-                    <Button circular size='big' color='twitter' type='submit' style={{fontFamily: 'Montserrat', fontWeight: '350'}}
-                        content='Create Listing'
-                    />
-                </Link>
 
-        <Segment color='violet'>
+        <Segment  style={{ minHeight: 1000}} color='violet'>
+            <div className="grid wrapper">
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>
-                        <Card centered columnCount="3">
+                        <Card  style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
                             <Card.Content>
                                 <Card.Header>
 
                                     <Link href={`/${listing._id}`}>
-                                        <h1>{listing.service}</h1>
+                                        <>
+                                        <h1 style={{textAlign: "center"}} >{listing.service}</h1>
+                                        <h5 style={{color:"grey"}}>Description:
+                                        <br></br>
+                                        {listing.description}</h5>
+                                        </>
                                     </Link>
                                     
                                 </Card.Header>
@@ -33,7 +44,7 @@ const Test = ({user, listings}) => {
                             <Card.Content extra>
 
                                 
-                                    <div>
+                                    <div style={{textAlign: "center"}}>
                                         <Button primary size="small">
                                             <Link href={`/${listing._id}`}>
                                                 <h3>View Listing</h3>
@@ -58,12 +69,15 @@ const Test = ({user, listings}) => {
                         </Card>
                     </div>
                 )
-            })}
+            }
+            )//this is the end of the map call
+            }
         
-            
+        </div>
         </Segment>
         </div>
     )
+        }
 }
 
 Test.getInitialProps = async ( {query: {email} } ) => {

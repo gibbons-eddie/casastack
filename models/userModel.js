@@ -37,7 +37,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ["user", "volunteer", "admin", "root"]
-    }
+    },
+    lat: {type: Number,},
+    lng: {type: Number,},
 }, {
     timestamps: true
 })

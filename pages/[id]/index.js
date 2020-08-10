@@ -129,6 +129,10 @@ const Listing = ({ user, listing }) => {
 
   // const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
 
+  /*
+  simple logical functions for determining information about the user/listing for the purposes
+  of conditionally rendering the various buttons. all of them should execute as the page is loaded.
+  */
   var isAcceptor = false;
   if (listing.acceptor === user.email) {
     isAcceptor = true;
@@ -137,9 +141,8 @@ const Listing = ({ user, listing }) => {
   if (listing.owner === user.email) {
     isOwner = true;
   }
-  //breaks for old listings where owner is undefined
   var isCompleted = false;
-  if (listing.status === 'completed') {
+  if (listing.status === 'completed') { //breaks for old listings where owner is undefined
     isCompleted = true;
   }
 
@@ -218,6 +221,7 @@ const Listing = ({ user, listing }) => {
             ) : (
               <div></div>
             )}
+
             {isAcceptor || isOwner ? (
               <div></div>
             ) : (

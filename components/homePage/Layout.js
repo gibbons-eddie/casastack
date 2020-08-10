@@ -50,6 +50,15 @@ function Layout ({children, user}) {
           </Menu.Item>
         </Link>
 
+        <Link href={`/myListings/volunteer/${user.email}`}>
+          <Menu.Item>
+            <Icon
+              name="eye"
+            />
+            View My Listings
+          </Menu.Item>
+        </Link>
+
         <Link href="/rewards">
           <Menu.Item>
             <Icon
@@ -71,6 +80,27 @@ function Layout ({children, user}) {
             Profile
           </Menu.Item>
         </Link>
+        {!isCustomer ? (
+        <>
+        <Link href="/new">
+          <Menu.Item>
+            <Icon
+              name="pencil alternate"
+            />
+            Create Listing
+          </Menu.Item>
+        </Link>
+
+        <Link href={`/myListings/user/${user.email}`}>
+          <Menu.Item>
+            <Icon
+              name="eye"
+            />
+            View My Listings
+          </Menu.Item>
+        </Link>
+        </>
+        ) : (null)}
 
         <Menu.Item onClick={handleLogout}>
           <Icon name="sign-out alternate"

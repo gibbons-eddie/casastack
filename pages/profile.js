@@ -12,7 +12,7 @@ function Profile({user, orders}) { // gets user object from pageProps in _app.js
     return <>
         <AccountInfo {...user}/>
         {isCustomer && (<OrderHistory orders={orders}/>)}
-        <ViewListings {...user}/>
+        
     </>;
 }
 

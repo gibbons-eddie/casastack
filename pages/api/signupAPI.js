@@ -8,7 +8,7 @@ import isLength from 'validator/lib/isLength'
 dbConnect();
 
 export default async (req, res) => {
-    const { role, firstName, lastName, email, password, address, phoneNumber } = req.body;
+    const { role, firstName, lastName, email, password, address, phoneNumber, lat, lng } = req.body;
     try {
         // validate name, email, and password
         if (!isLength(firstName, {min: 3, max: 10}))
@@ -39,6 +39,8 @@ export default async (req, res) => {
             address,
             phoneNumber,
             jobsCompleted: 0
+            lat: lat,
+            lng: lng,
         }).save()
         // create token for the new user, links token to user
         const token = jwt.sign(
