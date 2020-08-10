@@ -31,6 +31,7 @@ const userSchema = new mongoose.Schema({
     },
     jobsCompleted: {
         type: Number,
+        default: 0,
     },
     role: {
         type: String,

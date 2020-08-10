@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function Profile({user, orders}) { // gets user object from pageProps in _app.js, then spreads it out into sub components
     const isCustomer = user.role === 'user';
+    const isVolunteer = user.role === 'volunteer';
     
     return <>
         <AccountInfo {...user}/>

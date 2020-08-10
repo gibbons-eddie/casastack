@@ -13,7 +13,7 @@ const initializeUser = {
     email: "",
     password: "",
     address: "",
-    phoneNumber: ""
+    phoneNumber: "",
 }
 
 function Register()

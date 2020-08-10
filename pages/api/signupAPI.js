@@ -37,7 +37,8 @@ export default async (req, res) => {
             email,
             password: passHash,
             address,
-            phoneNumber
+            phoneNumber,
+            jobsCompleted: 0
         }).save()
         // create token for the new user, links token to user
         const token = jwt.sign(

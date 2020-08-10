@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import calculateTotal from '../../utils/calculateTotal';
 import Listing from '../../models/Listing';
 import Order from '../../models/Order';
+import User from '../../models/userModel';
 
 const stripe = Stripe(process.env.STRIPE_KEY);
 
@@ -56,6 +57,8 @@ export default async (req, res) => {
             ownerAddress: listingInfo.ownerAddress,
             email: paymentData.email
         }).save()
+        // add completed listing to volunteer user info
+        await User.findOneAndUpdate({email: listingInfo.acceptor}, {$inc: {'jobsCompleted': 1}});
         // send back 200 status code for success
         res.status(200).send('Payment successful!');
     } catch (error) {
