@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 dbConnect();
 
 export default async (req, res) => {
-    const { method, service, status, location, description, acceptor, owner, ownerAddress, locationLat, locationLng, ownerLat, ownerLng } = req.body;
+    const { method, service, status, location, description, price, acceptor, owner, ownerAddress, locationLat, locationLng, ownerLat, ownerLng } = req.body;
 
             try {
                 //const listing = await Listing.create(json);
@@ -21,6 +21,7 @@ export default async (req, res) => {
                     locationLng: locationLng,
                     ownerLat: ownerLat,
                     ownerLng: ownerLng,
+                    price: price
                 }).save()
 
                 res.status(201).json({ success: true, data: newListing})

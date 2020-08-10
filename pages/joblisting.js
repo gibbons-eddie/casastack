@@ -16,7 +16,69 @@ const joblistings1 = ({ listings, user }) => {
     const isRoot = user.role === 'root';
     const isAdmin = user.role === 'admin';
     const isVolunteer = user.role === 'volunteer';
-
+    const [filter, setFilter] = useState('100');
+    const [filterDelivery, setFilterDelivery] = useState(true);
+    const [filterService, setFilterService] = useState(true);
+    
+    const deliveryUpdate = () => {
+            setFilterDelivery(!filterDelivery);
+    }
+    const filterUpdate = (evt) => {
+        //Here you can set the filterText property of state to the value passed into this function
+        if (evt.target.value===''){
+            setFilter('100');
+        } else {
+            setFilter(evt.target.value);
+        }
+    };
+    
+    const serviceUpdate = () => {
+            setFilterService(!filterService);
+        }
+    
+    const calcDistance = (listing) => {
+            // Calculates distance between two places based on their longitude and latitude
+            if (listing.service === 'delivery') {
+                var R = 3958.8; // Earth's radius in miles
+                var distanceLat = rad(
+                  user.lat - listing.locationLat
+                );
+                var distanceLong = rad(
+                  user.lng - listing.locationLng
+                );
+                var a =
+                  Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
+                  Math.cos(rad(listing.locationLat)) *
+                    Math.cos(rad(user.lat)) *
+                    Math.sin(distanceLong / 2) *
+                    Math.sin(distanceLong / 2);
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                var d = R * c; // Distance in miles
+                return d;
+            }
+          if (listing.service === 'service') {
+            var R = 3958.8; // Earth's radius in miles
+            var distanceLat = rad(
+              user.lat - listing.ownerLat
+            );
+            var distanceLong = rad(
+              user.lng - listing.ownerLng
+            );
+            var a =
+              Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
+              Math.cos(rad(listing.ownerLat)) *
+                Math.cos(rad(user.lat)) *
+                Math.sin(distanceLong / 2) *
+                Math.sin(distanceLong / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c; // Distance in miles
+            return d;
+          }
+        }
+        const hasCoords = (listing) => {
+            if ((listing.locationLat&& listing.service==='delivery') || listing.service==='service') {return true;}
+            return false;
+        }
     if(!listings.length){
         return(
             <Segment style={{textAlign: "center"}}>
@@ -30,73 +92,6 @@ const joblistings1 = ({ listings, user }) => {
     else{
         return(
 
-
-    const [filter, setFilter] = useState('100');
-    const [filterDelivery, setFilterDelivery] = useState(true);
-    const [filterService, setFilterService] = useState(true);
-
-    const filterUpdate = (evt) => {
-        //Here you can set the filterText property of state to the value passed into this function
-        if (evt.target.value===''){
-            setFilter('100');
-        } else {
-            setFilter(evt.target.value);
-        }
-    };
-
-    const deliveryUpdate = () => {
-        setFilterDelivery(!filterDelivery);
-    }
-
-    const serviceUpdate = () => {
-        setFilterService(!filterService);
-    }
-
-    const calcDistance = (listing) => {
-        // Calculates distance between two places based on their longitude and latitude
-        if (listing.service === 'delivery') {
-            var R = 3958.8; // Earth's radius in miles
-            var distanceLat = rad(
-              user.lat - listing.locationLat
-            );
-            var distanceLong = rad(
-              user.lng - listing.locationLng
-            );
-            var a =
-              Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
-              Math.cos(rad(listing.locationLat)) *
-                Math.cos(rad(user.lat)) *
-                Math.sin(distanceLong / 2) *
-                Math.sin(distanceLong / 2);
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            var d = R * c; // Distance in miles
-            return d;
-        }
-      if (listing.service === 'service') {
-        var R = 3958.8; // Earth's radius in miles
-        var distanceLat = rad(
-          user.lat - listing.ownerLat
-        );
-        var distanceLong = rad(
-          user.lng - listing.ownerLng
-        );
-        var a =
-          Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2) +
-          Math.cos(rad(listing.ownerLat)) *
-            Math.cos(rad(user.lat)) *
-            Math.sin(distanceLong / 2) *
-            Math.sin(distanceLong / 2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c; // Distance in miles
-        return d;
-      }
-    }
-    const hasCoords = (listing) => {
-        if ((listing.locationLat&& listing.service==='delivery') || listing.service==='service') {return true;}
-        return false;
-    }
-    
-    return(
 
         <div className={jobListingStyle.jobListingsHeader}>
             <div className={jobListingStyle.listingTitle}>
