@@ -4,7 +4,7 @@ import accountPageStyles from '../accountPage/accountPageStyles/accountPage.modu
 import formatDate from '../../utils/formatDate';
 import formatNumber from '../../utils/formatNumber';
 
-function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, createdAt}) { // call individual elements of user to use them for all kinds of things !
+function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, jobsCompleted, createdAt}) { // call individual elements of user to use them for all kinds of things !
     const isRoot = role === 'root';
     const isAdmin = role === 'admin';
     const isVolunteer = role === 'volunteer';
@@ -28,6 +28,7 @@ function AccountInfo ({role, firstName, lastName, email, phoneNumber, address, c
                     <Header.Subheader><strong>Email | </strong>{email}</Header.Subheader>
                     <Header.Subheader><strong>Phone number | </strong>{formatNumber(phoneNumber)}</Header.Subheader>
                     <Header.Subheader><strong>Address | </strong>{address}</Header.Subheader>
+                    {isVolunteer && <Header.Subheader><strong>Listings completed | </strong>{jobsCompleted}</Header.Subheader>}
                     <Header.Subheader><strong>Joined </strong>{formatDate(createdAt)}</Header.Subheader>
                 </Header>
             </Segment>

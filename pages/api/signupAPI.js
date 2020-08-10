@@ -38,6 +38,7 @@ export default async (req, res) => {
             password: passHash,
             address,
             phoneNumber,
+            jobsCompleted: 0
             lat: lat,
             lng: lng,
         }).save()
