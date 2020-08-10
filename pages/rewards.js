@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Table } from 'semantic-ui-react';
-import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../utils/baseURL';
 
 const rewards1 = ({ rewards, user }) => {
@@ -132,67 +132,9 @@ const rewards1 = ({ rewards, user }) => {
                             7
                     </Table.Cell>
                     </Table.Row>
-<<<<<<< Updated upstream
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            6
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Steve Jobs
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            5
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            7
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Sean Cortes
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            5
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            8
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Bob Name
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            2
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            9
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Florida Man
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            1
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            10
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Tom Nook
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            0
-                    </Table.Cell>
-                    </Table.Row>
-=======
->>>>>>> Stashed changes
                 </Table.Body>
             </Table>
-        </div>
+        </div >
     );
 };
 

@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card} from 'semantic-ui-react';
+import { Button, Card, Segment } from 'semantic-ui-react';
 import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../utils/baseURL';
 import { useState, useEffect } from 'react';
-import Search from '../components/joblistingsPage/Search'
+import Search from '../components/joblistingsPage/Search';
 
 var rad = (x) => {
     return (x * Math.PI) / 180;
