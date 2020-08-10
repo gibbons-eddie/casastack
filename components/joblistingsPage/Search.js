@@ -5,7 +5,7 @@ const Search = (props) => {
     //You will need the onChange value for the input tag to capture the textbox value
     return (
         <form>
-            <input style={{minWidth:1130, minHeight: 50, fontSize: 20, borderColor: "grey", fontFamily: "Montserrat", borderRadius: 10}} type="text" onChange={props.onFilterChange} placeholder="Type a distance to filter"/>
+            <input style={{minWidth:1050, minHeight: 50, fontSize: 20, borderColor: "grey", fontFamily: "Montserrat", borderRadius: 10}} type="text" onChange={props.onFilterChange} placeholder="Type a distance to filter"/>
         </form>
     );
 
