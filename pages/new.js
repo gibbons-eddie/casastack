@@ -67,29 +67,29 @@ const NewListing = ({ user }) => {
       }
 
       / * Save coordinates via geocode api request in server instead */;
-      if (true) {
-        await Geocode.fromAddress(user.address).then(
-          (response) => {
-            json.ownerLat = response.results[0].geometry.location.lat;
-            json.ownerLng = response.results[0].geometry.location.lng;
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-      console.log(json);
-      if (true) {
-        await Geocode.fromAddress(json.location).then(
-          (response) => {
-            json.locationLat = response.results[0].geometry.location.lat;
-            json.locationLng = response.results[0].geometry.location.lng;
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
+      // if (true) {
+      //   await Geocode.fromAddress(user.address).then(
+      //     (response) => {
+      //       json.ownerLat = response.results[0].geometry.location.lat;
+      //       json.ownerLng = response.results[0].geometry.location.lng;
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   );
+      // }
+      // console.log(json);
+      // if (true) {
+      //   await Geocode.fromAddress(json.location).then(
+      //     (response) => {
+      //       json.locationLat = response.results[0].geometry.location.lat;
+      //       json.locationLng = response.results[0].geometry.location.lng;
+      //     },
+      //     (error) => {
+      //       console.log(error);
+      //     }
+      //   );
+      // }
       console.log(json);
       /*const res = await fetch(`${baseURL}/api/listings`, {
         method: 'POST',

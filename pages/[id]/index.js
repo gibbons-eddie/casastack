@@ -207,6 +207,10 @@ const Listing = ({ user, listing }) => {
             <p>
               <b>Price:</b> ${listing.price}
             </p>
+            <p>
+              <b>** TESTING ** listing coordinates: </b>
+              {listing.locationLat + ' ' + listing.locationLng}
+            </p>
             <Map listingObj={listing} user={user} />
 
             <br></br>
