@@ -25,14 +25,14 @@ const Test = ({user, listings}) => {
             {listings.map(listing => {
                 return (
                     <div key={listing._id}>
-                        <Card  style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
+                        <Card  style={{ minHeight: 350, maxHeight: 350, width:"375px" }}>
                             <Card.Content>
                                 <Card.Header>
 
                                     <Link href={`/${listing._id}`}>
                                         <>
                                         <h1 style={{textAlign: "center", textTransform: 'capitalize'}} >{listing.service}</h1>
-                                        <h5 style={{color:"grey", fontSize: 20}}>Description:
+                                        <h5 style={{color:"grey", fontSize: 20, textAlign: 'center', marginBottom: -50, marginTop: -25}}>
                                         <br></br>
                                         {listing.description}</h5>
                                         </>

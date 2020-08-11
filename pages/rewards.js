@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import { Button, Card, Table, Divider } from 'semantic-ui-react';
-import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import rewardsStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 
 // const rewardsTable = () => (
@@ -14,9 +14,9 @@ const rewards1 = ({ rewards, user }) => {
 
     return (
 
-        <div className={jobListingStyle.jobListingsHeader}>
+        <div className={rewardsStyle.rewardsHeader}>
 
-            <div className={jobListingStyle.listingTitle}>
+            <div className={rewardsStyle.listingTitle}>
                 Rewards
             </div>
 

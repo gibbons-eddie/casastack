@@ -195,9 +195,9 @@ const Listing = ({ user, listing }) => {
         <Loader active />
       ) : (
         <>
-          <h1>{listing.service}</h1>
+          <h1 style={{textTransform: 'capitalize'}}>{listing.service}</h1>
           <Segment>
-            <p>
+            <p style={{textTransform: 'capitalize'}}>
               <b>Job status:</b> {listing.status}
             </p>
             {listing.service == 'delivery' ? (

@@ -114,7 +114,7 @@ const joblistings1 = ({ listings, user }) => {
 
                     <div key={listing._id}>{(hasCoords(listing) && (calcDistance(listing) <filter)
                         && (filterDelivery || listing.service==='delivery')&& (filterService || listing.service==='service')) && (
-                        <Card style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
+                        <Card style={{ minHeight: 350, maxHeight: 350, width:"330px" }}>
 
                             <Card.Content>
                                 <Card.Header>
@@ -122,7 +122,7 @@ const joblistings1 = ({ listings, user }) => {
                                      <Link href={`/${listing._id}`}>
                                         <>
                                         <h1 style={{textAlign: "center", textTransform: 'capitalize'}} >{listing.service}</h1>
-                                        <h5 style={{color:"grey", fontSize: 20}}>Description:
+                                        <h5 style={{color:"grey", fontSize: 15}}>Description:
                                         <br></br>
                                         {listing.description}</h5>
                                         </>
