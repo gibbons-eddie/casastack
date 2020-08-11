@@ -3,7 +3,7 @@ import Listing from '../../models/Listing';
 import mongoose from 'mongoose';
 
 //const request = require('request'); // http client
-var rp = require('request-promise'); // http client with Promise support
+var respromise = require('request-promise'); // http client with Promise support
 
 dbConnect();
 
@@ -39,7 +39,7 @@ export default async (req, res) => {
     // No need to make geocode api request to get owner coordinates because on signup the user's coordinates are saved
 
     // Get coordinates from location (store location)
-    var geocodeResult = await rp(url, function (error, response, body) {
+    var geocodeResult = await respromise(url, function (error, response, body) {
       if (response.statusCode == 200 && !error) {
         // Parse the response
         var data = JSON.parse(body);
@@ -75,7 +75,6 @@ export default async (req, res) => {
       price: price,
     }).save();
 
-    console.log('saved new listing to mongo!');
     res.status(201).json({ success: true, data: newListing });
   } catch (error) {
     res.status(400).json({ success: false });

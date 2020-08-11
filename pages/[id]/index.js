@@ -35,8 +35,12 @@ const Listing = ({ user, listing }) => {
       json.acceptor = user.email;
       json.status = 'accepted';
       // If listing is a service, add the volunteer's address as listing's location
-      if (user.role === 'volunteer' && listing.service === 'service')
+      if (user.role === 'volunteer' && listing.service === 'service') {
         json.location = user.address;
+        json.locationLat = user.lat;
+        json.locationLng = user.lng;
+      }
+
       // CONSOLE TESTING-----------------------------------------------
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
@@ -206,10 +210,6 @@ const Listing = ({ user, listing }) => {
             </p>
             <p>
               <b>Price:</b> ${listing.price}
-            </p>
-            <p>
-              <b>** TESTING ** listing coordinates: </b>
-              {listing.locationLat + ' ' + listing.locationLng}
             </p>
             <Map listingObj={listing} user={user} />
 
