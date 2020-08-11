@@ -30,7 +30,7 @@ export default async (req, res) => {
   var BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   var addr = address;
 
-  var url = BASE_URL + addr + '&key=' + process.env.GEOCODE_SERVICE_KEY;
+  var url = BASE_URL + addr + '&key=' + process.env.GEOCODE_API_KEY;
   console.log('this is the url to pass into api request: ', url);
 
   // Get coordinates from location (store location)

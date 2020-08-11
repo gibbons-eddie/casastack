@@ -34,7 +34,7 @@ export default async (req, res) => {
     var BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     var address = location;
 
-    var url = BASE_URL + address + '&key=' + process.env.GEOCODE_SERVICE_KEY;
+    var url = BASE_URL + address + '&key=' + process.env.GEOCODE_API_KEY;
     console.log('this is the url to pass into api request: ', url);
 
     // No need to make geocode api request to get owner coordinates because on signup the user's coordinates are saved
