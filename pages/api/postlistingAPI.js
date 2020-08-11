@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 
 //const request = require('request'); // http client
 var respromise = require('request-promise'); // http client with Promise support
+const fixieRequest = respromise.defaults({ proxy: process.env.FIXIE_URL }); // to route thru fixie
 
 dbConnect();
 
@@ -33,13 +34,17 @@ export default async (req, res) => {
     var BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
     var address = location;
 
-    var url = BASE_URL + address + '&key=' + process.env.GEOCODE_SERVICE_KEY;
+    var url = BASE_URL + address + '&key=' + process.env.GEOCODE_API_KEY;
     console.log('this is the url to pass into api request: ', url);
 
     // No need to make geocode api request to get owner coordinates because on signup the user's coordinates are saved
 
     // Get coordinates from location (store location)
-    var geocodeResult = await respromise(url, function (error, response, body) {
+    var geocodeResult = await fixieRequest(url, function (
+      error,
+      response,
+      body
+    ) {
       if (response.statusCode == 200 && !error) {
         // Parse the response
         var data = JSON.parse(body);

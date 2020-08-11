@@ -6,6 +6,7 @@ import isEmail from 'validator/lib/isEmail';
 import isLength from 'validator/lib/isLength';
 
 var respromise = require('request-promise'); // http client with Promise support
+const fixieRequest = respromise.defaults({ proxy: process.env.FIXIE_URL }); // to route thru fixie
 
 dbConnect();
 
@@ -29,11 +30,11 @@ export default async (req, res) => {
   var BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   var addr = address;
 
-  var url = BASE_URL + addr + '&key=' + process.env.GEOCODE_SERVICE_KEY;
+  var url = BASE_URL + addr + '&key=' + process.env.GEOCODE_API_KEY;
   console.log('this is the url to pass into api request: ', url);
 
   // Get coordinates from location (store location)
-  var geocodeResult = await respromise(url, function (error, response, body) {
+  var geocodeResult = await fixieRequest(url, function (error, response, body) {
     if (response.statusCode == 200 && !error) {
       // Parse the response
       var data = JSON.parse(body);
