@@ -14,8 +14,7 @@
 }
 
 .newLayout {
-    margin: 200px 400px 0px 400px;
-    padding: 50px 50px;
+    margin: 100px 375px 0px 400px;
     border-style: hidden;
     border-radius: 10px;
     font-weight: 600;
@@ -23,9 +22,9 @@
 }
 
 .listingsHeader {
-    margin: 50px 300px 0px 150px;
+    margin: 50px 175px 0px 150px;
     
-    padding: 50px 50px;
+    padding: 50px;
     border-style: hidden;
     border-radius: 10px;
     font-weight: 600;
@@ -49,4 +48,14 @@
 .myListingTitle {
     font-size: 48px;
     padding-bottom: 20px;
+}
+
+.rewardsHeader {
+    margin: 50px 250px 0px 275px;
+    
+    padding: 50px 50px;
+    border-style: hidden;
+    border-radius: 10px;
+    font-weight: 600;
+    border-width: 1em;
 }
