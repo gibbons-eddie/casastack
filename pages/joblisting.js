@@ -100,12 +100,13 @@ const joblistings1 = ({ listings, user }) => {
                 <br></br>
                 <br></br>
 
-        <Segment style={{ minHeight: 1000}} color='violet'>
+        <Segment color='violet'>
 
                 <Search onFilterChange ={filterUpdate}></Search>
-                {filterDelivery ? (<Button onClick={deliveryUpdate}>Hide Services</Button>) : (<Button onClick={deliveryUpdate}>Show Services</Button>)}
-                {filterService ? (<Button onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button onClick={serviceUpdate}>Show Deliveries</Button>)}
-
+                
+                {filterDelivery ? (<Button style={{marginTop: 20, marginBottom: 20}} onClick={deliveryUpdate}>Hide Services</Button>) : (<Button style={{marginTop: 20, marginBottom: 20}} onClick={deliveryUpdate}>Show Services</Button>)}
+                {filterService ? (<Button style={{marginTop: 20, marginBottom: 20}} onClick={serviceUpdate}>Hide Deliveries</Button>) : (<Button style={{marginTop: 20, marginBottom: 20}} onClick={serviceUpdate}>Show Deliveries</Button>)}
+                
         <div className="grid wrapper">
 
             {listings.map(listing => {
@@ -113,7 +114,7 @@ const joblistings1 = ({ listings, user }) => {
 
                     <div key={listing._id}>{(hasCoords(listing) && (calcDistance(listing) <filter)
                         && (filterDelivery || listing.service==='delivery')&& (filterService || listing.service==='service')) && (
-                        <Card style={{ minHeight: 350, maxHeight: 350, width:"300px" }}>
+                        <Card style={{ minHeight: 350, maxHeight: 350, width:"330px" }}>
 
                             <Card.Content>
                                 <Card.Header>
@@ -121,7 +122,7 @@ const joblistings1 = ({ listings, user }) => {
                                      <Link href={`/${listing._id}`}>
                                         <>
                                         <h1 style={{textAlign: "center", textTransform: 'capitalize'}} >{listing.service}</h1>
-                                        <h5 style={{color:"grey", fontSize: 20}}>Description:
+                                        <h5 style={{color:"grey", fontSize: 15}}>Description:
                                         <br></br>
                                         {listing.description}</h5>
                                         </>

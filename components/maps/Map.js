@@ -11,7 +11,7 @@ import Geocode from 'react-geocode';
 import MyDirectionsRenderer from './MyDirectionsRenderer';
 import DisplayDistance from './DisplayDistance';
 
-Geocode.setApiKey(process.env.MAPS_API_KEY);
+//Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 class Map extends React.Component {
   constructor(props) {
@@ -42,23 +42,15 @@ class Map extends React.Component {
     // listing status and logged in user role does not matter
     if (this.props.listingObj.service === 'delivery') {
       // get coordinates of the store address
-      Geocode.fromAddress(this.props.listingObj.location).then(
-        (response) => {
-          const { lat, lng } = response.results[0].geometry.location;
-          this.setState({
-            storeMarker: {
-              name: 'Store',
-              id: 1,
-              address: this.props.listingObj.location,
-              lat: lat,
-              lng: lng,
-            },
-          });
+      this.setState({
+        storeMarker: {
+          name: 'Store',
+          id: 1,
+          address: this.props.listingObj.location,
+          lat: this.props.listingObj.locationLat,
+          lng: this.props.listingObj.locationLng,
         },
-        (error) => {
-          console.log(error);
-        }
-      );
+      });
     } else {
       // If listing is a service, check listing status
       if (this.props.listingObj.status === 'open') {
@@ -66,23 +58,15 @@ class Map extends React.Component {
         if (this.props.user.role === 'volunteer') {
           // if a volunteer is logged in, show 2 pins: volunteer's address (user.address) and customer's address
           // so the volunteer can visualize their potential route (volunteer has not accepted this listing yet)
-          Geocode.fromAddress(this.props.user.address).then(
-            (response) => {
-              const { lat, lng } = response.results[0].geometry.location;
-              this.setState({
-                storeMarker: {
-                  name: 'You (volunteer)',
-                  id: 1,
-                  address: this.props.user.address,
-                  lat: lat,
-                  lng: lng,
-                },
-              });
+          this.setState({
+            storeMarker: {
+              name: 'You (volunteer)',
+              id: 1,
+              address: this.props.user.address,
+              lat: this.props.user.lat,
+              lng: this.props.user.lng,
             },
-            (error) => {
-              console.log(error);
-            }
-          );
+          });
         } else {
           // if a customer/admin/root is logged in, show 1 pin: customer's address
           // because no volunteer has accepted this listing (service) yet
@@ -91,43 +75,27 @@ class Map extends React.Component {
       } else if (this.props.listingObj.status === 'accepted') {
         // if this listing is ACCEPTED, logged in user role does not matter
         // Show 2 pins: listing obj's location and customer's address
-        Geocode.fromAddress(this.props.listingObj.location).then(
-          (response) => {
-            const { lat, lng } = response.results[0].geometry.location;
-            this.setState({
-              storeMarker: {
-                name: 'Volunteer',
-                id: 1,
-                address: this.props.listingObj.location,
-                lat: lat,
-                lng: lng,
-              },
-            });
+        this.setState({
+          storeMarker: {
+            name: 'Volunteer',
+            id: 1,
+            address: this.props.listingObj.location,
+            lat: this.props.listingObj.locationLat,
+            lng: this.props.listingObj.locationLng,
           },
-          (error) => {
-            console.log(error);
-          }
-        );
+        });
       }
     }
     // get coordinates of the customer address
-    Geocode.fromAddress(this.props.listingObj.ownerAddress).then(
-      (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        this.setState({
-          customerMarker: {
-            name: 'Customer',
-            id: 2,
-            address: this.props.listingObj.ownerAddress,
-            lat: lat,
-            lng: lng,
-          },
-        });
+    this.setState({
+      customerMarker: {
+        name: 'Customer',
+        id: 2,
+        address: this.props.listingObj.ownerAddress,
+        lat: this.props.listingObj.ownerLat,
+        lng: this.props.listingObj.ownerLng,
       },
-      (error) => {
-        console.log(error);
-      }
-    );
+    });
   }
 
   render() {

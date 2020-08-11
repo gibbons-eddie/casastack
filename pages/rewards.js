@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import { Button, Card, Table } from 'semantic-ui-react';
-import jobListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
+import { Button, Card, Table, Divider } from 'semantic-ui-react';
+import rewardsStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css'
 import baseURL from '../utils/baseURL';
 
 // const rewardsTable = () => (
@@ -14,9 +14,9 @@ const rewards1 = ({ rewards, user }) => {
 
     return (
 
-        <div className={jobListingStyle.jobListingsHeader}>
+        <div className={rewardsStyle.rewardsHeader}>
 
-            <div className={jobListingStyle.listingTitle}>
+            <div className={rewardsStyle.listingTitle}>
                 Rewards
             </div>
 
@@ -28,16 +28,16 @@ const rewards1 = ({ rewards, user }) => {
                 {rewards.map(rewards => {
                     return (
                         <div key={rewards._id}>
-                            <Card>
+                            <Card style={{marginLeft: 20, maxHeight: 400, minHeight: 400}}>
                                 <Card.Content>
                                     <Card.Header>
 
                                         <Link href={`/rewardInfo/${rewards._id}`}>
-                                            <h1>{rewards.name}</h1>
+                                            <h1 style={{maxHeight: 50, minHeight: 50, fontSize: 25}}>{rewards.name}</h1>
                                         </Link>
-
+                                        <Divider section />
                                         <Link href={`/rewardInfo/${rewards._id}`}>
-                                            <h2>{rewards.condition}</h2>
+                                            <h2 style={{fontSize: 20}}>{rewards.condition}</h2>
                                         </Link>
 
                                     </Card.Header>
@@ -70,128 +70,7 @@ const rewards1 = ({ rewards, user }) => {
                 })}
             </div>
 
-            <Table celled padded>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Rank</Table.HeaderCell>
-                        <Table.HeaderCell singleLine>User</Table.HeaderCell>
-                        <Table.HeaderCell>Number of Deliveries</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            1
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Eddie Gibson
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            18
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            2
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Zayra Azul
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            14
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            3
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Seth Lucas
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            13
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            4
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Clark Rich
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            10
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            5
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Dimitri Vegas
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            7
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            6
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Steve Jobs
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            5
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            7
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Sean Cortes
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            5
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            8
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Bob Name
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            2
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            9
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Florida Man
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            1
-                    </Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell textAlign="center">
-                            10
-                    </Table.Cell>
-                        <Table.Cell singleLine textAlign="center">
-                            Tom Nook
-                    </Table.Cell>
-                        <Table.Cell textAlign="right">
-                            0
-                    </Table.Cell>
-                    </Table.Row>
-                </Table.Body>
-            </Table>
+            
         </div>
     );
 };

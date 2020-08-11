@@ -35,8 +35,12 @@ const Listing = ({ user, listing }) => {
       json.acceptor = user.email;
       json.status = 'accepted';
       // If listing is a service, add the volunteer's address as listing's location
-      if (user.role === 'volunteer' && listing.service === 'service')
+      if (user.role === 'volunteer' && listing.service === 'service') {
         json.location = user.address;
+        json.locationLat = user.lat;
+        json.locationLng = user.lng;
+      }
+
       // CONSOLE TESTING-----------------------------------------------
       console.log(JSON.stringify(json));
       console.log(json.acceptor);
@@ -142,7 +146,8 @@ const Listing = ({ user, listing }) => {
     isOwner = true;
   }
   var isCompleted = false;
-  if (listing.status === 'completed') { //breaks for old listings where owner is undefined
+  if (listing.status === 'completed') {
+    //breaks for old listings where owner is undefined
     isCompleted = true;
   }
 
@@ -190,9 +195,9 @@ const Listing = ({ user, listing }) => {
         <Loader active />
       ) : (
         <>
-          <h1>{listing.service}</h1>
+          <h1 style={{textTransform: 'capitalize'}}>{listing.service}</h1>
           <Segment>
-            <p>
+            <p style={{textTransform: 'capitalize'}}>
               <b>Job status:</b> {listing.status}
             </p>
             {listing.service == 'delivery' ? (
@@ -206,7 +211,6 @@ const Listing = ({ user, listing }) => {
             <p>
               <b>Price:</b> ${listing.price}
             </p>
-
             <Map listingObj={listing} user={user} />
 
             <br></br>

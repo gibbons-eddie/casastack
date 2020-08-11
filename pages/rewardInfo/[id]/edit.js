@@ -8,7 +8,7 @@ import cookie from 'js-cookie';
 import baseURL from '../../../utils/baseURL';
 
 const EditReward = ({ reward }) => {
-    const [form, setForm] = useState({ name: reward.name, points: reward.points, description: reward.description });
+    const [form, setForm] = useState({ name: reward.name, condition: reward.condition, description: reward.description });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState({});
     const router = useRouter();
@@ -85,7 +85,7 @@ const EditReward = ({ reward }) => {
                                 label='Name'
                                 placeholder='Name'
                                 name='name'
-                                value={form.service}
+                                value={form.name}
                                 onChange={handleChange}
                             />
                             <Form.Input
@@ -94,7 +94,7 @@ const EditReward = ({ reward }) => {
                                 label='Condition'
                                 placeholder='Condition'
                                 name='condition'
-                                value={form.status}
+                                value={form.condition}
                                 onChange={handleChange}
                             />
                             <Form.TextArea
