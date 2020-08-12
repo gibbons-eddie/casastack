@@ -41,10 +41,6 @@ const Listing = ({ user, listing }) => {
         json.locationLng = user.lng;
       }
 
-      // CONSOLE TESTING-----------------------------------------------
-      console.log(JSON.stringify(json));
-      console.log(json.acceptor);
-      // CONSOLE TESTING-----------------------------------------------
       const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
         method: 'PUT',
         headers: {
@@ -67,10 +63,7 @@ const Listing = ({ user, listing }) => {
       //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
       json.acceptor = '';
       json.status = 'open';
-      // CONSOLE TESTING-----------------------------------------------
-      console.log(JSON.stringify(json));
-      console.log(json.acceptor);
-      // CONSOLE TESTING-----------------------------------------------
+
       const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
         method: 'PUT',
         headers: {
@@ -94,10 +87,6 @@ const Listing = ({ user, listing }) => {
         var json = listing;
         //this grabs the (hopefully) logged in user's email through cookies and sets the json's acceptor attribute to that email
         json.status = 'completed';
-        // CONSOLE TESTING-----------------------------------------------
-        console.log(JSON.stringify(json));
-        console.log(json.acceptor);
-        // CONSOLE TESTING-----------------------------------------------
       }
       const res = await fetch(`${baseURL}/api/listings/${router.query.id}`, {
         method: 'PUT',
@@ -131,8 +120,6 @@ const Listing = ({ user, listing }) => {
     close();
   };
 
-  // const temporaryCustomerAddress = '1110 SW 3rd Ave, Gainesville, FL, USA'; // temporary hardcoded customer address
-
   /*
   simple logical functions for determining information about the user/listing for the purposes
   of conditionally rendering the various buttons. all of them should execute as the page is loaded.
@@ -160,8 +147,6 @@ const Listing = ({ user, listing }) => {
   if (listing.status === 'paid') {
     isPaid = true;
   }
-  // console.log(isCompleted);
-  // console.log(isAcceptor);
 
   async function handleCheckout(paymentData) {
     try {
@@ -195,9 +180,9 @@ const Listing = ({ user, listing }) => {
         <Loader active />
       ) : (
         <>
-          <h1 style={{textTransform: 'capitalize'}}>{listing.service}</h1>
+          <h1 style={{ textTransform: 'capitalize' }}>{listing.service}</h1>
           <Segment>
-            <p style={{textTransform: 'capitalize'}}>
+            <p style={{ textTransform: 'capitalize' }}>
               <b>Job status:</b> {listing.status}
             </p>
             {listing.service == 'delivery' ? (

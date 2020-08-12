@@ -5,9 +5,6 @@ import errorCatcher from '../../utils/errorCatcher';
 import axios from 'axios';
 import { handleLogin } from '../../utils/auth';
 import baseURL from '../../utils/baseURL';
-import Geocode from 'react-geocode';
-
-//Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 const initializeUser = {
   role: '',
@@ -57,20 +54,7 @@ function Register() {
       // console.log(user) // testing to see if array passes throught (it does !)
       /* USER TO DATABASE */
       var json = newUser;
-      //   await Geocode.fromAddress(newUser.address).then(
-      //     (response) => {
-      //       console.log(
-      //         'Checking user coordinates on signup: ',
-      //         response.results[0].geometry.location
-      //       );
-      //       json.lat = response.results[0].geometry.location.lat;
-      //       json.lng = response.results[0].geometry.location.lng;
-      //     },
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      //   );
-      console.log(json);
+
       const url = `${baseURL}/api/signupAPI`;
       const payload = json; // all data in 'user'
       const response = await axios.post(url, payload); // axios doing all the work

@@ -5,10 +5,7 @@ import { Button, Form, Loader } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import newListingStyle from '../components/joblistingsPage/jobListingPageStyles/joblisting.module.css';
 import baseURL from '../utils/baseURL';
-import Geocode from 'react-geocode';
 import axios from 'axios';
-
-Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 const NewListing = ({ user }) => {
   const listingOptions = [
@@ -61,44 +58,11 @@ const NewListing = ({ user }) => {
         // Add owner's address to listing object
         json.ownerAddress = user.address;
 
-        / * Add logged in user's coordinates to the ownerLat & ownerLng  * /;
+        // Add logged in user's coordinates to the ownerLat & ownerLng
         json.ownerLat = user.lat;
         json.ownerLng = user.lng;
       }
 
-      / * Save coordinates via geocode api request in server instead */;
-      // if (true) {
-      //   await Geocode.fromAddress(user.address).then(
-      //     (response) => {
-      //       json.ownerLat = response.results[0].geometry.location.lat;
-      //       json.ownerLng = response.results[0].geometry.location.lng;
-      //     },
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      //   );
-      // }
-      // console.log(json);
-      // if (true) {
-      //   await Geocode.fromAddress(json.location).then(
-      //     (response) => {
-      //       json.locationLat = response.results[0].geometry.location.lat;
-      //       json.locationLng = response.results[0].geometry.location.lng;
-      //     },
-      //     (error) => {
-      //       console.log(error);
-      //     }
-      //   );
-      // }
-      console.log(json);
-      /*const res = await fetch(`${baseURL}/api/listings`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(...json),
-      });*/
       const url = `${baseURL}/api/postlistingAPI`;
       const payload = json;
       await axios.post(url, payload);
