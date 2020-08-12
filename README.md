@@ -59,3 +59,5 @@ $npm run dev
 ```
 Now type in your browser "localhost:3000"
 This will open the web app in your browser and full functionality is enabled for users to test.
+
+To run the 
