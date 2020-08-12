@@ -8,6 +8,9 @@ Customer accounts will be given the ability to create a listing (delivery or ser
 
 Volunteer accounts will be able to accept job listings that they wish to complete. Additionally, volunteers are given the incentive to complete such requests for customers through rewards that are handed out at the Clients wish (Either once a month or whatever the client deems reasonable).
 
+## Casastack Wireframe
+![Image of Wireframe](images/login.png)
+
 ## Requested Features
 ### User Accounts
 Customer and volunteer accounts need to allow for customers to create listings and for volunteers to accept and complete listings.
@@ -18,8 +21,8 @@ Listings must be created for volunteers to accept (either deliveries or services
 ### Listing Filters
 Listings must have a filter feature so that volunteers can better choose which listing they prefer.
 
-### Google Maps API
-The google maps API must show volunteers how to get to the customer's location to complete their job requirement in the listing.
+### Map
+When viewing a listings as a volunteer, a map must be displayed that allows the volunteer to get directions to the customer's location.
 
 ### Payment Feature
 The customer must be able to pay the volunteer for the items that they must deliver, as well as the service that they are asking them to complete. This payment must be done before the volunteer purchases the items for delivery to ensure they have enough money to pay for the items.
@@ -33,15 +36,17 @@ Mongo DB Atlas
 Google API's
 Stripe Payment Platform
 Geocode Service
+Fixie
 
 After creating accounts and API keys, place each into one env file like so, replacing <key> with each individual API key:
 ```bash
 MONGO_URI=<key>
 JWT_SECRET=<key>
 MAPS_API_KEY=<key>
-MAPS_API_KEY=<key>
+GEOCODE_API_KEY=<key>
 STRIPE_KEY=<key>
 REACT_CHECKOUT_KEY=<key>
+FIXIE_URL =<key>
 ```
 
 To get started, type
@@ -60,4 +65,17 @@ $npm run dev
 Now type in your browser "localhost:3000"
 This will open the web app in your browser and full functionality is enabled for users to test.
 
-To run the 
+To run the server in production mode, first you will need to run:
+```bash
+$npm run build
+```
+This creates a production build that will allow for users to start the server by typing the following:
+```bash
+$npm run start
+```
+After typing in your browser "localhost:3000"
+The production version of Casastack will be enabled for use.
+
+## Stopping the server
+
+To end the server, click the control + c buttons in your console.
