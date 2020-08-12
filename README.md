@@ -1,14 +1,6 @@
-<<<<<<< HEAD
-
-## Casastack Read Me
-
-=======
-
 ## Casastack Read Me
 
 ![Logo](public/casastack_header.png)
-
-> > > > > > > e6a93e93b1275e358314f8bfddfe5119b52452fe
 
 Casastack is a web application used to allow for the remote delivery of hardware and tools to customers that do not wish to go out themselves. Additionally, customers can request services such as hanging a painting or mirror.
 
@@ -69,7 +61,6 @@ You will need to create accounts and get API keys for the following web services
 - Google Maps API
 - Google Geocode API
 - Stripe Payment Platform
-- Geocode Service
 - Fixie
 
 After creating accounts and API keys, place each into one env file like so, replacing <key> with each individual API key:
