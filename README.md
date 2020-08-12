@@ -1,4 +1,4 @@
-## Casastack Read Me
+## Casastack
 
 ![Logo](public/casastack_header.png)
 
