@@ -1,4 +1,5 @@
 ## Casastack Read Me 
+![Logo](public/casastack_header.png)
 
 Casastack is a web application used to allow for the remote delivery of hardware and tools to customers that do not wish to go out themselves. Additionally, customers can request services such as hanging a painting or mirror.
 
