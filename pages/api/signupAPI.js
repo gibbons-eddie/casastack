@@ -19,8 +19,6 @@ export default async (req, res) => {
     password,
     address,
     phoneNumber,
-    // lat,
-    // lng,
   } = req.body;
 
   // Make geocode api request to get user coordinates
@@ -31,8 +29,6 @@ export default async (req, res) => {
   var addr = address;
 
   var url = BASE_URL + addr + '&key=' + process.env.GEOCODE_API_KEY;
-  console.log('this is the url to pass into api request: ', url);
-
   // Get coordinates from location (store location)
   var geocodeResult = await fixieRequest(url, function (error, response, body) {
     if (response.statusCode == 200 && !error) {
@@ -40,15 +36,8 @@ export default async (req, res) => {
       var data = JSON.parse(body);
       userLat = data.results[0].geometry.location.lat;
       userLng = data.results[0].geometry.location.lng;
-      console.log(
-        'Inside gecode api callback, printing coordinates: ',
-        data.results[0].geometry.location
-      );
-      // Upload new listing to mongo here, when coordiantes are ready
-      // move try statement here??
     } else {
       console.error('error in geocode: ', error);
-      console.error('logging geocode body: ', body);
     }
   });
 

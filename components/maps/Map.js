@@ -7,11 +7,8 @@ import {
   GoogleMap,
   Marker,
 } from 'react-google-maps';
-import Geocode from 'react-geocode';
 import MyDirectionsRenderer from './MyDirectionsRenderer';
 import DisplayDistance from './DisplayDistance';
-
-//Geocode.setApiKey(process.env.MAPS_API_KEY);
 
 class Map extends React.Component {
   constructor(props) {
